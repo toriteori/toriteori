@@ -1,4 +1,5 @@
 import React, { useState, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 
 interface Song {
   id: string;
@@ -8,17 +9,14 @@ interface Song {
   genre: string;
 }
 
-interface MusicGameProps {
-  onBackToMain?: () => void;
-}
-
-const MusicGame: React.FC<MusicGameProps> = ({ onBackToMain }) => {
+const MusicGame: React.FC = () => {
   const [currentSong, setCurrentSong] = useState<Song | null>(null);
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
   const [score, setScore] = useState<number>(0);
   const [userAnswer, setUserAnswer] = useState<string>("");
   const [showAnswer, setShowAnswer] = useState<boolean>(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  const navigate = useNavigate();
 
   // 샘플 음악 목록 (개인용)
   const songs: Song[] = [
@@ -93,15 +91,17 @@ const MusicGame: React.FC<MusicGameProps> = ({ onBackToMain }) => {
     }
   };
 
+  const handleBackToMain = () => {
+    navigate("/main");
+  };
+
   return (
     <div className="music-game">
       <div className="game-header">
         <div className="header-top">
-          {onBackToMain && (
-            <button onClick={onBackToMain} className="back-to-main-btn">
-              ← 메인으로
-            </button>
-          )}
+          <button onClick={handleBackToMain} className="back-to-main-btn">
+            ← 메인으로
+          </button>
           <h1>🎵 음악 맞추기 게임 (Vercel 배포 테스트)</h1>
           <div className="score">점수: {score}점</div>
         </div>

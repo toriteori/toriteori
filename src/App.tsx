@@ -1,26 +1,21 @@
-import React, { useState } from "react";
+import React from "react";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import EntryPage from "./components/EntryPage/EntryPage";
 import MainPage from "./components/MainPage/MainPage";
+import MusicGame from "./components/MusicGame/MusicGame";
 
 const App: React.FC = () => {
-  const [currentPage, setCurrentPage] = useState<"entry" | "main">("entry");
-
-  const handleGameStart = () => {
-    setCurrentPage("main");
-  };
-
-  const handleBackToEntry = () => {
-    setCurrentPage("entry");
-  };
-
   return (
-    <div className="App">
-      {currentPage === "entry" ? (
-        <EntryPage onEnter={handleGameStart} />
-      ) : (
-        <MainPage onBackToEntry={handleBackToEntry} />
-      )}
-    </div>
+    <Router>
+      <div className="App">
+        <Routes>
+          <Route path="/" element={<EntryPage />} />
+          <Route path="/main" element={<MainPage />} />
+          <Route path="/music-game" element={<MusicGame />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
+      </div>
+    </Router>
   );
 };
 

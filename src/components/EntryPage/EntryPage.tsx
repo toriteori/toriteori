@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
-interface EntryPageProps {
-  onEnter: () => void;
-}
-
-const EntryPage: React.FC<EntryPageProps> = ({ onEnter }) => {
+const EntryPage: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [isReady, setIsReady] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     // 페이지 로드 시 애니메이션 시작
@@ -28,7 +26,7 @@ const EntryPage: React.FC<EntryPageProps> = ({ onEnter }) => {
 
   const handleClick = () => {
     if (isReady) {
-      onEnter();
+      navigate("/main");
     }
   };
 

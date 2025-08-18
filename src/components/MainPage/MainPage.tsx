@@ -1,12 +1,9 @@
 import React, { useState } from "react";
-import MusicGame from "../MusicGame/MusicGame";
+import { useNavigate } from "react-router-dom";
 
-interface MainPageProps {
-  onBackToEntry: () => void;
-}
-
-const MainPage: React.FC<MainPageProps> = ({ onBackToEntry }) => {
+const MainPage: React.FC = () => {
   const [selectedGame, setSelectedGame] = useState<string | null>(null);
+  const navigate = useNavigate();
 
   const games = [
     {
@@ -37,17 +34,13 @@ const MainPage: React.FC<MainPageProps> = ({ onBackToEntry }) => {
 
   const handleGameSelect = (gameId: string) => {
     if (gameId === "music-game") {
-      setSelectedGame(gameId);
+      navigate("/music-game");
     }
   };
 
-  const handleBackToMain = () => {
-    setSelectedGame(null);
+  const handleBackToEntry = () => {
+    navigate("/");
   };
-
-  if (selectedGame === "music-game") {
-    return <MusicGame onBackToMain={handleBackToMain} />;
-  }
 
   return (
     <div className="main-page">
@@ -73,7 +66,7 @@ const MainPage: React.FC<MainPageProps> = ({ onBackToEntry }) => {
         </div>
 
         <div className="main-footer">
-          <button className="back-button" onClick={onBackToEntry}>
+          <button className="back-button" onClick={handleBackToEntry}>
             🏠 입장 페이지로 돌아가기
           </button>
         </div>
