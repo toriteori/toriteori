@@ -93,7 +93,7 @@ const MusicGame: React.FC = () => {
   return (
     <div className="music-game">
       <div className="game-header">
-        <h1>🎵 음악 맞추기 게임</h1>
+        <h1>🎵 음악 맞추기 게임 (Vercel 배포 테스트)</h1>
         <div className="score">점수: {score}점</div>
       </div>
 
