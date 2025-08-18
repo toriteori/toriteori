@@ -11,15 +11,20 @@
 }
 
 .music-game {
-  margin: 0 auto;
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
   padding: var(--tv-padding);
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
+  min-height: 100vh;
+  box-sizing: border-box;
 }
 
 .game-header {
   text-align: center;
   margin-bottom: var(--tv-margin);
+  width: 100%;
 }
 
 .header-top {
@@ -29,6 +34,7 @@
   margin-bottom: 0.5rem;
   flex-wrap: wrap;
   gap: 1rem;
+  width: 100%;
 }
 
 .back-to-main-btn {
@@ -40,6 +46,7 @@
   cursor: pointer;
   transition: all 0.3s ease;
   font-size: var(--tv-font-size-small);
+  white-space: nowrap;
 }
 
 .back-to-main-btn:hover {
@@ -51,6 +58,8 @@
   font-size: var(--tv-font-size-xxlarge);
   margin-bottom: 0.5rem;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  flex: 1;
+  text-align: center;
 }
 
 .game-description {
@@ -64,6 +73,7 @@
   display: flex;
   gap: 1rem;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 .team-score {
@@ -75,6 +85,7 @@
   text-align: center;
   transition: all 0.3s ease;
   min-width: 120px;
+  flex-shrink: 0;
 }
 
 .team-score.active {
@@ -108,6 +119,7 @@
   border-radius: 12px;
   flex-wrap: wrap;
   gap: 1rem;
+  width: 100%;
 }
 
 .current-team {
@@ -118,6 +130,7 @@
 .team-buttons {
   display: flex;
   gap: 1rem;
+  flex-wrap: wrap;
 }
 
 .btn-switch {
@@ -141,10 +154,10 @@
 /* 카테고리 그리드 */
 .categories-grid {
   display: grid;
-  height: 100%;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 1.5rem;
   margin-bottom: 1.5rem;
+  width: 100%;
 }
 
 .category-card {
@@ -158,6 +171,8 @@
   border: 2px solid rgba(255, 255, 255, 0.2);
   position: relative;
   overflow: hidden;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .category-card::before {
@@ -209,9 +224,10 @@
 /* 문제 그리드 */
 .questions-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 1rem;
   margin-bottom: 1.5rem;
+  width: 100%;
 }
 
 .question-card {
@@ -225,6 +241,8 @@
   display: flex;
   align-items: center;
   gap: 1rem;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .question-card:hover {
@@ -282,20 +300,24 @@
   font-weight: bold;
   color: #ffd700;
   min-width: 40px;
+  flex-shrink: 0;
 }
 
 .question-info {
   flex: 1;
+  min-width: 0;
 }
 
 .question-info h3 {
   font-size: var(--tv-font-size-medium);
   margin-bottom: 0.3rem;
+  word-break: break-word;
 }
 
 .question-info p {
   font-size: var(--tv-font-size-small);
   opacity: 0.8;
+  word-break: break-word;
 }
 
 .difficulty-badge {
@@ -303,6 +325,7 @@
   border-radius: 10px;
   font-size: var(--tv-font-size-small);
   font-weight: bold;
+  flex-shrink: 0;
 }
 
 .difficulty-badge.easy {
@@ -338,6 +361,8 @@
   padding: 2rem;
   margin-bottom: 1.5rem;
   border: 1px solid rgba(255, 255, 255, 0.2);
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .question-info h3 {
@@ -357,17 +382,19 @@
   gap: 1rem;
   margin-bottom: 1rem;
   flex-wrap: wrap;
+  width: 100%;
 }
 
 .answer-input {
   flex: 1;
-  min-width: 300px;
+  min-width: 250px;
   padding: 15px;
   border: none;
   border-radius: 8px;
   font-size: var(--tv-font-size-medium);
   background: rgba(255, 255, 255, 0.9);
   color: #333;
+  box-sizing: border-box;
 }
 
 .answer-input:focus {
@@ -421,6 +448,8 @@
   padding: 1.5rem;
   margin-bottom: 1rem;
   animation: fadeIn 0.3s ease-in;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .hint-section h4 {
@@ -434,6 +463,7 @@
   font-size: var(--tv-font-size-large);
   font-weight: bold;
   letter-spacing: 1px;
+  word-break: break-word;
 }
 
 .wrong-answer {
@@ -444,6 +474,8 @@
   text-align: center;
   margin-top: 1rem;
   animation: fadeIn 0.3s ease-in;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .wrong-answer span {
@@ -471,12 +503,15 @@
   text-align: center;
   margin-top: 1rem;
   animation: fadeIn 0.3s ease-in;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .correct-answer h4 {
   color: #4caf50;
   margin-bottom: 1rem;
   font-size: var(--tv-font-size-large);
+  word-break: break-word;
 }
 
 .score-info {
@@ -497,6 +532,7 @@
   transition: all 0.3s ease;
   text-decoration: none;
   display: inline-block;
+  white-space: nowrap;
 }
 
 .btn:hover:not(:disabled) {
@@ -548,56 +584,128 @@
 /* 반응형 디자인 */
 @media (max-width: 768px) {
   :root {
-    --tv-font-size-small: 1rem;
-    --tv-font-size-medium: 1.2rem;
-    --tv-font-size-large: 1.5rem;
-    --tv-font-size-xlarge: 2rem;
-    --tv-font-size-xxlarge: 2.5rem;
+    --tv-font-size-small: 0.9rem;
+    --tv-font-size-medium: 1.1rem;
+    --tv-font-size-large: 1.3rem;
+    --tv-font-size-xlarge: 1.6rem;
+    --tv-font-size-xxlarge: 2rem;
     --tv-padding: 0.5rem;
     --tv-margin: 0.5rem;
   }
 
   .music-game {
     padding: var(--tv-padding);
+    min-height: 100vh;
+  }
+
+  .game-header {
+    margin-bottom: 1rem;
   }
 
   .game-header h1 {
     font-size: var(--tv-font-size-xxlarge);
   }
 
+  .header-top {
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: center;
+  }
+
+  .back-to-main-btn {
+    padding: 8px 16px;
+    font-size: var(--tv-font-size-small);
+  }
+
   .team-scores {
     flex-direction: column;
     gap: 0.5rem;
+    width: 100%;
+  }
+
+  .team-score {
+    padding: 0.8rem 1rem;
+    min-width: auto;
+    width: 100%;
   }
 
   .team-controls {
     flex-direction: column;
     text-align: center;
+    padding: 1rem;
+    gap: 0.8rem;
   }
 
   .team-buttons {
     justify-content: center;
+    gap: 0.5rem;
+  }
+
+  .btn {
+    padding: 10px 20px;
+    font-size: var(--tv-font-size-small);
   }
 
   .categories-grid {
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1rem;
+    grid-template-columns: 1fr;
+    gap: 0.8rem;
+  }
+
+  .category-card {
+    padding: 1.5rem;
+  }
+
+  .category-icon {
+    font-size: 2.5rem;
   }
 
   .questions-grid {
     grid-template-columns: 1fr;
+    gap: 0.8rem;
+  }
+
+  .question-card {
+    padding: 1rem;
+    gap: 0.8rem;
+  }
+
+  .question-number {
+    min-width: 30px;
+  }
+
+  .difficulty-badge {
+    padding: 0.2rem 0.6rem;
+    font-size: 0.8rem;
+  }
+
+  .game-area {
+    padding: 1.5rem;
   }
 
   .answer-section {
     flex-direction: column;
+    gap: 0.8rem;
   }
 
   .answer-input {
     min-width: auto;
+    padding: 12px;
+    font-size: var(--tv-font-size-medium);
   }
 
-  .header-top {
-    flex-direction: column;
+  .answer-buttons {
     gap: 0.5rem;
+  }
+
+  .hint-section {
+    padding: 1rem;
+  }
+
+  .correct-answer {
+    padding: 1rem;
+  }
+
+  .wrong-answer {
+    padding: 0.8rem;
   }
 }

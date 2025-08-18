@@ -37,6 +37,7 @@ const MusicGame: React.FC = () => {
   const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
   const [showHint, setShowHint] = useState<boolean>(false);
   const [completedQuestions, setCompletedQuestions] = useState<Set<string>>(new Set());
+  const [audioRef, setAudioRef] = useState<HTMLAudioElement | null>(null);
   const navigate = useNavigate();
 
   // 팀 데이터
@@ -78,7 +79,7 @@ const MusicGame: React.FC = () => {
       id: "kpop1",
       title: "손성모",
       artist: "손성모",
-      file: "/music/kpop1.mp3",
+      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "kpop",
       difficulty: "very-easy",
       keyword: "K-POP",
@@ -88,7 +89,7 @@ const MusicGame: React.FC = () => {
       id: "kpop2",
       title: "샘플 K-POP 2",
       artist: "아티스트 2",
-      file: "/music/kpop2.mp3",
+      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "kpop",
       difficulty: "easy",
       keyword: "아이돌",
@@ -98,7 +99,7 @@ const MusicGame: React.FC = () => {
       id: "kpop3",
       title: "샘플 K-POP 3",
       artist: "아티스트 3",
-      file: "/music/kpop3.mp3",
+      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "kpop",
       difficulty: "medium",
       keyword: "그룹",
@@ -108,7 +109,7 @@ const MusicGame: React.FC = () => {
       id: "kpop4",
       title: "샘플 K-POP 4",
       artist: "아티스트 4",
-      file: "/music/kpop4.mp3",
+      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "kpop",
       difficulty: "hard",
       keyword: "솔로",
@@ -118,7 +119,7 @@ const MusicGame: React.FC = () => {
       id: "kpop5",
       title: "샘플 K-POP 5",
       artist: "아티스트 5",
-      file: "/music/kpop5.mp3",
+      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "kpop",
       difficulty: "very-hard",
       keyword: "인디",
@@ -129,7 +130,7 @@ const MusicGame: React.FC = () => {
       id: "pop1",
       title: "샘플 POP 1",
       artist: "아티스트 6",
-      file: "/music/pop1.mp3",
+      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "pop",
       difficulty: "very-easy",
       keyword: "팝송",
@@ -139,7 +140,7 @@ const MusicGame: React.FC = () => {
       id: "pop2",
       title: "샘플 POP 2",
       artist: "아티스트 7",
-      file: "/music/pop2.mp3",
+      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "pop",
       difficulty: "easy",
       keyword: "클래식 팝",
@@ -149,7 +150,7 @@ const MusicGame: React.FC = () => {
       id: "pop3",
       title: "샘플 POP 3",
       artist: "아티스트 8",
-      file: "/music/pop3.mp3",
+      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "pop",
       difficulty: "medium",
       keyword: "팝락",
@@ -159,7 +160,7 @@ const MusicGame: React.FC = () => {
       id: "pop4",
       title: "샘플 POP 4",
       artist: "아티스트 9",
-      file: "/music/pop4.mp3",
+      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "pop",
       difficulty: "hard",
       keyword: "얼터너티브",
@@ -169,7 +170,7 @@ const MusicGame: React.FC = () => {
       id: "pop5",
       title: "샘플 POP 5",
       artist: "아티스트 10",
-      file: "/music/pop5.mp3",
+      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "pop",
       difficulty: "very-hard",
       keyword: "익스페리멘탈",
@@ -207,7 +208,47 @@ const MusicGame: React.FC = () => {
     setShowAnswer(false);
     setIsPlaying(false);
     setShowHint(false);
+
+    // 새로운 오디오 객체 생성
+    if (audioRef) {
+      audioRef.pause();
+      audioRef.currentTime = 0;
+    }
+
+    const newAudio = new Audio(question.file);
+    newAudio.volume = 0.7; // 볼륨 설정
+    setAudioRef(newAudio);
   };
+
+  const handlePlayPause = () => {
+    if (!audioRef) return;
+
+    if (isPlaying) {
+      audioRef.pause();
+      setIsPlaying(false);
+    } else {
+      audioRef.play().catch((error) => {
+        console.error("오디오 재생 실패:", error);
+        alert("오디오를 재생할 수 없습니다. 링크를 확인해주세요.");
+      });
+      setIsPlaying(true);
+    }
+  };
+
+  // 오디오 종료 시 상태 업데이트
+  React.useEffect(() => {
+    if (audioRef) {
+      const handleEnded = () => {
+        setIsPlaying(false);
+      };
+
+      audioRef.addEventListener("ended", handleEnded);
+
+      return () => {
+        audioRef.removeEventListener("ended", handleEnded);
+      };
+    }
+  }, [audioRef]);
 
   const handleCheckAnswer = () => {
     if (!currentQuestion) return;
@@ -488,8 +529,9 @@ const MusicGame: React.FC = () => {
 
         <div className="audio-controls">
           <button
-            onClick={() => setIsPlaying(!isPlaying)}
+            onClick={handlePlayPause}
             className={`btn ${isPlaying ? "btn-pause" : "btn-play"}`}
+            disabled={!currentQuestion}
           >
             {isPlaying ? "⏸️ 정지" : "▶️ 재생"}
           </button>
