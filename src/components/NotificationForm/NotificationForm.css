@@ -1,0 +1,241 @@
+/* 기존 CSS 스타일을 그대로 사용하되, React에 맞게 수정 */
+
+/* 헤더 스타일 */
+.headerComu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: white;
+  border-bottom: 1px solid #eee;
+}
+
+.headerWrap {
+  padding: 1rem;
+}
+
+.backBtn {
+  background: none;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 0.5rem;
+}
+
+.a11y-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+/* 메인 컨텐츠 */
+.mt0 {
+  margin-top: 60px; /* 헤더 높이만큼 여백 */
+}
+
+.basicWrap {
+  min-height: calc(100vh - 60px);
+  padding: 2rem 1rem;
+}
+
+.bgGrey {
+  background-color: #f5f5f5;
+}
+
+.basicWrap__flex {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* 페이지 제목 */
+.pageTit h2 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+/* 질문 섹션 */
+.notifiCustom__sel {
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.notifiCustom__sel h3 {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+  line-height: 1.4;
+}
+
+.notifiCustom__sel h3 span {
+  color: #007bff;
+  font-weight: bold;
+}
+
+/* 라디오 버튼 스타일 */
+.radioSelectCheck {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.radioSelectCheck__box {
+  margin-bottom: 1rem;
+}
+
+.radioSelectCheck__box input[type="radio"] {
+  display: none;
+}
+
+.radioSelectCheck__box label {
+  display: block;
+  padding: 1.5rem;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: white;
+}
+
+.radioSelectCheck__box input[type="radio"]:checked + label {
+  border-color: #007bff;
+  background: #f8f9ff;
+}
+
+.radioSelectCheck__box label span {
+  display: block;
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+  color: #666;
+  line-height: 1.4;
+}
+
+/* 버튼 스타일 */
+.btnWrap {
+  max-width: 600px;
+  margin: 2rem auto 0;
+  padding: 0 1rem;
+}
+
+.solidBtn {
+  width: 100%;
+  padding: 1rem;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.solidBtn:hover:not(.disabled) {
+  background: #0056b3;
+}
+
+.solidBtn.disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+/* 플로팅 버튼 */
+.floatingBtn {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 1000;
+}
+
+.floatingBtn button {
+  background: #28a745;
+  color: white;
+  border: none;
+  border-radius: 50px;
+  padding: 1rem 2rem;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+.floatingBtn button:hover {
+  background: #218838;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+}
+
+/* 음악 컨트롤 버튼 */
+.music-control {
+  position: fixed;
+  top: 80px;
+  right: 2rem;
+  z-index: 1000;
+}
+
+.music-btn {
+  background: rgba(255, 255, 255, 0.9);
+  border: 2px solid #007bff;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.music-btn:hover {
+  background: #007bff;
+  color: white;
+  transform: scale(1.1);
+}
+
+.music-btn.playing {
+  background: #007bff;
+  color: white;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+  .basicWrap {
+    padding: 1rem;
+  }
+
+  .notifiCustom__sel {
+    padding: 1.5rem;
+  }
+
+  .floatingBtn {
+    bottom: 1rem;
+    right: 1rem;
+  }
+
+  .music-control {
+    top: 70px;
+    right: 1rem;
+  }
+}
