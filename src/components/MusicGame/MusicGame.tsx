@@ -1,5 +1,4 @@
 import React, { useState, useRef } from "react";
-import "./MusicGame.css";
 
 interface Song {
   id: string;
@@ -9,7 +8,11 @@ interface Song {
   genre: string;
 }
 
-const MusicGame: React.FC = () => {
+interface MusicGameProps {
+  onBackToMain?: () => void;
+}
+
+const MusicGame: React.FC<MusicGameProps> = ({ onBackToMain }) => {
   const [currentSong, setCurrentSong] = useState<Song | null>(null);
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
   const [score, setScore] = useState<number>(0);
@@ -93,8 +96,15 @@ const MusicGame: React.FC = () => {
   return (
     <div className="music-game">
       <div className="game-header">
-        <h1>🎵 음악 맞추기 게임 (Vercel 배포 테스트)</h1>
-        <div className="score">점수: {score}점</div>
+        <div className="header-top">
+          {onBackToMain && (
+            <button onClick={onBackToMain} className="back-to-main-btn">
+              ← 메인으로
+            </button>
+          )}
+          <h1>🎵 음악 맞추기 게임 (Vercel 배포 테스트)</h1>
+          <div className="score">점수: {score}점</div>
+        </div>
       </div>
 
       <div className="game-controls">
