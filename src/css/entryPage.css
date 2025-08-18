@@ -1,6 +1,6 @@
 /* 입장 페이지 스타일 */
 .entry-page {
-  min-height: 100vh;
+  height: calc(100vh - 40px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -187,4 +187,19 @@
 
 .enter-button:disabled {
   cursor: not-allowed;
+}
+
+/* 모바일 반응형 */
+@media (max-width: 768px) {
+  .entry-container {
+    padding: 1rem;
+  }
+
+  .main-title {
+    font-size: 3rem;
+  }
+
+  .sub-title {
+    font-size: 1.8rem;
+  }
 }

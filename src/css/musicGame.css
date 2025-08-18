@@ -1,6 +1,6 @@
 /* 음악 게임 스타일 */
 .music-game {
-  max-width: 800px;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 2rem;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -44,6 +44,12 @@
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
+.game-description {
+  font-size: 1.2rem;
+  opacity: 0.8;
+  margin-bottom: 2rem;
+}
+
 .score {
   font-size: 1.5rem;
   font-weight: bold;
@@ -54,14 +60,218 @@
   display: inline-block;
 }
 
-.game-controls {
+/* 카테고리 그리드 */
+.categories-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.category-card {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 15px;
+  padding: 2rem;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.category-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  transition: left 0.5s;
+}
+
+.category-card:hover::before {
+  left: 100%;
+}
+
+.category-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.category-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.3));
+}
+
+.category-name {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+}
+
+.category-description {
+  font-size: 0.9rem;
+  opacity: 0.8;
+  margin-bottom: 1rem;
+}
+
+.question-count {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 0.3rem 0.8rem;
+  border-radius: 15px;
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+/* 문제 그리드 */
+.questions-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.question-card {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 12px;
+  padding: 1.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.question-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.question-card.easy {
+  border-left: 4px solid #4caf50;
+}
+
+.question-card.medium {
+  border-left: 4px solid #ff9800;
+}
+
+.question-card.hard {
+  border-left: 4px solid #f44336;
+}
+
+.question-number {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #ffd700;
+  min-width: 40px;
+}
+
+.question-info {
+  flex: 1;
+}
+
+.question-info h3 {
+  font-size: 1.1rem;
+  margin-bottom: 0.3rem;
+}
+
+.question-info p {
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+.difficulty-badge {
+  padding: 0.3rem 0.8rem;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+.difficulty-badge.easy {
+  background: rgba(76, 175, 80, 0.3);
+  color: #4caf50;
+}
+
+.difficulty-badge.medium {
+  background: rgba(255, 152, 0, 0.3);
+  color: #ff9800;
+}
+
+.difficulty-badge.hard {
+  background: rgba(244, 67, 54, 0.3);
+  color: #f44336;
+}
+
+/* 게임 플레이 영역 */
+.game-area {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 15px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.question-info h3 {
+  color: #ffd700;
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+
+.audio-controls {
+  text-align: center;
+  margin: 2rem 0;
+}
+
+.answer-section {
   display: flex;
   gap: 1rem;
-  justify-content: center;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
   flex-wrap: wrap;
 }
 
+.answer-input {
+  flex: 1;
+  min-width: 250px;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  background: rgba(255, 255, 255, 0.9);
+  color: #333;
+}
+
+.answer-input:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px #007bff;
+}
+
+.answer-input:disabled {
+  background: rgba(255, 255, 255, 0.5);
+  color: #666;
+}
+
+.correct-answer {
+  background: rgba(76, 175, 80, 0.2);
+  border: 1px solid #4caf50;
+  border-radius: 8px;
+  padding: 1rem;
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.correct-answer h4 {
+  color: #4caf50;
+  margin-bottom: 1rem;
+}
+
+/* 버튼 스타일 */
 .btn {
   padding: 12px 24px;
   border: none;
@@ -111,15 +321,6 @@
   background: #f57c00;
 }
 
-.btn-hint {
-  background: #9c27b0;
-  color: white;
-}
-
-.btn-hint:hover {
-  background: #7b1fa2;
-}
-
 .btn-check {
   background: #ff5722;
   color: white;
@@ -129,94 +330,35 @@
   background: #e64a19;
 }
 
-.game-area {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  border-radius: 15px;
-  padding: 2rem;
-  margin-bottom: 2rem;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-}
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+  .music-game {
+    padding: 1rem;
+  }
 
-.song-info {
-  text-align: center;
-  margin-bottom: 2rem;
-}
+  .game-header h1 {
+    font-size: 2rem;
+  }
 
-.song-info h3 {
-  color: #ffd700;
-  margin-bottom: 0.5rem;
-}
+  .categories-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
 
-.answer-section {
-  display: flex;
-  gap: 1rem;
-  margin-bottom: 1rem;
-  flex-wrap: wrap;
-}
+  .questions-grid {
+    grid-template-columns: 1fr;
+  }
 
-.answer-input {
-  flex: 1;
-  min-width: 250px;
-  padding: 12px;
-  border: none;
-  border-radius: 8px;
-  font-size: 1rem;
-  background: rgba(255, 255, 255, 0.9);
-  color: #333;
-}
+  .answer-section {
+    flex-direction: column;
+  }
 
-.answer-input:focus {
-  outline: none;
-  box-shadow: 0 0 0 2px #007bff;
-}
+  .answer-input {
+    min-width: auto;
+  }
 
-.answer-input:disabled {
-  background: rgba(255, 255, 255, 0.5);
-  color: #666;
-}
-
-.correct-answer {
-  background: rgba(76, 175, 80, 0.2);
-  border: 1px solid #4caf50;
-  border-radius: 8px;
-  padding: 1rem;
-  text-align: center;
-}
-
-.correct-answer h4 {
-  color: #4caf50;
-  margin-bottom: 0.5rem;
-}
-
-.instructions {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  border-radius: 15px;
-  padding: 1.5rem;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-.instructions h3 {
-  color: #ffd700;
-  margin-bottom: 1rem;
-}
-
-.instructions ul {
-  list-style: none;
-  padding: 0;
-}
-
-.instructions li {
-  padding: 0.5rem 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.instructions li:last-child {
-  border-bottom: none;
-}
-
-.instructions li:before {
-  content: "🎵 ";
-  margin-right: 0.5rem;
+  .header-top {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
 }
