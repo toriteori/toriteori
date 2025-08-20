@@ -191,6 +191,14 @@ const NumberGame: React.FC = () => {
     return teams.find((team) => team.id === currentTeam);
   };
 
+  // 행열 위치 계산 함수
+  const getCardPosition = (index: number) => {
+    const row = Math.floor(index / 10) + 1;
+    const col = (index % 10) + 1;
+    const rowLabel = String.fromCharCode(64 + row); // A, B, C, D, E
+    return `${rowLabel}${col}`;
+  };
+
   return (
     <div className="number-game">
       <div className="game-header">
@@ -221,6 +229,10 @@ const NumberGame: React.FC = () => {
                 • 1~25 숫자를 20초 동안 기억하세요
                 <br />
                 • 같은 숫자를 찾아보세요
+                <br />
+                • 바둑판처럼 A1~E10 위치로 말할 수 있습니다!
+                <br />
+                • 예: "A3에 7이 있다!" 또는 "B5와 D2가 같다!"
                 <br />• 더 많이 맞춘 팀이 500점을 획득합니다!
               </p>
               <button onClick={startPreview} className="start-btn">
@@ -249,7 +261,7 @@ const NumberGame: React.FC = () => {
             {gameState === "playing" && (
               <div className="game-info">
                 <p className="game-description">
-                  같은 숫자를 찾아보세요! 더 많이 맞춘 팀이 500점을 획득합니다!
+                  같은 숫자를 찾아보세요! A1~E10 위치로 말할 수 있습니다!
                 </p>
                 <div className="match-scores">
                   <div className="match-score">
@@ -294,19 +306,44 @@ const NumberGame: React.FC = () => {
       </div>
 
       {gameState !== "start" && gameState !== "finished" && (
-        <div className="number-grid">
-          {numberCards.map((card) => (
-            <div
-              key={card.id}
-              className={`number-card ${card.isFlipped ? "flipped" : ""} ${
-                card.isMatched ? "matched" : ""
-              } ${card.isSelected ? "selected" : ""}`}
-              onClick={() => handleCardClick(card.id)}
-            >
-              <div className="card-front">{card.value}</div>
-              <div className="card-back">?</div>
-            </div>
-          ))}
+        <div className="number-grid-container">
+          {/* 열 헤더 */}
+          <div className="grid-header">
+            <div className="corner-cell"></div>
+            {Array.from({ length: 10 }, (_, i) => (
+              <div key={i} className="column-header">
+                {i + 1}
+              </div>
+            ))}
+          </div>
+
+          {/* 행과 그리드 */}
+          <div className="grid-content">
+            {Array.from({ length: 5 }, (_, rowIndex) => (
+              <div key={rowIndex} className="grid-row">
+                {/* 행 헤더 */}
+                <div className="row-header">{String.fromCharCode(65 + rowIndex)}</div>
+
+                {/* 카드들 */}
+                {numberCards.slice(rowIndex * 10, (rowIndex + 1) * 10).map((card) => (
+                  <div
+                    key={card.id}
+                    className={`number-card ${card.isFlipped ? "flipped" : ""} ${
+                      card.isMatched ? "matched" : ""
+                    } ${card.isSelected ? "selected" : ""}`}
+                    onClick={() => handleCardClick(card.id)}
+                  >
+                    <div className="card-front">
+                      <div className="card-value">{card.value}</div>
+                    </div>
+                    <div className="card-back">
+                      <div className="card-position">{getCardPosition(card.id)}</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ))}
+          </div>
         </div>
       )}
 

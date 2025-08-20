@@ -12,6 +12,7 @@ interface ScoreContextType {
   updateTeamScore: (teamId: string, points: number) => void;
   resetScores: () => void;
   getTotalScore: (teamId: string) => number;
+  updateTeamName: (teamId: string, name: string) => void;
 }
 
 const ScoreContext = createContext<ScoreContextType | undefined>(undefined);
@@ -49,8 +50,14 @@ export const ScoreProvider: React.FC<ScoreProviderProps> = ({ children }) => {
     return team ? team.score : 0;
   };
 
+  const updateTeamName = (teamId: string, name: string) => {
+    setTeams((prev) => prev.map((team) => (team.id === teamId ? { ...team, name } : team)));
+  };
+
   return (
-    <ScoreContext.Provider value={{ teams, updateTeamScore, resetScores, getTotalScore }}>
+    <ScoreContext.Provider
+      value={{ teams, updateTeamScore, resetScores, getTotalScore, updateTeamName }}
+    >
       {children}
     </ScoreContext.Provider>
   );

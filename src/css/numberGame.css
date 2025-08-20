@@ -258,7 +258,81 @@
   margin-bottom: 1rem;
 }
 
-/* 숫자 그리드 */
+/* 숫자 그리드 컨테이너 */
+.number-grid-container {
+  width: 100%;
+  max-width: var(--max-content-width);
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* 그리드 헤더 (열 번호) */
+.grid-header {
+  display: grid;
+  grid-template-columns: 40px repeat(10, 1fr);
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+  width: 100%;
+  max-width: var(--max-content-width);
+}
+
+.corner-cell {
+  width: 40px;
+  height: 40px;
+}
+
+.column-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--tv-font-size-small);
+  font-weight: bold;
+  color: #ffd700;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+  height: 40px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* 그리드 콘텐츠 */
+.grid-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 100%;
+  max-width: var(--max-content-width);
+}
+
+/* 그리드 행 */
+.grid-row {
+  display: grid;
+  grid-template-columns: 40px repeat(10, 1fr);
+  gap: 0.5rem;
+  align-items: center;
+}
+
+/* 행 헤더 (행 문자) */
+.row-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--tv-font-size-small);
+  font-weight: bold;
+  color: #ffd700;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+  width: 40px;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* 기존 number-grid 스타일 (호환성을 위해 유지) */
 .number-grid {
   display: grid;
   grid-template-columns: repeat(10, 1fr);
@@ -327,11 +401,30 @@
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: var(--tv-font-size-medium);
   font-weight: bold;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  position: relative;
+}
+
+/* 카드 내부 요소들 */
+.card-value {
+  font-size: var(--tv-font-size-large);
+  font-weight: bold;
+  margin-bottom: 4px;
+}
+
+.card-position {
+  font-size: var(--tv-font-size-small);
+  font-weight: bold;
+  color: rgba(255, 255, 255, 0.8);
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+  position: absolute;
+  bottom: 4px;
+  right: 4px;
 }
 
 .card-front {
@@ -570,6 +663,31 @@
   .number-grid {
     grid-template-columns: repeat(8, 1fr);
     gap: 0.3rem;
+  }
+
+  .grid-header {
+    grid-template-columns: 30px repeat(8, 1fr);
+    gap: 0.3rem;
+  }
+
+  .grid-row {
+    grid-template-columns: 30px repeat(8, 1fr);
+    gap: 0.3rem;
+  }
+
+  .corner-cell {
+    width: 30px;
+    height: 30px;
+  }
+
+  .row-header {
+    width: 30px;
+    font-size: 0.8rem;
+  }
+
+  .column-header {
+    height: 30px;
+    font-size: 0.8rem;
   }
 
   .card-front,
