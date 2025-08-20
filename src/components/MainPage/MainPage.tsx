@@ -16,7 +16,7 @@ const MainPage: React.FC = () => {
   const { teams, resetScores, updateTeamName } = useScore();
 
   // 비밀번호 설정 (여기서 변경 가능)
-  const MUSIC_GAME_PASSWORD = "ssm1029!";
+  const MUSIC_GAME_PASSWORD = "1234";
 
   const games = [
     {
@@ -34,10 +34,10 @@ const MainPage: React.FC = () => {
       requiresPassword: false,
     },
     {
-      id: "game-3",
-      title: "🎯 게임 3",
-      description: "준비 중인 게임입니다.",
-      status: "coming-soon",
+      id: "bomb-game",
+      title: "💣 폭탄 해제",
+      description: "제한 시간 내에 모든 모듈을 해제하세요!",
+      status: "available",
       requiresPassword: false,
     },
     {
@@ -59,6 +59,8 @@ const MainPage: React.FC = () => {
       setPasswordError("");
     } else if (gameId === "number-game") {
       navigate("/number-game");
+    } else if (gameId === "bomb-game") {
+      navigate("/bomb-game");
     }
   };
 
