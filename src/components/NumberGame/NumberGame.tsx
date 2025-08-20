@@ -29,12 +29,35 @@ const NumberGame: React.FC = () => {
     team1: 0,
     team2: 0,
   });
+  const [maxNumber, setMaxNumber] = useState<number>(25);
   const navigate = useNavigate();
+
+  // 화면 크기 감지 및 숫자 개수 조정
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth <= 1023) {
+        setMaxNumber(10);
+      } else {
+        setMaxNumber(25);
+      }
+    };
+
+    // 초기 설정
+    handleResize();
+
+    // 리사이즈 이벤트 리스너 추가
+    window.addEventListener("resize", handleResize);
+
+    // 클린업
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   // 게임 초기화
   useEffect(() => {
     initializeGame();
-  }, []);
+  }, [maxNumber]);
 
   // 타이머
   useEffect(() => {
@@ -49,9 +72,9 @@ const NumberGame: React.FC = () => {
   }, [timeLeft, gameState]);
 
   const initializeGame = () => {
-    // 1~25 숫자를 두 세트로 생성 (총 50개)
+    // maxNumber까지의 숫자를 두 세트로 생성
     const numbers = [];
-    for (let i = 1; i <= 25; i++) {
+    for (let i = 1; i <= maxNumber; i++) {
       numbers.push(i, i); // 각 숫자를 두 번씩
     }
 
@@ -68,7 +91,7 @@ const NumberGame: React.FC = () => {
     }));
 
     setNumberCards(cards);
-    setTimeLeft(20);
+    setTimeLeft(maxNumber === 10 ? 15 : 20); // 숫자 개수에 따라 시간 조정
     setGameState("start");
     setSelectedCards([]);
     setCorrectMatches({ team1: 0, team2: 0 });
@@ -193,11 +216,31 @@ const NumberGame: React.FC = () => {
 
   // 행열 위치 계산 함수
   const getCardPosition = (index: number) => {
-    const row = Math.floor(index / 10) + 1;
-    const col = (index % 10) + 1;
+    const columnsPerRow = maxNumber === 10 ? 5 : 10;
+    const row = Math.floor(index / columnsPerRow) + 1;
+    const col = (index % columnsPerRow) + 1;
     const rowLabel = String.fromCharCode(64 + row); // A, B, C, D, E
     return `${rowLabel}${col}`;
   };
+
+  // 그리드 레이아웃 계산
+  const getGridLayout = () => {
+    if (maxNumber === 10) {
+      return {
+        columns: 5,
+        rows: 4,
+        maxRowLabel: "D",
+      };
+    } else {
+      return {
+        columns: 10,
+        rows: 5,
+        maxRowLabel: "E",
+      };
+    }
+  };
+
+  const gridLayout = getGridLayout();
 
   return (
     <div className="number-game">
@@ -226,11 +269,11 @@ const NumberGame: React.FC = () => {
             <div className="start-content">
               <h2>🍎 같은 숫자 맞추기</h2>
               <p className="game-rules">
-                • 1~25 숫자를 20초 동안 기억하세요
+                • 1~{maxNumber} 숫자를 {maxNumber === 10 ? 15 : 20}초 동안 기억하세요
                 <br />
                 • 같은 숫자를 찾아보세요
-                <br />
-                • 바둑판처럼 A1~E10 위치로 말할 수 있습니다!
+                <br />• 바둑판처럼 A1~{gridLayout.maxRowLabel}
+                {gridLayout.columns} 위치로 말할 수 있습니다!
                 <br />
                 • 예: "A3에 7이 있다!" 또는 "B5와 D2가 같다!"
                 <br />• 더 많이 맞춘 팀이 500점을 획득합니다!
@@ -253,7 +296,8 @@ const NumberGame: React.FC = () => {
             {gameState === "preview" && (
               <div className="preview-info">
                 <p className="game-description">
-                  1~25 숫자를 20초 동안 기억하세요! ({timeLeft}초 남음)
+                  1~{maxNumber} 숫자를 {maxNumber === 10 ? 15 : 20}초 동안 기억하세요! ({timeLeft}초
+                  남음)
                 </p>
               </div>
             )}
@@ -261,7 +305,8 @@ const NumberGame: React.FC = () => {
             {gameState === "playing" && (
               <div className="game-info">
                 <p className="game-description">
-                  같은 숫자를 찾아보세요! A1~E10 위치로 말할 수 있습니다!
+                  같은 숫자를 찾아보세요! A1~{gridLayout.maxRowLabel}
+                  {gridLayout.columns} 위치로 말할 수 있습니다!
                 </p>
                 <div className="match-scores">
                   <div className="match-score">
@@ -310,7 +355,7 @@ const NumberGame: React.FC = () => {
           {/* 열 헤더 */}
           <div className="grid-header">
             <div className="corner-cell"></div>
-            {Array.from({ length: 10 }, (_, i) => (
+            {Array.from({ length: gridLayout.columns }, (_, i) => (
               <div key={i} className="column-header">
                 {i + 1}
               </div>
@@ -319,28 +364,30 @@ const NumberGame: React.FC = () => {
 
           {/* 행과 그리드 */}
           <div className="grid-content">
-            {Array.from({ length: 5 }, (_, rowIndex) => (
+            {Array.from({ length: gridLayout.rows }, (_, rowIndex) => (
               <div key={rowIndex} className="grid-row">
                 {/* 행 헤더 */}
                 <div className="row-header">{String.fromCharCode(65 + rowIndex)}</div>
 
                 {/* 카드들 */}
-                {numberCards.slice(rowIndex * 10, (rowIndex + 1) * 10).map((card) => (
-                  <div
-                    key={card.id}
-                    className={`number-card ${card.isFlipped ? "flipped" : ""} ${
-                      card.isMatched ? "matched" : ""
-                    } ${card.isSelected ? "selected" : ""}`}
-                    onClick={() => handleCardClick(card.id)}
-                  >
-                    <div className="card-front">
-                      <div className="card-value">{card.value}</div>
+                {numberCards
+                  .slice(rowIndex * gridLayout.columns, (rowIndex + 1) * gridLayout.columns)
+                  .map((card) => (
+                    <div
+                      key={card.id}
+                      className={`number-card ${card.isFlipped ? "flipped" : ""} ${
+                        card.isMatched ? "matched" : ""
+                      } ${card.isSelected ? "selected" : ""}`}
+                      onClick={() => handleCardClick(card.id)}
+                    >
+                      <div className="card-front">
+                        <div className="card-value">{card.value}</div>
+                      </div>
+                      <div className="card-back">
+                        <div className="card-position">{getCardPosition(card.id)}</div>
+                      </div>
                     </div>
-                    <div className="card-back">
-                      <div className="card-position">{getCardPosition(card.id)}</div>
-                    </div>
-                  </div>
-                ))}
+                  ))}
               </div>
             ))}
           </div>
