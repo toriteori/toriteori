@@ -470,182 +470,6 @@
   margin-bottom: 0.5rem;
 }
 
-/* 퀵메뉴 컨테이너 */
-.quick-menu-container {
-  position: fixed;
-  bottom: 2rem;
-  right: 2rem;
-  z-index: 1000;
-  pointer-events: auto;
-}
-
-/* 메인 퀵버튼 */
-.quick-menu-main-btn {
-  width: 65px;
-  height: 65px;
-  border-radius: 50%;
-  border: 2px solid rgba(255, 255, 255, 0.2);
-  cursor: pointer;
-  font-size: 1.5rem;
-  font-weight: bold;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  line-height: 1.1;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25), 0 4px 10px rgba(0, 0, 0, 0.1),
-    inset 0 1px 0 rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(15px);
-  position: relative;
-  overflow: hidden;
-  user-select: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-}
-
-.quick-menu-main-btn::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(
-    135deg,
-    rgba(255, 255, 255, 0.1) 0%,
-    transparent 50%,
-    rgba(0, 0, 0, 0.1) 100%
-  );
-  border-radius: 50%;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.quick-menu-main-btn:hover::before {
-  opacity: 1;
-}
-
-.quick-menu-main-btn:hover {
-  transform: translateY(-4px) scale(1.05);
-  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.3), 0 6px 15px rgba(0, 0, 0, 0.15),
-    inset 0 1px 0 rgba(255, 255, 255, 0.3);
-}
-
-.quick-menu-main-btn:active {
-  transform: translateY(-2px) scale(1.02);
-  transition: all 0.1s ease;
-}
-
-/* 퀵메뉴 옵션들 */
-.quick-menu-options {
-  position: absolute;
-  bottom: 75px;
-  right: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 0.8rem;
-  opacity: 0;
-  visibility: hidden;
-  transform: translateY(20px);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.quick-menu-options.show {
-  opacity: 1;
-  visibility: visible;
-  transform: translateY(0);
-}
-
-/* 퀵메뉴 버튼 */
-.quick-menu-btn {
-  width: 55px;
-  height: 55px;
-  border-radius: 50%;
-  border: 2px solid rgba(255, 255, 255, 0.2);
-  cursor: pointer;
-  font-size: 1.2rem;
-  font-weight: bold;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  line-height: 1.1;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2), 0 3px 8px rgba(0, 0, 0, 0.1),
-    inset 0 1px 0 rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(15px);
-  position: relative;
-  overflow: hidden;
-  user-select: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-}
-
-.quick-menu-btn::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(
-    135deg,
-    rgba(255, 255, 255, 0.1) 0%,
-    transparent 50%,
-    rgba(0, 0, 0, 0.1) 100%
-  );
-  border-radius: 50%;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.quick-menu-btn:hover::before {
-  opacity: 1;
-}
-
-.quick-menu-btn:hover {
-  transform: translateY(-3px) scale(1.05);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25), 0 4px 12px rgba(0, 0, 0, 0.15),
-    inset 0 1px 0 rgba(255, 255, 255, 0.3);
-}
-
-.quick-menu-btn:active {
-  transform: translateY(-1px) scale(1.02);
-  transition: all 0.1s ease;
-}
-
-.quick-menu-btn.btn-switch {
-  background: linear-gradient(135deg, #ff9800 0%, #f57c00 50%, #e65100 100%);
-  color: white;
-}
-
-.quick-menu-btn.btn-switch:hover {
-  background: linear-gradient(135deg, #ffa726 0%, #ff9800 50%, #f57c00 100%);
-}
-
-.quick-menu-btn.btn-restart {
-  background: linear-gradient(135deg, #4caf50 0%, #45a049 50%, #388e3c 100%);
-  color: white;
-}
-
-.quick-menu-btn.btn-restart:hover {
-  background: linear-gradient(135deg, #66bb6a 0%, #4caf50 50%, #45a049 100%);
-}
-
-.quick-menu-btn.btn-reset {
-  background: linear-gradient(135deg, #f44336 0%, #d32f2f 50%, #c62828 100%);
-  color: white;
-}
-
-.quick-menu-btn.btn-reset:hover {
-  background: linear-gradient(135deg, #ef5350 0%, #f44336 50%, #d32f2f 100%);
-}
-
 .floating-btn {
   width: 65px;
   height: 65px;
@@ -929,28 +753,6 @@
     gap: 0.5rem;
   }
 
-  .quick-menu-container {
-    bottom: 1rem;
-    right: 1rem;
-  }
-
-  .quick-menu-main-btn {
-    width: 55px;
-    height: 55px;
-    font-size: 1.2rem;
-  }
-
-  .quick-menu-options {
-    bottom: 65px;
-    gap: 0.6rem;
-  }
-
-  .quick-menu-btn {
-    width: 45px;
-    height: 45px;
-    font-size: 1rem;
-  }
-
   .floating-game-info {
     top: 1rem;
     left: 1rem;
@@ -1224,28 +1026,6 @@
     right: 0;
   }
 
-  .quick-menu-container {
-    bottom: 0.6rem;
-    right: 0.6rem;
-  }
-
-  .quick-menu-main-btn {
-    width: 45px;
-    height: 45px;
-    font-size: 1rem;
-  }
-
-  .quick-menu-options {
-    bottom: 55px;
-    gap: 0.4rem;
-  }
-
-  .quick-menu-btn {
-    width: 35px;
-    height: 35px;
-    font-size: 0.8rem;
-  }
-
   .floating-game-info {
     top: 0.6rem;
     left: 0.6rem;
@@ -1271,16 +1051,6 @@
     min-height: 44px; /* 터치 타겟 최소 크기 */
   }
 
-  .quick-menu-main-btn {
-    min-width: 44px;
-    min-height: 44px;
-  }
-
-  .quick-menu-btn {
-    min-width: 44px;
-    min-height: 44px;
-  }
-
   .back-to-main-btn {
     min-height: 44px;
     padding: 12px 20px;
@@ -1296,44 +1066,16 @@
     .number-card {
       min-height: 32px;
     }
-
-    .quick-menu-main-btn {
-      min-width: 40px;
-      min-height: 40px;
-    }
-
-    .quick-menu-btn {
-      min-width: 40px;
-      min-height: 40px;
-    }
   }
 
   @media (max-width: 360px) {
     .number-card {
       min-height: 28px;
     }
-
-    .quick-menu-main-btn {
-      min-width: 35px;
-      min-height: 35px;
-    }
-
-    .quick-menu-btn {
-      min-width: 35px;
-      min-height: 35px;
-    }
   }
 
   /* 터치 시 호버 효과 제거 */
   .number-card:hover {
-    transform: none;
-  }
-
-  .quick-menu-main-btn:hover {
-    transform: none;
-  }
-
-  .quick-menu-btn:hover {
     transform: none;
   }
 
@@ -1343,14 +1085,6 @@
 
   /* 터치 피드백 */
   .number-card:active {
-    transform: scale(0.95);
-  }
-
-  .quick-menu-main-btn:active {
-    transform: scale(0.95);
-  }
-
-  .quick-menu-btn:active {
     transform: scale(0.95);
   }
 

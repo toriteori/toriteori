@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useScore } from "../../contexts/ScoreContext";
+import QuickMenu from "../QuickMenu/QuickMenu";
+import "../../css/quickMenu.css";
 
 interface Category {
   id: string;
@@ -1343,17 +1345,25 @@ const MusicGame: React.FC = () => {
           ))}
         </div>
 
-        {/* 플로팅 버튼 */}
-        <div className="floating-controls">
-          <button onClick={handleTeamSwitch} className="floating-btn btn-switch">
-            턴 변경
-          </button>
-          <button onClick={handleResetScores} className="floating-btn btn-reset">
-            점수
-            <br />
-            초기화
-          </button>
-        </div>
+        {/* 퀵메뉴 */}
+        <QuickMenu
+          buttons={[
+            {
+              id: "team-switch",
+              icon: "🔄",
+              title: "턴 변경",
+              onClick: handleTeamSwitch,
+              color: "switch",
+            },
+            {
+              id: "reset-scores",
+              icon: "🗑️",
+              title: "점수 초기화",
+              onClick: handleResetScores,
+              color: "reset",
+            },
+          ]}
+        />
       </div>
     );
   }
@@ -1424,16 +1434,25 @@ const MusicGame: React.FC = () => {
           ))}
         </div>
 
-        {/* 플로팅 버튼 */}
-        <div className="floating-controls">
-          <button onClick={handleTeamSwitch} className="floating-btn btn-switch">
-            턴 변경
-          </button>
-          <button onClick={handleResetScores} className="floating-btn btn-reset">
-            점수
-            <br /> 초기화
-          </button>
-        </div>
+        {/* 퀵메뉴 */}
+        <QuickMenu
+          buttons={[
+            {
+              id: "team-switch",
+              icon: "🔄",
+              title: "턴 변경",
+              onClick: handleTeamSwitch,
+              color: "switch",
+            },
+            {
+              id: "reset-scores",
+              icon: "🗑️",
+              title: "점수 초기화",
+              onClick: handleResetScores,
+              color: "reset",
+            },
+          ]}
+        />
       </div>
     );
   }
@@ -1546,17 +1565,25 @@ const MusicGame: React.FC = () => {
         )}
       </div>
 
-      {/* 플로팅 버튼 */}
-      <div className="floating-controls">
-        <button onClick={handleTeamSwitch} className="floating-btn btn-switch">
-          턴 변경
-        </button>
-        <button onClick={handleResetScores} className="floating-btn btn-reset">
-          점수
-          <br />
-          초기화
-        </button>
-      </div>
+      {/* 퀵메뉴 */}
+      <QuickMenu
+        buttons={[
+          {
+            id: "team-switch",
+            icon: "🔄",
+            title: "턴 변경",
+            onClick: handleTeamSwitch,
+            color: "switch",
+          },
+          {
+            id: "reset-scores",
+            icon: "🗑️",
+            title: "점수 초기화",
+            onClick: handleResetScores,
+            color: "reset",
+          },
+        ]}
+      />
     </div>
   );
 };

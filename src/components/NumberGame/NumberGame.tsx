@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useScore } from "../../contexts/ScoreContext";
+import QuickMenu from "../QuickMenu/QuickMenu";
 import "../../css/numberGame.css";
+import "../../css/quickMenu.css";
 
 interface Team {
   id: string;
@@ -30,7 +32,6 @@ const NumberGame: React.FC = () => {
     team2: 0,
   });
   const [maxNumber, setMaxNumber] = useState<number>(25);
-  const [showQuickMenu, setShowQuickMenu] = useState<boolean>(false);
   const navigate = useNavigate();
 
   // 화면 크기 감지 및 숫자 개수 조정
@@ -209,10 +210,6 @@ const NumberGame: React.FC = () => {
 
   const handleRestartGame = () => {
     initializeGame();
-  };
-
-  const toggleQuickMenu = () => {
-    setShowQuickMenu(!showQuickMenu);
   };
 
   const getCurrentTeam = () => {
@@ -404,34 +401,32 @@ const NumberGame: React.FC = () => {
         </div>
       )}
 
-      {/* 퀵메뉴 버튼 */}
-      <div className="quick-menu-container">
-        {/* 메인 퀵버튼 */}
-        <button onClick={toggleQuickMenu} className="quick-menu-main-btn">
-          ⚙️
-        </button>
-
-        {/* 퀵메뉴 옵션들 */}
-        <div className={`quick-menu-options ${showQuickMenu ? "show" : ""}`}>
-          <button onClick={handleTeamSwitch} className="quick-menu-btn btn-switch" title="턴 변경">
-            🔄
-          </button>
-          <button
-            onClick={handleRestartGame}
-            className="quick-menu-btn btn-restart"
-            title="다시 시작"
-          >
-            🎮
-          </button>
-          <button
-            onClick={handleResetScores}
-            className="quick-menu-btn btn-reset"
-            title="점수 초기화"
-          >
-            🗑️
-          </button>
-        </div>
-      </div>
+      {/* 퀵메뉴 */}
+      <QuickMenu
+        buttons={[
+          {
+            id: "team-switch",
+            icon: "🔄",
+            title: "턴 변경",
+            onClick: handleTeamSwitch,
+            color: "switch",
+          },
+          {
+            id: "restart",
+            icon: "🎮",
+            title: "다시 시작",
+            onClick: handleRestartGame,
+            color: "restart",
+          },
+          {
+            id: "reset-scores",
+            icon: "🗑️",
+            title: "점수 초기화",
+            onClick: handleResetScores,
+            color: "reset",
+          },
+        ]}
+      />
     </div>
   );
 };
