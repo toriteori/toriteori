@@ -30,6 +30,7 @@ const NumberGame: React.FC = () => {
     team2: 0,
   });
   const [maxNumber, setMaxNumber] = useState<number>(25);
+  const [showQuickMenu, setShowQuickMenu] = useState<boolean>(false);
   const navigate = useNavigate();
 
   // 화면 크기 감지 및 숫자 개수 조정
@@ -210,6 +211,10 @@ const NumberGame: React.FC = () => {
     initializeGame();
   };
 
+  const toggleQuickMenu = () => {
+    setShowQuickMenu(!showQuickMenu);
+  };
+
   const getCurrentTeam = () => {
     return teams.find((team) => team.id === currentTeam);
   };
@@ -343,9 +348,14 @@ const NumberGame: React.FC = () => {
             ) : (
               <p className="draw">무승부!</p>
             )}
-            <button onClick={handleRestartGame} className="btn btn-primary">
-              다시 시작
-            </button>
+            <div className="game-result-buttons">
+              <button onClick={handleRestartGame} className="btn btn-restart">
+                🎮 다시 시작
+              </button>
+              <button onClick={handleBackToMain} className="btn btn-secondary">
+                🏠 메인으로
+              </button>
+            </div>
           </div>
         )}
       </div>
@@ -394,16 +404,33 @@ const NumberGame: React.FC = () => {
         </div>
       )}
 
-      {/* 플로팅 버튼 */}
-      <div className="floating-controls">
-        <button onClick={handleTeamSwitch} className="floating-btn btn-switch">
-          턴 변경
+      {/* 퀵메뉴 버튼 */}
+      <div className="quick-menu-container">
+        {/* 메인 퀵버튼 */}
+        <button onClick={toggleQuickMenu} className="quick-menu-main-btn">
+          ⚙️
         </button>
-        <button onClick={handleResetScores} className="floating-btn btn-reset">
-          점수
-          <br />
-          초기화
-        </button>
+
+        {/* 퀵메뉴 옵션들 */}
+        <div className={`quick-menu-options ${showQuickMenu ? "show" : ""}`}>
+          <button onClick={handleTeamSwitch} className="quick-menu-btn btn-switch" title="턴 변경">
+            🔄
+          </button>
+          <button
+            onClick={handleRestartGame}
+            className="quick-menu-btn btn-restart"
+            title="다시 시작"
+          >
+            🎮
+          </button>
+          <button
+            onClick={handleResetScores}
+            className="quick-menu-btn btn-reset"
+            title="점수 초기화"
+          >
+            🗑️
+          </button>
+        </div>
       </div>
     </div>
   );
