@@ -5,6 +5,9 @@ import { useScore } from "../../contexts/ScoreContext";
 const MainPage: React.FC = () => {
   const [selectedGame, setSelectedGame] = useState<string | null>(null);
   const [showTeamSettings, setShowTeamSettings] = useState<boolean>(false);
+  const [showPasswordModal, setShowPasswordModal] = useState<boolean>(false);
+  const [password, setPassword] = useState<string>("");
+  const [passwordError, setPasswordError] = useState<string>("");
   const [teamNames, setTeamNames] = useState<{ [key: string]: string }>({
     team1: "팀 정지윤",
     team2: "팀 한지우",
@@ -12,38 +15,75 @@ const MainPage: React.FC = () => {
   const navigate = useNavigate();
   const { teams, resetScores, updateTeamName } = useScore();
 
+  // 비밀번호 설정 (여기서 변경 가능)
+  const MUSIC_GAME_PASSWORD = "ssm1029!";
+
   const games = [
     {
       id: "music-game",
       title: "🎵 노래 맞추기",
       description: "음악을 듣고 제목과 아티스트를 맞춰보세요!",
       status: "available",
+      requiresPassword: true,
     },
     {
       id: "number-game",
       title: "🔢 같은 숫자 맞추기",
       description: "숫자를 기억하고 같은 숫자를 찾아보세요!",
       status: "available",
+      requiresPassword: false,
     },
     {
       id: "game-3",
       title: "🎯 게임 3",
       description: "준비 중인 게임입니다.",
       status: "coming-soon",
+      requiresPassword: false,
     },
     {
       id: "game-4",
       title: "🏆 게임 4",
       description: "준비 중인 게임입니다.",
       status: "coming-soon",
+      requiresPassword: false,
     },
   ];
 
   const handleGameSelect = (gameId: string) => {
-    if (gameId === "music-game") {
-      navigate("/music-game");
+    const selectedGame = games.find((game) => game.id === gameId);
+
+    if (selectedGame?.requiresPassword) {
+      setSelectedGame(gameId);
+      setShowPasswordModal(true);
+      setPassword("");
+      setPasswordError("");
     } else if (gameId === "number-game") {
       navigate("/number-game");
+    }
+  };
+
+  const handlePasswordSubmit = () => {
+    if (password === MUSIC_GAME_PASSWORD) {
+      setShowPasswordModal(false);
+      setPassword("");
+      setPasswordError("");
+      navigate("/music-game");
+    } else {
+      setPasswordError("비밀번호가 올바르지 않습니다.");
+      setPassword("");
+    }
+  };
+
+  const handlePasswordCancel = () => {
+    setShowPasswordModal(false);
+    setPassword("");
+    setPasswordError("");
+    setSelectedGame(null);
+  };
+
+  const handlePasswordKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      handlePasswordSubmit();
     }
   };
 
@@ -140,6 +180,38 @@ const MainPage: React.FC = () => {
               </div>
             </div>
           )}
+
+          {/* 비밀번호 입력 팝업 */}
+          {showPasswordModal && (
+            <div className="password-overlay">
+              <div className="password-modal">
+                <h3>🔒 비밀번호 입력</h3>
+                <p className="password-description">
+                  노래 맞추기 게임에 접근하려면 비밀번호를 입력하세요.
+                </p>
+                <div className="password-input-container">
+                  <input
+                    type="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    onKeyPress={handlePasswordKeyPress}
+                    placeholder="비밀번호를 입력하세요"
+                    className="password-input"
+                    autoFocus
+                  />
+                  {passwordError && <p className="password-error">{passwordError}</p>}
+                </div>
+                <div className="password-buttons">
+                  <button onClick={handlePasswordSubmit} className="submit-btn">
+                    🔓 접속
+                  </button>
+                  <button onClick={handlePasswordCancel} className="cancel-btn">
+                    ❌ 취소
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
 
         <div className="games-grid">
@@ -160,6 +232,7 @@ const MainPage: React.FC = () => {
               </div>
               <h3 className="game-title">{game.title}</h3>
               <p className="game-description">{game.description}</p>
+              {game.requiresPassword && <div className="password-badge">🔒 비밀번호 필요</div>}
               {game.status === "coming-soon" && <div className="coming-soon-badge">준비중</div>}
             </div>
           ))}
