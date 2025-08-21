@@ -4,7 +4,8 @@ import EntryPage from "./components/EntryPage/EntryPage";
 import MainPage from "./components/MainPage/MainPage";
 import MusicGame from "./components/MusicGame/MusicGame";
 import NumberGame from "./components/NumberGame/NumberGame";
-import BombGame from "./components/BombGame/BombGame";
+import LadderGame from "./components/LadderGame/LadderGame";
+import TeamBattleGame from "./components/TeamBattleGame/TeamBattleGame";
 import { ScoreProvider } from "./contexts/ScoreContext";
 
 const App: React.FC = () => {
@@ -17,7 +18,8 @@ const App: React.FC = () => {
             <Route path="/main" element={<MainPage />} />
             <Route path="/music-game" element={<MusicGame />} />
             <Route path="/number-game" element={<NumberGame />} />
-            <Route path="/bomb-game" element={<BombGame />} />
+            <Route path="/ladder-game" element={<LadderGame />} />
+            <Route path="/team-battle-game" element={<TeamBattleGame />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </div>

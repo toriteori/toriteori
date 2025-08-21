@@ -128,6 +128,76 @@
   text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
 }
 
+/* 승리팀 스타일 */
+.team-score-display.winner {
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(255, 215, 0, 0.1));
+  border-color: #ffd700 !important;
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+  animation: winnerGlow 2s ease-in-out infinite alternate;
+}
+
+.team-score-display.winner .team-total-score {
+  color: #ffd700;
+  text-shadow: 0 0 15px rgba(255, 215, 0, 0.8);
+}
+
+.winner-badge {
+  display: block;
+  font-size: 0.9rem;
+  color: #ffd700;
+  font-weight: bold;
+  margin-top: 0.5rem;
+  animation: winnerBounce 1s ease-in-out infinite;
+}
+
+/* 승리팀 발표 스타일 */
+.winner-announcement {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  background: rgba(255, 215, 0, 0.1);
+  border-radius: 10px;
+  border: 2px solid rgba(255, 215, 0, 0.3);
+  text-align: center;
+}
+
+.winner-message {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-size: 1.2rem;
+  color: #ffd700;
+}
+
+.winner-message .crown {
+  font-size: 1.5rem;
+  animation: crownSpin 3s linear infinite;
+}
+
+.winner-message .winner-text {
+  font-weight: bold;
+  text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+}
+
+.tie-message {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-size: 1.2rem;
+  color: #00ff88;
+}
+
+.tie-message .tie-icon {
+  font-size: 1.5rem;
+  animation: tieBounce 2s ease-in-out infinite;
+}
+
+.tie-message .tie-text {
+  font-weight: bold;
+  text-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
+}
+
 .games-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -487,5 +557,44 @@
   to {
     opacity: 1;
     transform: translateY(0) scale(1);
+  }
+}
+
+/* 승리팀 애니메이션 */
+@keyframes winnerGlow {
+  from {
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+  }
+  to {
+    box-shadow: 0 0 30px rgba(255, 215, 0, 0.8);
+  }
+}
+
+@keyframes winnerBounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
+}
+
+@keyframes crownSpin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes tieBounce {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
   }
 }

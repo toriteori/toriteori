@@ -17,6 +17,7 @@ const MainPage: React.FC = () => {
 
   // 비밀번호 설정 (여기서 변경 가능)
   const MUSIC_GAME_PASSWORD = "1234";
+  const TEAM_BATTLE_GAME_PASSWORD = "ssm1029!";
 
   const games = [
     {
@@ -33,19 +34,20 @@ const MainPage: React.FC = () => {
       status: "available",
       requiresPassword: false,
     },
+
     {
-      id: "bomb-game",
-      title: "💣 폭탄 해제",
-      description: "제한 시간 내에 모든 모듈을 해제하세요!",
+      id: "ladder-game",
+      title: "🪜 사다리 타기",
+      description: "팀원들과 함께 사다리를 타고 점수를 획득하세요!",
       status: "available",
       requiresPassword: false,
     },
     {
-      id: "game-4",
-      title: "🏆 게임 4",
-      description: "준비 중인 게임입니다.",
-      status: "coming-soon",
-      requiresPassword: false,
+      id: "team-battle-game",
+      title: "🔮 유리의 세계와 시간의 계단",
+      description: "두 파티가 아를리아 세계에서 시간의 계단을 오르며 모험을 진행합니다!",
+      status: "available",
+      requiresPassword: true,
     },
   ];
 
@@ -59,17 +61,24 @@ const MainPage: React.FC = () => {
       setPasswordError("");
     } else if (gameId === "number-game") {
       navigate("/number-game");
-    } else if (gameId === "bomb-game") {
-      navigate("/bomb-game");
+    } else if (gameId === "ladder-game") {
+      navigate("/ladder-game");
+    } else if (gameId === "team-battle-game") {
+      navigate("/team-battle-game");
     }
   };
 
   const handlePasswordSubmit = () => {
-    if (password === MUSIC_GAME_PASSWORD) {
+    if (selectedGame === "music-game" && password === MUSIC_GAME_PASSWORD) {
       setShowPasswordModal(false);
       setPassword("");
       setPasswordError("");
       navigate("/music-game");
+    } else if (selectedGame === "team-battle-game" && password === TEAM_BATTLE_GAME_PASSWORD) {
+      setShowPasswordModal(false);
+      setPassword("");
+      setPasswordError("");
+      navigate("/team-battle-game");
     } else {
       setPasswordError("비밀번호가 올바르지 않습니다.");
       setPassword("");
@@ -136,14 +145,50 @@ const MainPage: React.FC = () => {
               {teams.map((team) => (
                 <div
                   key={team.id}
-                  className="team-score-display"
+                  className={`team-score-display ${
+                    team.score === Math.max(...teams.map((t) => t.score)) && team.score > 0
+                      ? "winner"
+                      : ""
+                  }`}
                   style={{ borderColor: team.color }}
                 >
                   <span className="team-name">{team.name}</span>
                   <span className="team-total-score">{team.score}점</span>
+                  {team.score === Math.max(...teams.map((t) => t.score)) && team.score > 0 && (
+                    <span className="winner-badge">👑 승리!</span>
+                  )}
                 </div>
               ))}
             </div>
+            {/* 승리팀 표시 */}
+            {teams.some((team) => team.score > 0) && (
+              <div className="winner-announcement">
+                {(() => {
+                  const maxScore = Math.max(...teams.map((t) => t.score));
+                  const winners = teams.filter((team) => team.score === maxScore);
+                  if (winners.length === 1) {
+                    return (
+                      <div className="winner-message">
+                        <span className="crown">👑</span>
+                        <span className="winner-text">
+                          현재 승리: <strong>{winners[0].name}</strong> ({maxScore}점)
+                        </span>
+                      </div>
+                    );
+                  } else if (winners.length > 1 && maxScore > 0) {
+                    return (
+                      <div className="tie-message">
+                        <span className="tie-icon">🤝</span>
+                        <span className="tie-text">
+                          현재 동점: {winners.map((w) => w.name).join(", ")} ({maxScore}점)
+                        </span>
+                      </div>
+                    );
+                  }
+                  return null;
+                })()}
+              </div>
+            )}
           </div>
 
           {/* 팀 이름 설정 팝업 */}
@@ -229,6 +274,10 @@ const MainPage: React.FC = () => {
                     ? "🎵"
                     : game.id === "number-game"
                     ? "🔢"
+                    : game.id === "ladder-game"
+                    ? "🪜"
+                    : game.id === "team-battle-game"
+                    ? "⚔️"
                     : "🎮"
                   : "🔒"}
               </div>

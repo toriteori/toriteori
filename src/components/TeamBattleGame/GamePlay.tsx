@@ -1,0 +1,544 @@
+import React, { useState, useEffect } from "react";
+import { GameState } from "./TeamBattleGame";
+import { storyData } from "./GameSettings";
+import { useScore } from "../../contexts/ScoreContext";
+
+interface GamePlayProps {
+  gameState: GameState;
+  setGameState: React.Dispatch<React.SetStateAction<GameState>>;
+  onEndGame: () => void;
+}
+
+const GamePlay: React.FC<GamePlayProps> = ({ gameState, setGameState, onEndGame }) => {
+  const { updateTeamScore } = useScore();
+  const [teamANodeData, setTeamANodeData] = useState<any>(null);
+  const [teamBNodeData, setTeamBNodeData] = useState<any>(null);
+  const [teamAReady, setTeamAReady] = useState(false);
+  const [teamBReady, setTeamBReady] = useState(false);
+  const [waitingMessage, setWaitingMessage] = useState("");
+  const [teamAFinished, setTeamAFinished] = useState(false);
+  const [teamBFinished, setTeamBFinished] = useState(false);
+  const [teamAScoreChange, setTeamAScoreChange] = useState<number | null>(null);
+  const [teamBScoreChange, setTeamBScoreChange] = useState<number | null>(null);
+
+  // 현재 노드 데이터 가져오기
+  useEffect(() => {
+    const teamANodeData = storyData[gameState.teamANode as keyof typeof storyData];
+    const teamBNodeData = storyData[gameState.teamBNode as keyof typeof storyData];
+    if (teamANodeData) {
+      setTeamANodeData(teamANodeData);
+    }
+    if (teamBNodeData) {
+      setTeamBNodeData(teamBNodeData);
+    }
+  }, [gameState.teamANode, gameState.teamBNode]);
+
+  // 팀별 엔딩 확인
+  useEffect(() => {
+    if (teamANodeData && teamANodeData.choices.length === 0 && !teamAFinished) {
+      setTeamAFinished(true);
+      // 엔딩 점수 계산
+      const endingScore = calculateEndingScore(gameState.teamANode, gameState.teamAScore);
+      setGameState((prev) => ({
+        ...prev,
+        teamAScore: endingScore,
+      }));
+      updateTeamScore("team1", endingScore - gameState.teamAScore);
+    }
+
+    if (teamBNodeData && teamBNodeData.choices.length === 0 && !teamBFinished) {
+      setTeamBFinished(true);
+      // 엔딩 점수 계산
+      const endingScore = calculateEndingScore(gameState.teamBNode, gameState.teamBScore);
+      setGameState((prev) => ({
+        ...prev,
+        teamBScore: endingScore,
+      }));
+      updateTeamScore("team2", endingScore - gameState.teamBScore);
+    }
+  }, [
+    teamANodeData,
+    teamBNodeData,
+    teamAFinished,
+    teamBFinished,
+    gameState.teamANode,
+    gameState.teamBNode,
+    gameState.teamAScore,
+    gameState.teamBScore,
+    updateTeamScore,
+  ]);
+
+  // 선택 완료 확인 (팀별 독립적 처리)
+  useEffect(() => {
+    // 한 파티가 완료된 경우, 다른 파티만 선택하면 바로 처리
+    if (teamAFinished && gameState.teamBChoice && !teamBFinished) {
+      setTimeout(() => {
+        processSingleTeamChoice("B");
+      }, 1000);
+    } else if (teamBFinished && gameState.teamAChoice && !teamAFinished) {
+      setTimeout(() => {
+        processSingleTeamChoice("A");
+      }, 1000);
+    } else if (gameState.teamAChoice && gameState.teamBChoice && !teamAFinished && !teamBFinished) {
+      // 두 팀 모두 선택 완료
+      setTimeout(() => {
+        processChoices();
+      }, 1000); // 1초 대기 후 처리
+    } else if (gameState.teamAChoice && !gameState.teamBChoice && !teamBFinished) {
+      setWaitingMessage(`${gameState.teamBName} 파티의 선택을 기다리는 중...`);
+    } else if (!gameState.teamAChoice && gameState.teamBChoice && !teamAFinished) {
+      setWaitingMessage(`${gameState.teamAName} 파티의 선택을 기다리는 중...`);
+    } else if (teamAFinished && !teamBFinished) {
+      setWaitingMessage(`${gameState.teamBName} 파티가 계속 모험을 진행하고 있습니다...`);
+    } else if (teamBFinished && !teamAFinished) {
+      setWaitingMessage(`${gameState.teamAName} 파티가 계속 모험을 진행하고 있습니다...`);
+    } else {
+      setWaitingMessage("");
+    }
+  }, [
+    gameState.teamAChoice,
+    gameState.teamBChoice,
+    gameState.teamAName,
+    gameState.teamBName,
+    teamAFinished,
+    teamBFinished,
+  ]);
+
+  // 전체 게임 종료 확인 (모든 팀이 엔딩에 도달했을 때)
+  useEffect(() => {
+    if (teamAFinished && teamBFinished) {
+      setTimeout(() => {
+        onEndGame();
+      }, 3000);
+    }
+  }, [teamAFinished, teamBFinished, onEndGame]);
+
+  // 점수 변화 표시 후 리셋
+  useEffect(() => {
+    if (teamAScoreChange !== null || teamBScoreChange !== null) {
+      const timer = setTimeout(() => {
+        setTeamAScoreChange(null);
+        setTeamBScoreChange(null);
+      }, 2000); // 2초 후 리셋
+
+      return () => clearTimeout(timer);
+    }
+  }, [teamAScoreChange, teamBScoreChange]);
+
+  // 엔딩 점수 계산 함수
+  const calculateEndingScore = (nodeName: string, currentScore: number): number => {
+    switch (nodeName) {
+      // 최고 점수 엔딩들 (900-1000점)
+      case "complete_sonseongmo_puzzle":
+        return 1000; // 히든 엔딩 - 손성모 퍼즐 완성
+      case "perfect_time_balance":
+        return 950; // 완벽한 시간 균형 엔딩
+      case "all_fragments_collected":
+        return 920; // 모든 시간 조각 수집 엔딩
+      case "time_wisdom_master":
+        return 900; // 시간의 지혜 마스터 엔딩
+
+      // 종족별 특별 엔딩들 (850-899점)
+      case "ethereal_guardian_ending":
+        return 890; // 에테르족 수호자 엔딩
+      case "sylphred_wind_master":
+        return 880; // 실프레드족 바람 마스터 엔딩
+      case "veloir_pack_leader":
+        return 870; // 벨로아족 무리 지도자 엔딩
+      case "noir_shadow_lord":
+        return 860; // 누아르족 그림자 군주 엔딩
+      case "runmare_prophet_ending":
+        return 850; // 룬마레족 예언자 엔딩
+      case "drakar_dragon_lord":
+        return 840; // 드라카르족 용의 군주 엔딩
+      case "moras_ancient_sage":
+        return 830; // 모라스족 고대 현자 엔딩
+
+      // 고득점 엔딩들 (700-899점)
+      case "save_world":
+        return 800; // 세계 구하기 엔딩
+      case "time_guardian":
+        return 780; // 시간의 수호자 엔딩
+      case "peaceful_resolution":
+        return 750; // 평화로운 해결 엔딩
+      case "use_time_fragment":
+        return 700; // 시간 조각 사용 엔딩
+
+      // 중간 점수 엔딩들 (500-699점)
+      case "reverse_time":
+        return 600; // 시간 되돌리기 엔딩
+      case "find_gem_together":
+        return 500; // 협력 엔딩
+      case "team_reunion":
+        return 400; // 팀 재회 엔딩
+      case "normal_adventure":
+        return 350; // 일반 모험 엔딩
+
+      // 낮은 점수 엔딩들 (100-399점)
+      case "partial_success":
+        return 300; // 부분적 성공 엔딩
+      case "safe_return":
+        return 250; // 안전한 귀환 엔딩
+      case "minimal_impact":
+        return 200; // 최소한의 영향 엔딩
+      case "basic_completion":
+        return 150; // 기본 완료 엔딩
+      case "survival_ending":
+        return 100; // 생존 엔딩
+
+      // 부정적 엔딩들 (0-99점)
+      case "failed_attempt":
+        return 50; // 실패한 시도 엔딩
+      case "partial_failure":
+        return 25; // 부분적 실패 엔딩
+      case "minimal_success":
+        return 10; // 최소한의 성공 엔딩
+      case "barely_survived":
+        return 0; // 간신히 생존 엔딩
+
+      // 매우 부정적 엔딩들 (-1000점 ~ -1점)
+      case "continue_time_manipulation_dark":
+        return -1000; // 흑화 엔딩 - 손성모 흑화
+      case "world_destruction":
+        return -800; // 세계 파괴 엔딩
+      case "time_chaos":
+        return -600; // 시간 혼돈 엔딩
+      case "complete_failure":
+        return -400; // 완전한 실패 엔딩
+      case "dangerous_choice":
+        return -200; // 위험한 선택 엔딩
+      case "regret_ending":
+        return -100; // 후회 엔딩
+
+      // 종족별 부정적 엔딩들 (-50점 ~ -99점)
+      case "ethereal_weakness_exploited":
+        return -90; // 에테르족 약점 이용 엔딩
+      case "sylphred_caught_in_trap":
+        return -85; // 실프레드족 함정에 걸림 엔딩
+      case "veloir_emotional_breakdown":
+        return -80; // 벨로아족 감정적 붕괴 엔딩
+      case "noir_light_destruction":
+        return -75; // 누아르족 빛에 파괴 엔딩
+      case "runmare_water_loss":
+        return -70; // 룬마레족 물의 힘 상실 엔딩
+      case "drakar_betrayal_rage":
+        return -65; // 드라카르족 배신에 대한 분노 엔딩
+      case "moras_immobility_trap":
+        return -60; // 모라스족 움직임 불가 엔딩
+
+      case "minor_mistake":
+        return -50; // 작은 실수 엔딩
+      case "slight_failure":
+        return -25; // 약간의 실패 엔딩
+      case "small_error":
+        return -10; // 작은 오류 엔딩
+      case "tiny_mistake":
+        return -1; // 아주 작은 실수 엔딩
+
+      default:
+        return currentScore; // 기본 점수 유지
+    }
+  };
+
+  // 단일 팀 선택 처리 함수
+  const processSingleTeamChoice = (team: "A" | "B") => {
+    const nodeData = team === "A" ? teamANodeData : teamBNodeData;
+    const choice = team === "A" ? gameState.teamAChoice : gameState.teamBChoice;
+
+    if (!nodeData || !choice) return;
+
+    // 선택지 찾기
+    const choiceData = nodeData.choices.find((c: any) => c.text === choice);
+    if (!choiceData) return;
+
+    // 점수 계산
+    const scoreChange = team === "A" ? choiceData.scoreA : choiceData.scoreB;
+    const newScore =
+      team === "A" ? gameState.teamAScore + scoreChange : gameState.teamBScore + scoreChange;
+
+    // 점수 변화 추적
+    if (team === "A") {
+      setTeamAScoreChange(scoreChange);
+    } else {
+      setTeamBScoreChange(scoreChange);
+    }
+
+    // 전역 점수 업데이트
+    updateTeamScore(team === "A" ? "team1" : "team2", scoreChange);
+
+    // 다음 노드 결정
+    const nextNode = choiceData.next;
+
+    // 게임 히스토리 업데이트
+    const newHistory = [
+      ...gameState.gameHistory,
+      {
+        node: team === "A" ? gameState.teamANode : gameState.teamBNode,
+        teamAChoice: team === "A" ? choice : null,
+        teamBChoice: team === "B" ? choice : null,
+        teamAScore: team === "A" ? newScore : gameState.teamAScore,
+        teamBScore: team === "B" ? newScore : gameState.teamBScore,
+      },
+    ];
+
+    // 게임 상태 업데이트
+    setGameState((prev) => ({
+      ...prev,
+      teamAScore: team === "A" ? newScore : prev.teamAScore,
+      teamBScore: team === "B" ? newScore : prev.teamBScore,
+      teamANode: team === "A" ? nextNode : prev.teamANode,
+      teamBNode: team === "B" ? nextNode : prev.teamBNode,
+      teamAChoice: null,
+      teamBChoice: null,
+      gameHistory: newHistory,
+    }));
+
+    if (team === "A") {
+      setTeamAReady(false);
+    } else {
+      setTeamBReady(false);
+    }
+    setWaitingMessage("");
+  };
+
+  const processChoices = () => {
+    if (!teamANodeData || !teamBNodeData || !gameState.teamAChoice || !gameState.teamBChoice)
+      return;
+
+    // 선택지 찾기
+    const teamAChoiceData = teamANodeData.choices.find(
+      (choice: any) => choice.text === gameState.teamAChoice,
+    );
+    const teamBChoiceData = teamBNodeData.choices.find(
+      (choice: any) => choice.text === gameState.teamBChoice,
+    );
+
+    if (!teamAChoiceData || !teamBChoiceData) return;
+
+    // 점수 계산 (음수 점수도 허용)
+    const newTeamAScore = gameState.teamAScore + teamAChoiceData.scoreA;
+    const newTeamBScore = gameState.teamBScore + teamBChoiceData.scoreB;
+
+    // 점수 변화 추적
+    setTeamAScoreChange(teamAChoiceData.scoreA);
+    setTeamBScoreChange(teamBChoiceData.scoreB);
+
+    // 전역 점수 업데이트
+    updateTeamScore("team1", teamAChoiceData.scoreA);
+    updateTeamScore("team2", teamBChoiceData.scoreB);
+
+    // 팀별 다음 노드 결정
+    const nextTeamANode = teamAChoiceData.next;
+    const nextTeamBNode = teamBChoiceData.next;
+
+    // 효과 처리 (팀 상호작용)
+    let finalTeamANode = nextTeamANode;
+    let finalTeamBNode = nextTeamBNode;
+
+    if (teamAChoiceData.effect) {
+      // Team A의 선택이 Team B에 영향을 주는 경우
+      if (teamAChoiceData.effect.teamBNode) {
+        finalTeamBNode = teamAChoiceData.effect.teamBNode;
+      }
+    }
+
+    // 게임 히스토리 업데이트
+    const newHistory = [
+      ...gameState.gameHistory,
+      {
+        node: gameState.currentNode,
+        teamAChoice: gameState.teamAChoice,
+        teamBChoice: gameState.teamBChoice,
+        teamAScore: newTeamAScore,
+        teamBScore: newTeamBScore,
+      },
+    ];
+
+    // 게임 상태 업데이트
+    setGameState((prev) => ({
+      ...prev,
+      teamAScore: newTeamAScore,
+      teamBScore: newTeamBScore,
+      teamANode: finalTeamANode,
+      teamBNode: finalTeamBNode,
+      teamAChoice: null,
+      teamBChoice: null,
+      gameHistory: newHistory,
+    }));
+
+    setTeamAReady(false);
+    setTeamBReady(false);
+    setWaitingMessage("");
+  };
+
+  const handleTeamChoice = (team: "A" | "B", choice: string) => {
+    if (team === "A") {
+      // 이미 선택된 선택지를 다시 클릭하면 선택 취소
+      if (gameState.teamAChoice === choice) {
+        setGameState((prev) => ({ ...prev, teamAChoice: null }));
+        setTeamAReady(false);
+      } else {
+        setGameState((prev) => ({ ...prev, teamAChoice: choice }));
+        setTeamAReady(true);
+      }
+    } else {
+      // 이미 선택된 선택지를 다시 클릭하면 선택 취소
+      if (gameState.teamBChoice === choice) {
+        setGameState((prev) => ({ ...prev, teamBChoice: null }));
+        setTeamBReady(false);
+      } else {
+        setGameState((prev) => ({ ...prev, teamBChoice: choice }));
+        setTeamBReady(true);
+      }
+    }
+  };
+
+  const formatText = (text: string) => {
+    return text
+      .replace("{teamAName}", gameState.teamAName)
+      .replace("{teamBName}", gameState.teamBName);
+  };
+
+  // 팀별 스토리 텍스트 생성
+  const getTeamStoryText = (team: "A" | "B") => {
+    const nodeData = team === "A" ? teamANodeData : teamBNodeData;
+    if (!nodeData) return "";
+
+    let storyText = nodeData.text;
+    return formatText(storyText);
+  };
+
+  // 두 팀이 같은 노드에 있는지 확인
+  const isSameNode = gameState.teamANode === gameState.teamBNode;
+
+  // 시작 노드인지 확인
+  const isStartNode = gameState.teamANode === "start" && gameState.teamBNode === "start";
+
+  if (!teamANodeData || !teamBNodeData) {
+    return <div className="loading">로딩 중...</div>;
+  }
+
+  return (
+    <div className="game-play">
+      {/* 플로팅 점수 아이콘 */}
+      <div className="floating-score-indicators">
+        <div className="team-a-indicator">
+          <div
+            className={`score-icon team-a-icon ${
+              teamAScoreChange !== null ? (teamAScoreChange >= 0 ? "positive" : "negative") : ""
+            }`}
+          >
+            A
+          </div>
+        </div>
+        <div className="team-b-indicator">
+          <div
+            className={`score-icon team-b-icon ${
+              teamBScoreChange !== null ? (teamBScoreChange >= 0 ? "positive" : "negative") : ""
+            }`}
+          >
+            B
+          </div>
+        </div>
+      </div>
+
+      {/* 스토리 텍스트 - 조건부 렌더링 */}
+      {isStartNode ? (
+        // 시작 노드일 때만 공통 스토리 표시
+        <div className="story-sections">
+          <div className="team-story-section common-story">
+            <h3>스토리</h3>
+            <div className="story-text">
+              <p>{formatText(teamANodeData.text)}</p>
+            </div>
+          </div>
+        </div>
+      ) : (
+        // 그 외에는 항상 팀별로 나눠서 표시
+        <div className="story-sections">
+          <div className="team-story-section team-a-story">
+            <h3>{gameState.teamAName} 파티 스토리</h3>
+            <div className="story-text">
+              <p>{formatText(teamANodeData.text)}</p>
+            </div>
+          </div>
+
+          <div className="team-story-section team-b-story">
+            <h3>{gameState.teamBName} 파티 스토리</h3>
+            <div className="story-text">
+              <p>{formatText(teamBNodeData.text)}</p>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* 대기 메시지 */}
+      {waitingMessage && <div className="waiting-message">{waitingMessage}</div>}
+
+      {/* 선택지 */}
+      {teamANodeData.choices.length > 0 && (
+        <div className="choices-container">
+          <div className="team-section team-a-section">
+            <h3>
+              {gameState.teamAName} 파티 {teamAFinished && "🏁 완료"}
+            </h3>
+            <div className="choices">
+              {teamANodeData.choices.map((choice: any, index: number) => (
+                <button
+                  key={`teamA-${index}`}
+                  className={`choice-button ${
+                    gameState.teamAChoice === choice.text ? "selected" : ""
+                  } ${teamAReady ? "ready" : ""}`}
+                  onClick={() => handleTeamChoice("A", choice.text)}
+                  disabled={false}
+                >
+                  <div className="choice-number">{index + 1}.</div>
+                  <div className="choice-text">{choice.text}</div>
+                </button>
+              ))}
+            </div>
+            {gameState.teamAChoice && (
+              <div className="choice-status ready">✓ 선택 완료: {gameState.teamAChoice}</div>
+            )}
+            {teamAFinished && <div className="choice-status finished">🏁 모험 완료!</div>}
+          </div>
+
+          <div className="team-section team-b-section">
+            <h3>
+              {gameState.teamBName} 파티 {teamBFinished && "🏁 완료"}
+            </h3>
+            <div className="choices">
+              {teamBNodeData.choices.map((choice: any, index: number) => (
+                <button
+                  key={`teamB-${index}`}
+                  className={`choice-button ${
+                    gameState.teamBChoice === choice.text ? "selected" : ""
+                  } ${teamBReady ? "ready" : ""}`}
+                  onClick={() => handleTeamChoice("B", choice.text)}
+                  disabled={false}
+                >
+                  <div className="choice-number">{index + 1}.</div>
+                  <div className="choice-text">{choice.text}</div>
+                </button>
+              ))}
+            </div>
+            {gameState.teamBChoice && (
+              <div className="choice-status ready">✓ 선택 완료: {gameState.teamBChoice}</div>
+            )}
+            {teamBFinished && <div className="choice-status finished">🏁 모험 완료!</div>}
+          </div>
+        </div>
+      )}
+
+      {/* 게임 종료 메시지 */}
+      {teamAFinished && teamBFinished && (
+        <div className="game-end-message">
+          <h2>모든 파티의 모험이 완료되었습니다!</h2>
+          <p>최종 결과를 확인해보세요!</p>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default GamePlay;
