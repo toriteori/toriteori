@@ -33,7 +33,8 @@ const QuickMenu: React.FC<QuickMenuProps> = ({ buttons }) => {
             key={button.id}
             onClick={() => {
               button.onClick();
-              setShowQuickMenu(false); // 버튼 클릭 후 메뉴 닫기
+              // 모든 버튼 클릭 시 메뉴가 닫히지 않도록 수정
+              // setShowQuickMenu(false); // 제거
             }}
             className={`quick-menu-btn ${button.color ? `btn-${button.color}` : ""}`}
             title={button.title}

@@ -21,11 +21,22 @@
   animation: backgroundShift 8s ease-in-out infinite;
 }
 
+@keyframes backgroundShift {
+  0%,
+  100% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
 .main-container {
   position: relative;
   z-index: 1;
   max-width: 1200px;
   margin: 0 auto;
+  padding-top: 2rem;
 }
 
 .main-header {
@@ -38,38 +49,82 @@
   margin-bottom: 1rem;
   text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
   animation: gameBounce 2s infinite;
+  color: #ffffff;
 }
 
 .main-subtitle {
   font-size: 1.5rem;
   color: #00ff88;
   animation: neonGlow 2s ease-in-out infinite alternate;
+  font-weight: 300;
 }
 
-/* 전역 점수 스타일 */
+@keyframes gameBounce {
+  0%,
+  20%,
+  50%,
+  80%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  40% {
+    transform: translateY(-20px) rotate(5deg);
+  }
+  60% {
+    transform: translateY(-10px) rotate(-3deg);
+  }
+}
+
+@keyframes neonGlow {
+  from {
+    text-shadow: 0 0 5px #00ff88, 0 0 10px #00ff88, 0 0 15px #00ff88;
+  }
+  to {
+    text-shadow: 0 0 10px #00ff88, 0 0 20px #00ff88, 0 0 30px #00ff88;
+  }
+}
+
+/* 좌측 점수판 */
 .global-scores {
-  margin-top: 2rem;
-  padding: 1.5rem;
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  border-radius: 15px;
-  border: 2px solid rgba(255, 255, 255, 0.2);
+  position: fixed;
+  top: 2rem;
+  left: 2rem;
+  width: 320px;
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(20px);
+  border-radius: 25px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  height: fit-content;
+  z-index: 1000;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+.global-scores:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 25px 80px rgba(0, 0, 0, 0.3);
+  border-color: rgba(255, 255, 255, 0.5);
 }
 
 .score-header {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  margin-bottom: 1rem;
-  flex-wrap: wrap;
-  gap: 1rem;
+  margin-bottom: 1.5rem;
 }
 
 .global-scores h3 {
   font-size: 1.8rem;
   color: #ffd700;
-  text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+  text-shadow: 0 0 15px rgba(255, 215, 0, 0.6);
   margin: 0;
+  text-align: center;
+  font-weight: bold;
+  background: linear-gradient(45deg, #ffd700, #ffed4e);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .reset-scores-btn {
@@ -93,39 +148,47 @@
 
 .score-display {
   display: flex;
-  justify-content: center;
-  gap: 2rem;
-  flex-wrap: wrap;
+  flex-direction: column;
+  gap: 1.2rem;
 }
 
 .team-score-display {
   background: rgba(255, 255, 255, 0.1);
   border: 2px solid;
-  border-radius: 12px;
-  padding: 1rem 1.5rem;
+  border-radius: 20px;
+  padding: 1.5rem;
   text-align: center;
-  min-width: 150px;
   transition: all 0.3s ease;
+  width: 100%;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
 }
 
 .team-score-display:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.2);
+  background: rgba(255, 255, 255, 0.15);
 }
 
 .team-score-display .team-name {
   display: block;
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   font-weight: bold;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.8rem;
+  color: #ffffff;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .team-score-display .team-total-score {
   display: block;
-  font-size: 1.8rem;
+  font-size: 2.2rem;
   font-weight: bold;
   color: #ffd700;
-  text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+  text-shadow: 0 0 15px rgba(255, 215, 0, 0.6);
+  background: linear-gradient(45deg, #ffd700, #ffed4e);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 /* 승리팀 스타일 */
@@ -198,24 +261,31 @@
   text-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
 }
 
+/* 게임 그리드 */
 .games-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 2rem;
-  margin-bottom: 3rem;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2.5rem;
+  margin-top: 2rem;
 }
 
+/* 게임 카드 */
 .game-card {
   background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  border-radius: 20px;
-  padding: 2rem;
-  text-align: center;
-  cursor: pointer;
-  transition: all 0.3s ease;
+  backdrop-filter: blur(20px);
+  border-radius: 25px;
   border: 2px solid rgba(255, 255, 255, 0.2);
+  padding: 2.5rem;
+  cursor: pointer;
+  transition: all 0.4s ease;
+  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.2);
   position: relative;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  min-height: 250px;
 }
 
 .game-card::before {
@@ -226,76 +296,144 @@
   width: 100%;
   height: 100%;
   background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-  transition: left 0.5s;
+  transition: left 0.6s;
 }
 
 .game-card:hover::before {
   left: 100%;
 }
 
-.game-card.available:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 10px 30px rgba(0, 255, 136, 0.3);
+.game-card:hover {
+  transform: translateY(-15px) scale(1.02);
+  box-shadow: 0 25px 80px rgba(0, 0, 0, 0.3);
+  border-color: rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.game-card.available {
   border-color: #00ff88;
 }
 
+.game-card.available:hover {
+  border-color: #00ff88;
+  box-shadow: 0 25px 80px rgba(0, 255, 136, 0.2);
+}
+
 .game-card.coming-soon {
+  border-color: #ff9800;
+  opacity: 0.8;
+}
+
+.game-card.locked {
+  border-color: #f44336;
   opacity: 0.6;
   cursor: not-allowed;
 }
 
-.game-card.coming-soon:hover {
-  transform: none;
-  box-shadow: none;
+.game-icon {
+  font-size: 4.5rem;
+  margin-bottom: 1.5rem;
+  filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.4));
+  transition: all 0.4s ease;
 }
 
-.game-icon {
-  font-size: 4rem;
-  margin-bottom: 1rem;
-  filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));
+.game-card:hover .game-icon {
+  transform: scale(1.15) rotate(5deg);
+  filter: drop-shadow(0 0 25px rgba(255, 255, 255, 0.6));
 }
 
 .game-title {
-  font-size: 1.5rem;
-  margin-bottom: 1rem;
+  font-size: 1.6rem;
+  font-weight: bold;
+  color: #ffffff;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  margin-bottom: 1.2rem;
+  transition: all 0.3s ease;
+}
+
+.game-card:hover .game-title {
   color: #00ff88;
+  text-shadow: 0 0 20px rgba(0, 255, 136, 0.5);
 }
 
 .game-description {
-  font-size: 1rem;
-  opacity: 0.8;
-  margin-bottom: 1rem;
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+  opacity: 0.9;
+  transition: all 0.3s ease;
+}
+
+.game-card:hover .game-description {
+  opacity: 1;
+  color: #ffffff;
 }
 
 .coming-soon-badge {
-  background: linear-gradient(45deg, #ff6b35, #f7931e);
+  background: linear-gradient(45deg, #ff9800, #f57c00);
   color: white;
-  padding: 0.5rem 1rem;
+  padding: 0.6rem 1.2rem;
   border-radius: 20px;
   font-size: 0.9rem;
   font-weight: bold;
-  display: inline-block;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  box-shadow: 0 6px 20px rgba(255, 152, 0, 0.3);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  transition: all 0.3s ease;
 }
 
+.coming-soon-badge:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(255, 152, 0, 0.4);
+}
+
+/* 메인 푸터 */
 .main-footer {
   text-align: center;
+  margin-top: 4rem;
+  padding: 2rem 0;
 }
 
 .back-button {
-  background: linear-gradient(45deg, #667eea, #764ba2);
+  background: linear-gradient(45deg, #1a1a2e, #16213e);
   color: white;
   border: none;
-  padding: 12px 24px;
-  font-size: 1.1rem;
-  border-radius: 25px;
+  padding: 18px 36px;
+  border-radius: 30px;
   cursor: pointer;
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 2px;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.back-button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s;
+}
+
+.back-button:hover::before {
+  left: 100%;
 }
 
 .back-button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5);
+  transform: translateY(-5px);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.4);
+  background: linear-gradient(45deg, #16213e, #0f3460);
+  border-color: rgba(255, 255, 255, 0.4);
 }
 
 .score-buttons {
@@ -537,15 +675,125 @@
 
 /* 비밀번호 필요 배지 */
 .password-badge {
-  background: linear-gradient(45deg, #ff9800, #f57c00);
+  background: linear-gradient(45deg, #ff9800, #f39c12);
   color: white;
-  padding: 0.4rem 0.8rem;
-  border-radius: 15px;
-  font-size: 0.8rem;
+  padding: 0.6rem 1.2rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
   font-weight: bold;
-  display: inline-block;
-  margin-top: 0.5rem;
-  box-shadow: 0 2px 8px rgba(255, 152, 0, 0.3);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  box-shadow: 0 6px 20px rgba(255, 152, 0, 0.3);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  transition: all 0.3s ease;
+}
+
+.password-badge:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(255, 152, 0, 0.4);
+}
+
+/* 우측하단 버튼 영역 */
+.floating-buttons {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  z-index: 1000;
+}
+
+.floating-button {
+  background: linear-gradient(45deg, #ff6b6b, #ee5a52);
+  color: white;
+  border: none;
+  padding: 15px 25px;
+  border-radius: 30px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  position: relative;
+  overflow: hidden;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.floating-button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s;
+}
+
+.floating-button:hover::before {
+  left: 100%;
+}
+
+.floating-button:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 35px rgba(255, 107, 107, 0.4);
+  background: linear-gradient(45deg, #ff5252, #d32f2f);
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+.floating-button.team-settings {
+  background: linear-gradient(45deg, #4caf50, #45a049);
+}
+
+.floating-button.team-settings:hover {
+  background: linear-gradient(45deg, #45a049, #3d8b40);
+  box-shadow: 0 12px 35px rgba(76, 175, 80, 0.4);
+}
+
+.floating-button.score-toggle {
+  background: linear-gradient(45deg, #ff9800, #f57c00);
+}
+
+.floating-button.score-toggle:hover {
+  background: linear-gradient(45deg, #f57c00, #e65100);
+  box-shadow: 0 12px 35px rgba(255, 152, 0, 0.4);
+}
+
+/* 우측하단 점수판 */
+.floating-scores {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: 320px;
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(20px);
+  border-radius: 25px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  z-index: 1001;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  transform: translateX(400px);
+  opacity: 0;
+  visibility: hidden;
+  margin-bottom: 200px;
+}
+
+.floating-scores.show {
+  transform: translateX(0);
+  opacity: 1;
+  visibility: visible;
+}
+
+.floating-scores:hover {
+  transform: translateX(0) translateY(-5px);
+  box-shadow: 0 25px 80px rgba(0, 0, 0, 0.3);
+  border-color: rgba(255, 255, 255, 0.5);
 }
 
 /* 모달 애니메이션 */

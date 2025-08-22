@@ -8,7 +8,7 @@ interface GameSettingsProps {
 // 스토리 데이터 정의
 export const storyData = {
   start: {
-    text: "🏘️ {teamAName} 파티와 {teamBName} 파티는 아를리아 세계의 시작점 '시간의 마을'에 도착했습니다! 이 마을은 거울처럼 투명한 하늘 아래에 위치해 있으며, 마을의 모든 시계들이 각각 다른 시간을 가리키고 있습니다. 마을 사람들은 각자 다른 시간 지분을 가지고 있어서, 같은 공간에서도 서로 다른 시간 속에서 살고 있습니다. 마을의 장로가 당신들을 반겨주며, '시간의 계단'에 대한 전설을 들려줍니다. 전설에 따르면, 계단의 정상에는 '시간의 조각'이 숨겨져 있어서, 그것을 얻으면 시간을 자유롭게 조종할 수 있다고 합니다. 하지만 시간을 바꾸면 세계에 균열이 생기고, 그림자 같은 실체 없는 존재들이 나타날 수 있습니다. 장로는 당신들에게 7대 종족의 마을들을 방문하여 각 종족의 도움을 받으라고 조언합니다. 각 종족은 고유한 능력과 지혜를 가지고 있어서, 그들의 도움 없이는 시간의 계단에 도달할 수 없다고 합니다...",
+    text: '🏘️ {teamAName} 파티와 {teamBName} 파티는 아를리아 세계의 시작점 \'시간의 마을\'에 도착했습니다!\n\n👴 마을 장로: "어서 오시오, 모험가들이여! 이곳은 시간의 마을이오. 보시다시피 모든 시계가 각각 다른 시간을 가리키고 있지요."\n\n👥 마을 사람들이 각자 다른 시간 속에서 살고 있는 것을 발견했습니다. 어떤 사람은 아침을, 어떤 사람은 저녁을, 또 어떤 사람은 과거나 미래를 살고 있습니다.\n\n👴 마을 장로: "시간의 계단에 대한 전설을 들려드리겠소. 계단의 정상에는 \'시간의 조각\'이 숨겨져 있어서, 그것을 얻으면 시간을 자유롭게 조종할 수 있다고 하오. 하지만 조심하시오! 시간을 바꾸면 세계에 균열이 생기고, 그림자 같은 실체 없는 존재들이 나타날 수 있소."\n\n👴 마을 장로: "7대 종족의 마을들을 방문하여 각 종족의 도움을 받으시오. 각 종족은 고유한 능력과 지혜를 가지고 있어서, 그들의 도움 없이는 시간의 계단에 도달할 수 없소."',
     choices: [
       {
         text: "🏘️ 마을을 탐험한다",
@@ -38,7 +38,7 @@ export const storyData = {
   },
   // 마을 관련 새로운 노드들
   explore_village: {
-    text: "🏘️ 마을을 탐험하기로 결정했습니다! 시간의 마을은 정말 신비로운 곳입니다. 각 집의 시계들이 서로 다른 시간을 가리키고 있고, 마을 사람들은 각자 다른 시간 속에서 살고 있습니다. 어떤 사람은 아침을, 어떤 사람은 저녁을, 또 어떤 사람은 과거나 미래를 살고 있습니다. 마을의 중앙에는 거대한 시계탑이 있고, 그 주변에는 시간의 꽃들이 피어있습니다. 마을을 돌아다니면서 시간의 비밀에 대해 더 많이 알 수 있을 것 같습니다. 마을의 장로가 나타나서 6대 종족의 마을들로 가는 길을 알려줍니다. 각 종족의 마을을 방문하여 그들의 도움을 받아야만 마지막에 계단의 수호자를 만날 수 있다고 합니다...",
+    text: '🏘️ 마을을 탐험하기로 결정했습니다!\n\n⏰ 마을의 중앙에는 거대한 시계탑이 있고, 그 주변에는 시간의 꽃들이 피어있습니다.\n\n👴 마을 장로가 나타나서 말합니다: "6대 종족의 마을들로 가는 길을 알려드리겠소. 각 종족의 마을을 방문하여 그들의 도움을 받아야만 마지막에 계단의 수호자를 만날 수 있소."\n\n👴 마을 장로: "벨로아족은 전투의 정신을, 누아르족은 그림자의 비밀을, 실프레드족은 바람의 자유를, 드라카르족은 용의 힘을, 룬마레족은 물의 지혜를, 모라스족은 고대의 지식을 가지고 있소."',
     choices: [
       {
         text: "🐺 벨로아족의 마을로 향한다",
@@ -96,7 +96,7 @@ export const storyData = {
     ],
   },
   visit_library: {
-    text: "📚 마을 도서관을 방문하기로 결정했습니다! 도서관은 고대의 지식으로 가득 차 있으며, 시간의 비밀에 대한 수많은 책들이 있습니다. 도서관의 사서는 시간의 기록자들의 후손이라고 하며, 시간의 계단과 시간의 조각에 대한 중요한 정보를 가지고 있습니다. 책장에는 과거, 현재, 미래의 지식이 담긴 책들이 정렬되어 있고, 각 책은 서로 다른 시간을 나타냅니다. 사서가 나타나서 '시간의 계단에 도달하려면 6대 종족의 마을들을 방문해야 합니다'라고 조언합니다...",
+    text: '📚 마을 도서관을 방문하기로 결정했습니다!\n\n📚 도서관은 고대의 지식으로 가득 차 있으며, 시간의 비밀에 대한 수많은 책들이 있습니다. 책장에는 과거, 현재, 미래의 지식이 담긴 책들이 정렬되어 있고, 각 책은 서로 다른 시간을 나타냅니다.\n\n👨‍💼 도서관 사서: "어서 오시오! 저는 시간의 기록자들의 후손이오. 시간의 계단과 시간의 조각에 대한 중요한 정보를 가지고 있소."\n\n👨‍💼 도서관 사서: "시간의 계단에 도달하려면 6대 종족의 마을들을 방문해야 하오. 각 종족은 고유한 능력과 지혜를 가지고 있어서, 그들의 도움 없이는 계단에 도달할 수 없소."',
     choices: [
       {
         text: "🐺 벨로아족의 마을로 향한다",
@@ -125,7 +125,7 @@ export const storyData = {
     ],
   },
   visit_shop: {
-    text: "🏪 마을 상점을 둘러보기로 결정했습니다! 상점에는 시간과 관련된 다양한 물건들이 판매되고 있습니다. 시간의 모래, 시간의 향초, 시간의 지도 등 신비로운 물건들이 진열되어 있습니다. 상점 주인은 시간의 상인이라고 하며, 각 물건에 대한 이야기를 들려줍니다. 상점 주인이 '시간의 계단에 도달하려면 6대 종족의 마을들을 방문해야 합니다'라고 조언합니다...",
+    text: '🏪 마을 상점을 둘러보기로 결정했습니다!\n\n🏪 상점에는 시간과 관련된 다양한 물건들이 판매되고 있습니다. 시간의 모래, 시간의 향초, 시간의 지도 등 신비로운 물건들이 진열되어 있습니다.\n\n👨‍💼 상점 주인: "어서 오시오! 저는 시간의 상인이오. 각 물건에 대한 이야기를 들려드리겠소."\n\n👨‍💼 상점 주인: "시간의 계단에 도달하려면 6대 종족의 마을들을 방문해야 하오. 각 종족은 고유한 능력과 지혜를 가지고 있어서, 그들의 도움 없이는 계단에 도달할 수 없소."',
     choices: [
       {
         text: "🐺 벨로아족의 마을로 향한다",
@@ -154,7 +154,7 @@ export const storyData = {
     ],
   },
   time_stairs: {
-    text: "⏰ 시간의 계단을 오르기 시작했습니다! 계단을 한 걸음 올릴 때마다 시간이 흘러가는 것을 느낄 수 있습니다. 첫 번째 계단에서는 하루가 지나고, 두 번째 계단에서는 한 달이, 세 번째 계단에서는 수백 년이 흘러갑니다. 두 파티는 각자 다른 시간 지분을 가지고 있어서, 같은 계단에 있어도 서로 다른 시간 속에서 존재하고 있습니다. 계단 위에서는 미래의 아리아가 나타나서 당신들에게 경고를 합니다. '시간을 바꾸면 세계에 균열이 생겨요. 조심하세요!'라고 말하며 사라집니다. 계단의 중간쯤에서 유리 조각을 발견했습니다. 이 조각을 만지면 시간을 조작할 수 있을 것 같습니다...",
+    text: '⏰ 시간의 계단을 오르기 시작했습니다!\n\n⏰ 계단을 한 걸음 올릴 때마다 시간이 흘러가는 것을 느낄 수 있습니다. 첫 번째 계단에서는 하루가 지나고, 두 번째 계단에서는 한 달이, 세 번째 계단에서는 수백 년이 흘러갑니다.\n\n👧 미래의 아리아가 나타나서 경고합니다: "시간을 바꾸면 세계에 균열이 생겨요. 조심하세요!"\n\n💎 계단의 중간쯤에서 유리 조각을 발견했습니다. 이 조각을 만지면 시간을 조작할 수 있을 것 같습니다...',
     choices: [
       {
         text: "🔮 유리 조각을 만진다",
@@ -3658,19 +3658,19 @@ export const storyData = {
     ],
   },
   visit_veloir_village: {
-    text: "🐺 벨로아족의 마을에 도착했습니다! 짐승의 귀와 꼬리를 가진 수인들이 무리를 이루어 살고 있는 모습을 볼 수 있습니다. 벨로아족은 전투력이 강하지만 감정에 쉽게 휘둘리는 특성이 있어서, 마을 곳곳에서 감정적인 대화와 전투 훈련이 벌어지고 있습니다. 무리를 이루는 습성으로 인해 동맹을 맺으면 강력한 조력자가 되지만, 외로움에 약해서 혼자가 되면 힘이 반감됩니다. {teamAName} 파티의 정현희(벨로아족)가 짐승의 감각으로 위험을 감지하며, {teamBName} 파티의 이송은(룬마레족)이 꿈을 통해 미래의 위험을 예지합니다. 벨로아족의 족장이 나타나서 강력한 전투 기술을 가르쳐주겠다고 하지만, 그들의 감정적 시련을 견뎌야만 한다고 합니다. 또한 에테르족에 대한 이야기를 들려주는데, '하늘에서 내려온 투명한 날개를 가진 종족이 있다'고 합니다...",
+    text: '🐺 벨로아족의 마을에 도착했습니다!\n\n🐺 짐승의 귀와 꼬리를 가진 수인들이 무리를 이루어 살고 있는 모습을 볼 수 있습니다. 마을 곳곳에서 감정적인 대화와 전투 훈련이 벌어지고 있습니다.\n\n👑 벨로아족 족장: "어서 오시오, 모험가들이여! 우리 벨로아족은 전투력이 강하지만 감정에 쉽게 휘둘리는 특성이 있소. 무리를 이루는 습성으로 인해 동맹을 맺으면 강력한 조력자가 되지만, 외로움에 약해서 혼자가 되면 힘이 반감되지."\n\n👑 벨로아족 족장: "강력한 전투 기술을 가르쳐주겠소. 하지만 그전에 우리의 감정적 시련을 견뎌야만 하오."\n\n👑 벨로아족 족장: "그리고 한 가지 더... 하늘에서 내려온 투명한 날개를 가진 종족이 있다고 들었소. 에테르족이라고 하는데, 그들은 시간의 비밀을 알고 있다고 하오."',
     choices: [
       {
         text: "🎉 축제에 참여한다",
         next: "veloir_village_festival",
-        scoreA: 0,
-        scoreB: 0,
+        scoreA: 5,
+        scoreB: 5,
       },
       {
         text: "⚔️ 마을을 지키기 위해 싸운다",
         next: "veloir_village_attack",
-        scoreA: 0,
-        scoreB: 0,
+        scoreA: 8,
+        scoreB: 8,
       },
       {
         text: "🐺 무리와 함께 훈련한다",
@@ -3684,10 +3684,22 @@ export const storyData = {
         scoreA: 8,
         scoreB: 8,
       },
+      {
+        text: "🏠 마을의 비밀을 탐험한다",
+        next: "veloir_village_secrets",
+        scoreA: 10,
+        scoreB: 10,
+      },
+      {
+        text: "🌙 밤의 의식을 참관한다",
+        next: "veloir_night_ceremony",
+        scoreA: 7,
+        scoreB: 7,
+      },
     ],
   },
   visit_noir_village: {
-    text: "🌑 누아르족의 마을에 도착했습니다! 어둠과 그림자 속에서 태어난 반실체 종족들이 밤의 어둠 속에서만 활발하게 활동하는 모습을 볼 수 있습니다. 누아르족은 '시간 균열'이 생길 때 출현하는 특성이 있어서, 마을의 중심에는 시간의 균열을 감지하는 거대한 그림자 거울이 있습니다. 이들은 적일 수도 길잡이일 수도 있어서 신중한 접근이 필요합니다. 빛에 약해서 낮에는 힘이 제한되지만, 어둠 속에서는 강력한 힘을 발휘합니다. {teamAName} 파티의 김석현(누아르족)이 그림자 속에서 정보를 수집하며, {teamBName} 파티의 정지윤(실프레드족)이 작은 바람으로 마을의 소문을 전해듣습니다. 누아르족의 어둠의 현자가 나타나서 시간의 비밀을 알려주겠다고 하지만, 그림자의 시험을 통과해야만 한다고 합니다...",
+    text: '🌑 누아르족의 마을에 도착했습니다!\n\n🌑 어둠과 그림자 속에서 태어난 반실체 종족들이 밤의 어둠 속에서만 활발하게 활동하는 모습을 볼 수 있습니다. 마을의 중심에는 시간의 균열을 감지하는 거대한 그림자 거울이 있습니다.\n\n🔮 누아르족 어둠의 현자: "어둠 속에서 온 모험가들이여... 우리 누아르족은 \'시간 균열\'이 생길 때 출현하는 특성이 있소. 우리는 적일 수도 길잡이일 수도 있어서 신중한 접근이 필요하지."\n\n🔮 누아르족 어둠의 현자: "빛에 약해서 낮에는 힘이 제한되지만, 어둠 속에서는 강력한 힘을 발휘하오. 시간의 비밀을 알려주겠소. 하지만 그전에 그림자의 시험을 통과해야만 하오."',
     choices: [
       {
         text: "🌑 그림자의 시험을 받는다",
@@ -3716,7 +3728,7 @@ export const storyData = {
     ],
   },
   visit_sylphred_village: {
-    text: "🌪️ 실프레드족의 마을에 도착했습니다! 바람을 다루는 작은 정령들이 쾌활하고 장난스럽게 바람을 타고 날아다니는 모습을 볼 수 있습니다. 실프레드족은 때로는 예언자 역할을 수행하기도 해서, 마을의 중심에는 미래를 예측하는 바람의 오라클이 있습니다. 작은 체구로 인해 물리 공격에 취약하지만, 바람을 자유롭게 조종할 수 있는 능력이 있습니다. {teamAName} 파티의 이동준(실프레드족)이 바람을 타고 마을 곳곳을 빠르게 탐험하며 쾌활한 농담을 던지고, {teamBName} 파티의 정지윤(실프레드족)이 작은 바람으로 마을의 소문을 전해듣습니다. 실프레드족의 바람의 현자가 나타나서 미래의 예언을 들려주겠다고 하지만, 바람의 장난을 견뎌야만 한다고 합니다...",
+    text: '🌪️ 실프레드족의 마을에 도착했습니다!\n\n🌪️ 바람을 다루는 작은 정령들이 쾌활하고 장난스럽게 바람을 타고 날아다니는 모습을 볼 수 있습니다. 마을의 중심에는 미래를 예측하는 바람의 오라클이 있습니다.\n\n🌪️ 실프레드족 바람의 현자: "바람을 타고 온 모험가들이여! 우리 실프레드족은 때로는 예언자 역할을 수행하기도 하오. 작은 체구로 인해 물리 공격에 취약하지만, 바람을 자유롭게 조종할 수 있는 능력이 있지!"\n\n🌪️ 실프레드족 바람의 현자: "미래의 예언을 들려주겠소. 하지만 그전에 우리의 바람의 장난을 견뎌야만 하오! 하하하!"',
     choices: [
       {
         text: "🌪️ 바람의 장난을 견뎌낸다",
@@ -4931,32 +4943,32 @@ export const storyData = {
       },
     ],
   },
-  // 마을별 이벤트들
-  // 벨로아족 마을 이벤트
+  // 마을별 확장 이벤트들
+  // 벨로아족 마을 확장 이벤트
   veloir_village_festival: {
     text: "🎉 벨로아족 마을에서 축제가 열리고 있습니다! 전투의 신을 기리는 축제에서 다양한 시련과 보상이 기다리고 있습니다. 축제에 참여하면 강력한 전투 기술을 배울 수 있지만, 실패하면 위험할 수도 있습니다...",
     choices: [
       {
         text: "⚔️ 전투 축제에 참여한다 (위험하지만 강해질 수 있다)",
-        next: "veloir_village_completed",
+        next: "veloir_festival_combat",
         scoreA: 35,
         scoreB: 35,
       },
       {
         text: "🎭 축제 구경만 한다 (안전하지만 별로 얻는 게 없다)",
-        next: "veloir_village_completed",
+        next: "veloir_festival_spectate",
         scoreA: 5,
         scoreB: 5,
       },
       {
         text: "🏆 축제 우승을 노린다 (매우 위험하지만 최고의 보상)",
-        next: "veloir_village_completed",
+        next: "veloir_festival_champion",
         scoreA: 60,
         scoreB: 60,
       },
       {
         text: "🏃 축제를 피해 지나간다 (시간을 절약할 수 있다)",
-        next: "veloir_village_completed",
+        next: "veloir_festival_skip",
         scoreA: 15,
         scoreB: 15,
       },
@@ -4967,25 +4979,25 @@ export const storyData = {
     choices: [
       {
         text: "🛡️ 마을을 지키기 위해 싸운다 (위험하지만 영웅이 될 수 있다)",
-        next: "veloir_village_completed",
+        next: "veloir_defend_village",
         scoreA: 45,
         scoreB: 45,
       },
       {
         text: "🏃 위험을 피해 도망간다 (안전하지만 비겁하다고 욕먹는다)",
-        next: "alliance_failed_ending",
+        next: "veloir_coward_escape",
         scoreA: -5,
         scoreB: -5,
       },
       {
         text: "🤝 짐승들과 협상한다 (평화롭지만 시간이 오래 걸린다)",
-        next: "veloir_village_completed",
+        next: "veloir_negotiate_beasts",
         scoreA: 25,
         scoreB: 25,
       },
       {
         text: "📢 다른 마을에 도움을 요청한다 (현명하지만 보상이 적다)",
-        next: "veloir_village_completed",
+        next: "veloir_request_help",
         scoreA: 15,
         scoreB: 15,
       },
@@ -5398,137 +5410,53 @@ export const storyData = {
     ],
   },
   drakar_village_completed: {
-    text: "✅ 드라카르족 마을 방문을 완료했습니다! 용의 불꽃을 다루는 법과 명예의 정신을 배웠습니다. 이제 다른 종족들의 마을을 방문해야 합니다...",
+    text: "✅ 드라카르족 마을 방문을 완료했습니다! 용의 불꽃을 다루는 법과 명예의 정신을 배웠습니다. 마을을 떠나기 전에 드라카르족과 동맹을 맺을지 결정해야 합니다. 동맹을 맺으면 용의 힘을 얻을 수 있지만, 동맹을 맺지 않으면 혼자서 진행해야 합니다...",
     choices: [
       {
-        text: "🐺 벨로아족의 마을로 향한다",
-        next: "visit_veloir_village",
+        text: "🤝 드라카르족과 동맹을 맺는다 (용의 힘 획득)",
+        next: "drakar_alliance_formed",
+        scoreA: 15,
+        scoreB: 15,
+      },
+      {
+        text: "👋 동맹 없이 떠난다 (자유롭지만 혼자서 진행)",
+        next: "drakar_no_alliance",
         scoreA: 5,
         scoreB: 5,
-      },
-      {
-        text: "🌑 누아르족의 마을로 향한다",
-        next: "visit_noir_village",
-        scoreA: 5,
-        scoreB: 5,
-      },
-      {
-        text: "🌪️ 실프레드족의 마을로 향한다",
-        next: "visit_sylphred_village",
-        scoreA: 5,
-        scoreB: 5,
-      },
-      {
-        text: "🌊 룬마레족의 마을로 향한다",
-        next: "visit_runmare_village",
-        scoreA: 5,
-        scoreB: 5,
-      },
-      {
-        text: "📚 모라스족의 마을로 향한다",
-        next: "visit_moras_village",
-        scoreA: 5,
-        scoreB: 5,
-      },
-      {
-        text: "📚 도서관에서 시간의 비밀을 연구한다",
-        next: "research_time_secrets",
-        scoreA: 8,
-        scoreB: 8,
-      },
-      {
-        text: "🏪 상점에서 시간의 물건을 구매한다",
-        next: "buy_time_items",
-        scoreA: 6,
-        scoreB: 6,
-      },
-      {
-        text: "🌲 숲에서 시간의 꽃을 수집한다",
-        next: "collect_time_flowers",
-        scoreA: 7,
-        scoreB: 7,
       },
     ],
   },
   runmare_village_completed: {
-    text: "✅ 룬마레족 마을 방문을 완료했습니다! 꿈을 다루는 법과 현실과 꿈의 경계를 배웠습니다. 이제 다른 종족들의 마을을 방문해야 합니다...",
+    text: "✅ 룬마레족 마을 방문을 완료했습니다! 꿈을 다루는 법과 현실과 꿈의 경계를 배웠습니다. 마을을 떠나기 전에 룬마레족과 동맹을 맺을지 결정해야 합니다. 동맹을 맺으면 꿈의 힘을 얻을 수 있지만, 동맹을 맺지 않으면 혼자서 진행해야 합니다...",
     choices: [
       {
-        text: "🐺 벨로아족의 마을로 향한다",
-        next: "visit_veloir_village",
+        text: "🤝 룬마레족과 동맹을 맺는다 (꿈의 힘 획득)",
+        next: "runmare_alliance_formed",
+        scoreA: 15,
+        scoreB: 15,
+      },
+      {
+        text: "👋 동맹 없이 떠난다 (자유롭지만 혼자서 진행)",
+        next: "runmare_no_alliance",
         scoreA: 5,
         scoreB: 5,
-      },
-      {
-        text: "🌑 누아르족의 마을로 향한다",
-        next: "visit_noir_village",
-        scoreA: 5,
-        scoreB: 5,
-      },
-      {
-        text: "🌪️ 실프레드족의 마을로 향한다",
-        next: "visit_sylphred_village",
-        scoreA: 5,
-        scoreB: 5,
-      },
-      {
-        text: "🔥 드라카르족의 마을로 향한다",
-        next: "visit_drakar_village",
-        scoreA: 5,
-        scoreB: 5,
-      },
-      {
-        text: "📚 모라스족의 마을로 향한다",
-        next: "visit_moras_village",
-        scoreA: 5,
-        scoreB: 5,
-      },
-      {
-        text: "📚 도서관에서 시간의 비밀을 연구한다",
-        next: "research_time_secrets",
-        scoreA: 8,
-        scoreB: 8,
-      },
-      {
-        text: "🏪 상점에서 시간의 물건을 구매한다",
-        next: "buy_time_items",
-        scoreA: 6,
-        scoreB: 6,
-      },
-      {
-        text: "🌲 숲에서 시간의 꽃을 수집한다",
-        next: "collect_time_flowers",
-        scoreA: 7,
-        scoreB: 7,
       },
     ],
   },
   moras_village_completed: {
-    text: "✅ 모라스족 마을 방문을 완료했습니다! 고대의 지혜와 시간의 비밀을 배웠습니다. 이제 마지막으로 에테르족의 마을을 방문해야 합니다...",
+    text: "✅ 모라스족 마을 방문을 완료했습니다! 고대의 지혜와 시간의 비밀을 배웠습니다. 마을을 떠나기 전에 모라스족과 동맹을 맺을지 결정해야 합니다. 동맹을 맺으면 고대의 지혜를 얻을 수 있지만, 동맹을 맺지 않으면 혼자서 진행해야 합니다...",
     choices: [
       {
-        text: "🔮 에테르족의 마을로 향한다",
-        next: "visit_ethereal_village",
-        scoreA: 10,
-        scoreB: 10,
+        text: "🤝 모라스족과 동맹을 맺는다 (고대의 지혜 획득)",
+        next: "moras_alliance_formed",
+        scoreA: 15,
+        scoreB: 15,
       },
       {
-        text: "📚 도서관에서 시간의 비밀을 연구한다",
-        next: "research_time_secrets",
-        scoreA: 8,
-        scoreB: 8,
-      },
-      {
-        text: "🏪 상점에서 시간의 물건을 구매한다",
-        next: "buy_time_items",
-        scoreA: 6,
-        scoreB: 6,
-      },
-      {
-        text: "🌲 숲에서 시간의 꽃을 수집한다",
-        next: "collect_time_flowers",
-        scoreA: 7,
-        scoreB: 7,
+        text: "👋 동맹 없이 떠난다 (자유롭지만 혼자서 진행)",
+        next: "moras_no_alliance",
+        scoreA: 5,
+        scoreB: 5,
       },
     ],
   },
@@ -5683,6 +5611,946 @@ export const storyData = {
         next: "visit_runmare_village",
         scoreA: 0,
         scoreB: 0,
+      },
+    ],
+  },
+  // 새로운 동맹 노드들
+  drakar_alliance_formed: {
+    text: "🤝 드라카르족과 동맹을 맺었습니다! 드라카르족의 강력한 용의 힘과 명예의 정신이 당신의 여정에 큰 도움이 될 것입니다. 하지만 동맹을 맺은 만큼 드라카르족의 의견을 존중해야 하고, 그들의 명예 중시 성향 때문에 유연한 접근이 어려워질 수 있습니다. 또한 드라카르족과 동맹을 맺으면 벨로아족이 적대적이 될 수 있다는 소문이 있습니다...",
+    choices: [
+      {
+        text: "🐺 벨로아족의 마을로 향한다 (드라카르족이 전투를 좋아한다고 경고)",
+        next: "visit_veloir_village_with_drakar_alliance",
+        scoreA: 5,
+        scoreB: 5,
+      },
+      {
+        text: "🌑 누아르족의 마을로 향한다 (드라카르족이 그림자를 경계한다)",
+        next: "visit_noir_village_with_drakar_alliance",
+        scoreA: 5,
+        scoreB: 5,
+      },
+      {
+        text: "🌪️ 실프레드족의 마을로 향한다 (드라카르족이 바람을 타는 것을 좋아한다)",
+        next: "visit_sylphred_village_with_drakar_alliance",
+        scoreA: 5,
+        scoreB: 5,
+      },
+      {
+        text: "🌊 룬마레족의 마을로 향한다 (드라카르족이 꿈의 힘을 인정한다)",
+        next: "visit_runmare_village_with_drakar_alliance",
+        scoreA: 5,
+        scoreB: 5,
+      },
+      {
+        text: "📚 모라스족의 마을로 향한다 (드라카르족이 고대 지혜를 존중한다)",
+        next: "visit_moras_village_with_drakar_alliance",
+        scoreA: 5,
+        scoreB: 5,
+      },
+    ],
+  },
+  drakar_no_alliance: {
+    text: "👋 드라카르족과 동맹을 맺지 않고 떠났습니다. 자유롭게 여행할 수 있고 어떤 선택이든 할 수 있지만, 혼자서는 시간의 계단에 도달하기 어려울 수 있습니다. 하지만 중립적인 입장이기 때문에 모든 종족과 평화롭게 접근할 수 있습니다...",
+    choices: [
+      {
+        text: "🐺 벨로아족의 마을로 향한다",
+        next: "visit_veloir_village",
+        scoreA: 5,
+        scoreB: 5,
+      },
+      {
+        text: "🌑 누아르족의 마을로 향한다",
+        next: "visit_noir_village",
+        scoreA: 5,
+        scoreB: 5,
+      },
+      {
+        text: "🌪️ 실프레드족의 마을로 향한다",
+        next: "visit_sylphred_village",
+        scoreA: 5,
+        scoreB: 5,
+      },
+      {
+        text: "🌊 룬마레족의 마을로 향한다",
+        next: "visit_runmare_village",
+        scoreA: 5,
+        scoreB: 5,
+      },
+      {
+        text: "📚 모라스족의 마을로 향한다",
+        next: "visit_moras_village",
+        scoreA: 5,
+        scoreB: 5,
+      },
+    ],
+  },
+  runmare_alliance_formed: {
+    text: "🤝 룬마레족과 동맹을 맺었습니다! 룬마레족의 꿈을 다루는 능력과 예지의 힘이 당신의 여정에 큰 도움이 될 것입니다. 하지만 동맹을 맺은 만큼 룬마레족의 의견을 존중해야 하고, 그들의 꿈에 의존하는 성향 때문에 현실적인 접근이 어려워질 수 있습니다. 또한 룬마레족과 동맹을 맺으면 누아르족이 적대적이 될 수 있다는 소문이 있습니다...",
+    choices: [
+      {
+        text: "🐺 벨로아족의 마을로 향한다 (룬마레족이 전투의 꿈을 예지했다)",
+        next: "visit_veloir_village",
+        scoreA: 5,
+        scoreB: 5,
+      },
+      {
+        text: "🌑 누아르족의 마을로 향한다 (룬마레족이 그림자와 꿈이 상극이라고 경고)",
+        next: "visit_noir_village",
+        scoreA: 5,
+        scoreB: 5,
+      },
+      {
+        text: "🌪️ 실프레드족의 마을로 향한다 (룬마레족이 바람과 꿈이 조화를 이룬다고 예지)",
+        next: "visit_sylphred_village",
+        scoreA: 5,
+        scoreB: 5,
+      },
+      {
+        text: "🔥 드라카르족의 마을로 향한다 (룬마레족이 용의 꿈을 예지했다)",
+        next: "visit_drakar_village",
+        scoreA: 5,
+        scoreB: 5,
+      },
+      {
+        text: "📚 모라스족의 마을로 향한다 (룬마레족이 고대 지혜의 꿈을 예지했다)",
+        next: "visit_moras_village",
+        scoreA: 5,
+        scoreB: 5,
+      },
+    ],
+  },
+  runmare_no_alliance: {
+    text: "👋 룬마레족과 동맹을 맺지 않고 떠났습니다. 자유롭게 여행할 수 있고 어떤 선택이든 할 수 있지만, 혼자서는 시간의 계단에 도달하기 어려울 수 있습니다. 하지만 중립적인 입장이기 때문에 모든 종족과 평화롭게 접근할 수 있습니다...",
+    choices: [
+      {
+        text: "🐺 벨로아족의 마을로 향한다",
+        next: "visit_veloir_village",
+        scoreA: 5,
+        scoreB: 5,
+      },
+      {
+        text: "🌑 누아르족의 마을로 향한다",
+        next: "visit_noir_village",
+        scoreA: 5,
+        scoreB: 5,
+      },
+      {
+        text: "🌪️ 실프레드족의 마을로 향한다",
+        next: "visit_sylphred_village",
+        scoreA: 5,
+        scoreB: 5,
+      },
+      {
+        text: "🔥 드라카르족의 마을로 향한다",
+        next: "visit_drakar_village",
+        scoreA: 5,
+        scoreB: 5,
+      },
+      {
+        text: "📚 모라스족의 마을로 향한다",
+        next: "visit_moras_village",
+        scoreA: 5,
+        scoreB: 5,
+      },
+    ],
+  },
+  moras_alliance_formed: {
+    text: "🤝 모라스족과 동맹을 맺었습니다! 모라스족의 고대의 지혜와 시간의 비밀에 대한 깊은 이해가 당신의 여정에 큰 도움이 될 것입니다. 하지만 동맹을 맺은 만큼 모라스족의 의견을 존중해야 하고, 그들의 보수적인 성향 때문에 혁신적인 접근이 어려워질 수 있습니다. 또한 모라스족과 동맹을 맺으면 다른 종족들이 당신을 지나치게 신중한 존재로 여길 수 있습니다...",
+    choices: [
+      {
+        text: "🐺 벨로아족의 마을로 향한다 (모라스족이 전투의 지혜를 가르쳐줬다)",
+        next: "visit_veloir_village",
+        scoreA: 5,
+        scoreB: 5,
+      },
+      {
+        text: "🌑 누아르족의 마을로 향한다 (모라스족이 그림자의 고대 비밀을 알려줬다)",
+        next: "visit_noir_village",
+        scoreA: 5,
+        scoreB: 5,
+      },
+      {
+        text: "🌪️ 실프레드족의 마을로 향한다 (모라스족이 바람의 고대 지혜를 전수했다)",
+        next: "visit_sylphred_village",
+        scoreA: 5,
+        scoreB: 5,
+      },
+      {
+        text: "🔥 드라카르족의 마을로 향한다 (모라스족이 용의 고대 비밀을 알려줬다)",
+        next: "visit_drakar_village",
+        scoreA: 5,
+        scoreB: 5,
+      },
+      {
+        text: "🌊 룬마레족의 마을로 향한다 (모라스족이 꿈의 고대 지혜를 전수했다)",
+        next: "visit_runmare_village",
+        scoreA: 5,
+        scoreB: 5,
+      },
+    ],
+  },
+  moras_no_alliance: {
+    text: "👋 모라스족과 동맹을 맺지 않고 떠났습니다. 자유롭게 여행할 수 있고 어떤 선택이든 할 수 있지만, 혼자서는 시간의 계단에 도달하기 어려울 수 있습니다. 하지만 중립적인 입장이기 때문에 모든 종족과 평화롭게 접근할 수 있습니다...",
+    choices: [
+      {
+        text: "🐺 벨로아족의 마을로 향한다",
+        next: "visit_veloir_village",
+        scoreA: 5,
+        scoreB: 5,
+      },
+      {
+        text: "🌑 누아르족의 마을로 향한다",
+        next: "visit_noir_village",
+        scoreA: 5,
+        scoreB: 5,
+      },
+      {
+        text: "🌪️ 실프레드족의 마을로 향한다",
+        next: "visit_sylphred_village",
+        scoreA: 5,
+        scoreB: 5,
+      },
+      {
+        text: "🔥 드라카르족의 마을로 향한다",
+        next: "visit_drakar_village",
+        scoreA: 5,
+        scoreB: 5,
+      },
+      {
+        text: "🌊 룬마레족의 마을로 향한다",
+        next: "visit_runmare_village",
+        scoreA: 5,
+        scoreB: 5,
+      },
+    ],
+  },
+  // 동맹 간 갈등 이벤트들
+  visit_veloir_village_with_drakar_alliance: {
+    text: "🐺 벨로아족 마을에 도착했습니다! 하지만 드라카르족과의 동맹 때문에 벨로아족들이 당신을 적대적으로 대하고 있습니다. 벨로아족의 족장이 나타나서 '드라카르족과 동맹을 맺은 자는 우리의 적이다! 용의 불꽃은 우리의 전투 정신을 모욕한다!'라고 외칩니다. 이 상황을 어떻게 해결할까요?",
+    choices: [
+      {
+        text: "🛡️ 드라카르족 동맹을 유지한다 (벨로아족과 전투)",
+        next: "veloir_drakar_conflict",
+        scoreA: -10,
+        scoreB: -10,
+      },
+      {
+        text: "🤝 벨로아족과 협상한다 (드라카르족 동맹 유지하면서 평화 추구)",
+        next: "veloir_drakar_negotiation",
+        scoreA: 5,
+        scoreB: 5,
+      },
+      {
+        text: "💔 드라카르족 동맹을 포기한다 (벨로아족과 새로운 동맹)",
+        next: "veloir_alliance_formed",
+        scoreA: 10,
+        scoreB: 10,
+      },
+    ],
+  },
+  veloir_drakar_conflict: {
+    text: "⚔️ 벨로아족과 드라카르족 간의 전투가 시작되었습니다! 드라카르족의 용의 불꽃과 벨로아족의 전투 정신이 충돌하고 있습니다. 이 전투에서 승리하면 두 종족 모두의 힘을 얻을 수 있지만, 패배하면 모든 동맹이 무너질 수 있습니다...",
+    choices: [
+      {
+        text: "🔥 드라카르족의 용의 불꽃으로 공격한다",
+        next: "drakar_fire_attack",
+        scoreA: 15,
+        scoreB: 15,
+      },
+      {
+        text: "🛡️ 방어 태세를 취하며 협상 기회를 노린다",
+        next: "defensive_negotiation",
+        scoreA: 5,
+        scoreB: 5,
+      },
+      {
+        text: "🏃 전투를 피해 도망친다",
+        next: "escape_from_conflict",
+        scoreA: -5,
+        scoreB: -5,
+      },
+    ],
+  },
+  veloir_drakar_negotiation: {
+    text: "🤝 벨로아족과 드라카르족 간의 협상이 시작되었습니다! 당신의 중재로 두 종족이 서로의 차이점을 이해하고 공통점을 찾기 시작했습니다. 벨로아족의 전투 정신과 드라카르족의 명예가 결합되면 어떤 결과가 나올까요?",
+    choices: [
+      {
+        text: "🤝 두 종족 모두와 동맹을 맺는다 (강력한 이중 동맹)",
+        next: "veloir_drakar_double_alliance",
+        scoreA: 25,
+        scoreB: 25,
+      },
+      {
+        text: "⚖️ 중립을 유지하며 양쪽 모두의 도움을 받는다",
+        next: "neutral_mediator",
+        scoreA: 15,
+        scoreB: 15,
+      },
+      {
+        text: "🔄 새로운 동맹 체계를 제안한다",
+        next: "new_alliance_system",
+        scoreA: 20,
+        scoreB: 20,
+      },
+    ],
+  },
+  visit_noir_village_with_runmare_alliance: {
+    text: "🌑 누아르족 마을에 도착했습니다! 하지만 룬마레족과의 동맹 때문에 누아르족들이 당신을 의심하고 있습니다. 누아르족의 족장이 나타나서 '꿈과 그림자는 상극이다! 룬마레족의 예지는 우리의 그림자 비밀을 위협한다!'라고 말합니다. 이 상황을 어떻게 해결할까요?",
+    choices: [
+      {
+        text: "🛡️ 룬마레족 동맹을 유지한다 (누아르족과 대립)",
+        next: "noir_runmare_conflict",
+        scoreA: -10,
+        scoreB: -10,
+      },
+      {
+        text: "🤝 누아르족과 협상한다 (룬마레족 동맹 유지하면서 평화 추구)",
+        next: "noir_runmare_negotiation",
+        scoreA: 5,
+        scoreB: 5,
+      },
+      {
+        text: "💔 룬마레족 동맹을 포기한다 (누아르족과 새로운 동맹)",
+        next: "noir_alliance_formed",
+        scoreA: 10,
+        scoreB: 10,
+      },
+    ],
+  },
+  noir_runmare_conflict: {
+    text: "🌑 룬마레족과 누아르족 간의 갈등이 심화되었습니다! 꿈의 예지와 그림자의 비밀 사이에서 균열이 생기고 있습니다. 이 갈등을 해결하지 못하면 두 종족 모두의 힘을 잃을 수 있습니다...",
+    choices: [
+      {
+        text: "🌙 룬마레족의 꿈 예지로 누아르족을 설득한다",
+        next: "dream_persuasion",
+        scoreA: 15,
+        scoreB: 15,
+      },
+      {
+        text: "🌑 누아르족의 그림자 비밀을 활용한다",
+        next: "shadow_secret_usage",
+        scoreA: 10,
+        scoreB: 10,
+      },
+      {
+        text: "⚖️ 두 힘의 조화를 시도한다",
+        next: "dream_shadow_harmony",
+        scoreA: 20,
+        scoreB: 20,
+      },
+    ],
+  },
+  // 중간 이벤트들 - 마을 간 이동 시
+  between_villages_event: {
+    text: "🌲 마을 간 이동 중에 신비로운 숲을 발견했습니다! 이 숲에는 시간의 꽃들이 피어있고, 각 꽃마다 다른 종족의 비밀을 담고 있다고 합니다. 어떤 꽃을 선택할까요?",
+    choices: [
+      {
+        text: "🔥 불꽃 꽃 (드라카르족의 비밀)",
+        next: "fire_flower_secret_new",
+        scoreA: 8,
+        scoreB: 8,
+      },
+      {
+        text: "🌙 그림자 꽃 (누아르족의 비밀)",
+        next: "shadow_flower_secret",
+        scoreA: 8,
+        scoreB: 8,
+      },
+      {
+        text: "🌪️ 바람 꽃 (실프레드족의 비밀)",
+        next: "wind_flower_secret",
+        scoreA: 8,
+        scoreB: 8,
+      },
+      {
+        text: "🌊 물 꽃 (룬마레족의 비밀)",
+        next: "water_flower_secret",
+        scoreA: 8,
+        scoreB: 8,
+      },
+      {
+        text: "📚 지혜 꽃 (모라스족의 비밀)",
+        next: "wisdom_flower_secret",
+        scoreA: 8,
+        scoreB: 8,
+      },
+    ],
+  },
+  fire_flower_secret_new: {
+    text: "🔥 불꽃 꽃을 선택했습니다! 꽃에서 드라카르족의 고대 비밀을 알 수 있습니다. '용의 불꽃은 시간을 녹일 수 있다'는 비밀을 발견했습니다. 이 지식을 어떻게 활용할까요?",
+    choices: [
+      {
+        text: "🔥 드라카르족에게 이 비밀을 알려준다 (동맹 강화)",
+        next: "share_fire_secret_with_drakar",
+        scoreA: 12,
+        scoreB: 12,
+      },
+      {
+        text: "🤝 다른 종족들과 이 비밀을 공유한다 (평화 조성)",
+        next: "share_fire_secret_with_all",
+        scoreA: 10,
+        scoreB: 10,
+      },
+      {
+        text: "🔒 이 비밀을 혼자 간직한다 (개인 힘)",
+        next: "keep_fire_secret",
+        scoreA: 15,
+        scoreB: 15,
+      },
+    ],
+  },
+  // 벨로아족 마을 확장 이벤트들 (새로운 버전)
+  veloir_festival_combat: {
+    text: "⚔️ 전투 축제에 참여했습니다! 무시무시한 전투가 벌어지고 있고, 당신은 벨로아족의 전투 기술을 직접 체험할 수 있습니다. 전투의 열기 속에서 무리의 정신을 깨닫게 됩니다...",
+    choices: [
+      {
+        text: "👑 전투에서 승리하여 무리의 리더가 된다",
+        next: "veloir_combat_victory",
+        scoreA: 50,
+        scoreB: 50,
+      },
+      {
+        text: "🤝 전투를 통해 무리와의 우정을 쌓는다",
+        next: "veloir_combat_friendship",
+        scoreA: 35,
+        scoreB: 35,
+      },
+      {
+        text: "💪 전투 기술을 배워 개인 실력을 향상시킨다",
+        next: "veloir_combat_skill",
+        scoreA: 40,
+        scoreB: 40,
+      },
+      {
+        text: "🏆 전투 대회에서 우승하여 명예를 얻는다",
+        next: "veloir_combat_champion",
+        scoreA: 60,
+        scoreB: 60,
+      },
+    ],
+  },
+  veloir_combat_victory: {
+    text: "👑 전투에서 승리하여 무리의 리더가 되었습니다! 벨로아족들이 당신을 존경하며 따르고 있습니다. 무리의 정신과 리더십의 중요성을 깨닫게 되었습니다...",
+    choices: [
+      {
+        text: "🎯 다음 도전을 준비한다",
+        next: "veloir_village_completed",
+        scoreA: 10,
+        scoreB: 10,
+      },
+    ],
+  },
+  veloir_combat_friendship: {
+    text: "🤝 전투를 통해 무리와의 우정을 쌓았습니다! 벨로아족들과 깊은 유대감을 형성했고, 그들의 문화와 정신을 이해하게 되었습니다...",
+    choices: [
+      {
+        text: "🤝 우정을 더욱 깊게 한다",
+        next: "veloir_village_completed",
+        scoreA: 8,
+        scoreB: 8,
+      },
+    ],
+  },
+  veloir_combat_skill: {
+    text: "💪 전투 기술을 배워 개인 실력을 향상시켰습니다! 벨로아족의 고유한 전투 기술을 습득했고, 무리의 협력 정신도 함께 배웠습니다...",
+    choices: [
+      {
+        text: "⚔️ 기술을 더욱 연마한다",
+        next: "veloir_village_completed",
+        scoreA: 12,
+        scoreB: 12,
+      },
+    ],
+  },
+  veloir_combat_champion: {
+    text: "🏆 전투 대회에서 우승하여 명예를 얻었습니다! 벨로아족 마을의 영웅이 되었고, 모든 무리들이 당신을 인정하고 있습니다...",
+    choices: [
+      {
+        text: "🏆 영웅의 자리를 받아들인다",
+        next: "veloir_village_completed",
+        scoreA: 15,
+        scoreB: 15,
+      },
+    ],
+  },
+  veloir_festival_spectate: {
+    text: "🎭 축제를 구경하기로 했습니다! 벨로아족들의 다양한 전통과 문화를 관찰할 수 있습니다. 축제의 분위기를 즐기면서 마을의 분위기를 파악할 수 있습니다...",
+    choices: [
+      {
+        text: "📚 축제를 통해 벨로아족의 역사를 배운다",
+        next: "veloir_spectate_history",
+        scoreA: 15,
+        scoreB: 15,
+      },
+      {
+        text: "🎵 축제의 음악과 춤을 관찰한다",
+        next: "veloir_spectate_music",
+        scoreA: 10,
+        scoreB: 10,
+      },
+      {
+        text: "🍺 축제의 음식을 맛보며 문화를 체험한다",
+        next: "veloir_spectate_food",
+        scoreA: 8,
+        scoreB: 8,
+      },
+      {
+        text: "🤝 축제를 통해 마을 사람들과 친해진다",
+        next: "veloir_spectate_social",
+        scoreA: 12,
+        scoreB: 12,
+      },
+    ],
+  },
+  veloir_spectate_history: {
+    text: "📚 축제를 통해 벨로아족의 역사를 배웠습니다! 그들의 전통과 문화에 대한 깊은 이해를 얻었고, 무리의 정신이 어떻게 형성되었는지 알게 되었습니다...",
+    choices: [
+      {
+        text: "📖 더 많은 역사를 배운다",
+        next: "veloir_village_completed",
+        scoreA: 8,
+        scoreB: 8,
+      },
+    ],
+  },
+  veloir_spectate_music: {
+    text: "🎵 축제의 음악과 춤을 관찰했습니다! 벨로아족의 예술적 재능과 문화적 표현을 체험했고, 그들의 감정적 특성을 이해하게 되었습니다...",
+    choices: [
+      {
+        text: "🎶 음악에 더욱 몰입한다",
+        next: "veloir_village_completed",
+        scoreA: 6,
+        scoreB: 6,
+      },
+    ],
+  },
+  veloir_spectate_food: {
+    text: "🍺 축제의 음식을 맛보며 문화를 체험했습니다! 벨로아족의 전통 음식과 문화를 직접 체험했고, 그들과의 유대감이 깊어졌습니다...",
+    choices: [
+      {
+        text: "🍽️ 더 많은 음식을 맛본다",
+        next: "veloir_village_completed",
+        scoreA: 5,
+        scoreB: 5,
+      },
+    ],
+  },
+  veloir_spectate_social: {
+    text: "🤝 축제를 통해 마을 사람들과 친해졌습니다! 벨로아족들과 자연스럽게 어울리면서 그들의 문화와 정신을 이해하게 되었습니다...",
+    choices: [
+      {
+        text: "🤝 더 깊은 우정을 쌓는다",
+        next: "veloir_village_completed",
+        scoreA: 7,
+        scoreB: 7,
+      },
+    ],
+  },
+  veloir_festival_champion: {
+    text: "🏆 축제 우승을 노리기로 했습니다! 가장 위험하고 어려운 도전이지만, 성공하면 최고의 보상을 받을 수 있습니다. 모든 무리들이 당신을 주목하고 있습니다...",
+    choices: [
+      {
+        text: "⚔️ 최고의 전투 기술로 우승한다",
+        next: "veloir_champion_combat",
+        scoreA: 80,
+        scoreB: 80,
+      },
+      {
+        text: "🎭 예술적 재능으로 우승한다",
+        next: "veloir_champion_art",
+        scoreA: 70,
+        scoreB: 70,
+      },
+      {
+        text: "🧠 지혜와 전략으로 우승한다",
+        next: "veloir_champion_wisdom",
+        scoreA: 75,
+        scoreB: 75,
+      },
+      {
+        text: "💪 체력과 인내로 우승한다",
+        next: "veloir_champion_endurance",
+        scoreA: 65,
+        scoreB: 65,
+      },
+    ],
+  },
+  veloir_champion_combat: {
+    text: "⚔️ 최고의 전투 기술로 우승했습니다! 벨로아족 마을의 전설적인 전사가 되었고, 모든 무리들이 당신을 최고의 영웅으로 인정하고 있습니다...",
+    choices: [
+      {
+        text: "🏆 전설의 자리를 받아들인다",
+        next: "veloir_village_completed",
+        scoreA: 20,
+        scoreB: 20,
+      },
+    ],
+  },
+  veloir_champion_art: {
+    text: "🎭 예술적 재능으로 우승했습니다! 벨로아족의 예술과 문화를 완벽하게 이해하고 표현했고, 그들의 감정적 특성을 예술로 승화시켰습니다...",
+    choices: [
+      {
+        text: "🎨 예술가의 길을 걷는다",
+        next: "veloir_village_completed",
+        scoreA: 18,
+        scoreB: 18,
+      },
+    ],
+  },
+  veloir_champion_wisdom: {
+    text: "🧠 지혜와 전략으로 우승했습니다! 벨로아족의 무리 정신과 전략적 사고를 완벽하게 이해했고, 그들의 문화를 지혜롭게 활용했습니다...",
+    choices: [
+      {
+        text: "🧠 현자의 길을 걷는다",
+        next: "veloir_village_completed",
+        scoreA: 19,
+        scoreB: 19,
+      },
+    ],
+  },
+  veloir_champion_endurance: {
+    text: "💪 체력과 인내로 우승했습니다! 벨로아족의 강인한 정신과 끈기를 완벽하게 보여주었고, 그들의 무리 정신을 체력으로 승화시켰습니다...",
+    choices: [
+      {
+        text: "💪 강자의 길을 걷는다",
+        next: "veloir_village_completed",
+        scoreA: 17,
+        scoreB: 17,
+      },
+    ],
+  },
+  veloir_skip_explore: {
+    text: "🏠 마을의 다른 곳을 탐험했습니다! 축제를 피했지만 마을의 다른 매력적인 곳들을 발견했고, 벨로아족의 일상생활을 관찰할 수 있었습니다...",
+    choices: [
+      {
+        text: "🔍 더 많은 곳을 탐험한다",
+        next: "veloir_village_completed",
+        scoreA: 10,
+        scoreB: 10,
+      },
+    ],
+  },
+  veloir_skip_library: {
+    text: "📚 마을 도서관에서 지식을 얻었습니다! 벨로아족의 역사와 문화에 대한 깊은 지식을 습득했고, 그들의 전통과 정신을 이해하게 되었습니다...",
+    choices: [
+      {
+        text: "📖 더 많은 지식을 얻는다",
+        next: "veloir_village_completed",
+        scoreA: 12,
+        scoreB: 12,
+      },
+    ],
+  },
+  veloir_skip_nature: {
+    text: "🌿 마을 주변의 자연을 탐험했습니다! 벨로아족이 살고 있는 자연 환경을 체험했고, 그들이 자연과 어떻게 조화를 이루며 살아가는지 알게 되었습니다...",
+    choices: [
+      {
+        text: "🌲 자연을 더욱 탐험한다",
+        next: "veloir_village_completed",
+        scoreA: 9,
+        scoreB: 9,
+      },
+    ],
+  },
+  veloir_skip_conversation: {
+    text: "🤝 마을 사람들과 개별적으로 대화했습니다! 축제를 피했지만 개인적인 대화를 통해 벨로아족들의 진심을 들을 수 있었고, 그들과의 유대감을 형성했습니다...",
+    choices: [
+      {
+        text: "💬 더 깊은 대화를 나눈다",
+        next: "veloir_village_completed",
+        scoreA: 8,
+        scoreB: 8,
+      },
+    ],
+  },
+  veloir_defense_line: {
+    text: "🛡️ 방어선을 구축하여 마을을 지켰습니다! 벨로아족들과 함께 완벽한 방어 체계를 구축했고, 무리의 협력 정신을 체험했습니다...",
+    choices: [
+      {
+        text: "🛡️ 방어를 더욱 강화한다",
+        next: "veloir_village_completed",
+        scoreA: 12,
+        scoreB: 12,
+      },
+    ],
+  },
+  veloir_aggressive_attack: {
+    text: "⚔️ 적극적으로 공격하여 적을 물리쳤습니다! 벨로아족의 전투 정신을 직접 체험했고, 무리의 힘을 완벽하게 활용했습니다...",
+    choices: [
+      {
+        text: "⚔️ 승리를 더욱 확실히 한다",
+        next: "veloir_village_completed",
+        scoreA: 15,
+        scoreB: 15,
+      },
+    ],
+  },
+  veloir_cooperative_battle: {
+    text: "🤝 다른 무리들과 협력하여 전투했습니다! 벨로아족의 협력 정신을 직접 체험했고, 무리 간의 유대감을 깊게 느꼈습니다...",
+    choices: [
+      {
+        text: "🤝 협력을 더욱 강화한다",
+        next: "veloir_village_completed",
+        scoreA: 10,
+        scoreB: 10,
+      },
+    ],
+  },
+  veloir_strategic_retreat: {
+    text: "🏃 전략적 후퇴를 통해 상황을 파악했습니다! 벨로아족의 전략적 사고를 배웠고, 무리의 지혜를 체험했습니다...",
+    choices: [
+      {
+        text: "🧠 전략을 더욱 세밀하게 계획한다",
+        next: "veloir_village_completed",
+        scoreA: 8,
+        scoreB: 8,
+      },
+    ],
+  },
+  veloir_pack_leader: {
+    text: "👑 무리의 리더가 되어 훈련을 이끌었습니다! 벨로아족의 리더십과 무리 정신을 직접 체험했고, 그들의 문화를 깊이 이해하게 되었습니다...",
+    choices: [
+      {
+        text: "👑 리더십을 더욱 발전시킨다",
+        next: "veloir_village_completed",
+        scoreA: 16,
+        scoreB: 16,
+      },
+    ],
+  },
+  veloir_pack_cooperation: {
+    text: "🤝 무리와 함께 협력하여 훈련했습니다! 벨로아족의 협력 정신과 무리의 힘을 직접 체험했고, 그들과의 유대감을 깊게 형성했습니다...",
+    choices: [
+      {
+        text: "🤝 협력을 더욱 강화한다",
+        next: "veloir_village_completed",
+        scoreA: 12,
+        scoreB: 12,
+      },
+    ],
+  },
+  veloir_individual_combat: {
+    text: "⚔️ 개인 전투 기술을 집중적으로 훈련했습니다! 벨로아족의 고유한 전투 기술을 습득했고, 개인의 강함과 무리의 힘의 조화를 배웠습니다...",
+    choices: [
+      {
+        text: "⚔️ 기술을 더욱 연마한다",
+        next: "veloir_village_completed",
+        scoreA: 10,
+        scoreB: 10,
+      },
+    ],
+  },
+  veloir_pack_strategy: {
+    text: "🎯 무리의 전략과 전술을 배웠습니다! 벨로아족의 전략적 사고와 무리의 협력 전술을 이해했고, 그들의 문화적 특성을 깊이 파악했습니다...",
+    choices: [
+      {
+        text: "🎯 전략을 더욱 발전시킨다",
+        next: "veloir_village_completed",
+        scoreA: 11,
+        scoreB: 11,
+      },
+    ],
+  },
+  veloir_anger_control: {
+    text: "😤 분노의 감정을 통제하는 법을 배웠습니다! 벨로아족의 감정적 특성을 이해했고, 분노를 힘으로 변환하는 방법을 습득했습니다...",
+    choices: [
+      {
+        text: "😤 통제력을 더욱 향상시킨다",
+        next: "veloir_village_completed",
+        scoreA: 9,
+        scoreB: 9,
+      },
+    ],
+  },
+  veloir_sadness_overcome: {
+    text: "😢 슬픔과 외로움을 극복하는 법을 배웠습니다! 벨로아족의 감정적 특성을 이해했고, 어려운 감정을 극복하는 방법을 습득했습니다...",
+    choices: [
+      {
+        text: "😢 극복력을 더욱 강화한다",
+        next: "veloir_village_completed",
+        scoreA: 8,
+        scoreB: 8,
+      },
+    ],
+  },
+  veloir_joy_sharing: {
+    text: "😊 기쁨과 희망의 감정을 나누는 법을 배웠습니다! 벨로아족의 감정적 특성을 이해했고, 긍정적인 감정을 나누는 방법을 습득했습니다...",
+    choices: [
+      {
+        text: "😊 기쁨을 더욱 나눈다",
+        next: "veloir_village_completed",
+        scoreA: 6,
+        scoreB: 6,
+      },
+    ],
+  },
+  veloir_emotion_to_power: {
+    text: "💪 감정을 전투력으로 변환하는 법을 배웠습니다! 벨로아족의 감정적 특성을 완벽하게 이해했고, 감정을 힘으로 변환하는 고급 기술을 습득했습니다...",
+    choices: [
+      {
+        text: "💪 변환력을 더욱 발전시킨다",
+        next: "veloir_village_completed",
+        scoreA: 12,
+        scoreB: 12,
+      },
+    ],
+  },
+  veloir_ancient_temple: {
+    text: "🏛️ 고대 사원에서 벨로아족의 기원을 발견했습니다! 그들의 고대 전통과 문화의 뿌리를 이해하게 되었고, 무리의 정신이 어떻게 형성되었는지 알게 되었습니다...",
+    choices: [
+      {
+        text: "🏛️ 더 많은 비밀을 탐구한다",
+        next: "veloir_village_completed",
+        scoreA: 15,
+        scoreB: 15,
+      },
+    ],
+  },
+  veloir_secret_library: {
+    text: "📚 비밀 도서관에서 고대 전투 기술을 배웠습니다! 벨로아족의 전설적인 전투 기술을 습득했고, 그들의 문화적 유산을 이해하게 되었습니다...",
+    choices: [
+      {
+        text: "📚 더 많은 지식을 얻는다",
+        next: "veloir_village_completed",
+        scoreA: 13,
+        scoreB: 13,
+      },
+    ],
+  },
+  veloir_sacred_forest: {
+    text: "🌿 신성한 숲에서 자연의 힘을 체험했습니다! 벨로아족과 자연의 조화를 이해했고, 그들의 영적 세계를 경험했습니다...",
+    choices: [
+      {
+        text: "🌿 자연의 힘을 더욱 깊게 체험한다",
+        next: "veloir_village_completed",
+        scoreA: 11,
+        scoreB: 11,
+      },
+    ],
+  },
+  veloir_treasure_room: {
+    text: "💎 보물창고에서 전설의 무기를 발견했습니다! 벨로아족의 전설적인 무기를 획득했고, 그들의 전투 문화를 완벽하게 이해하게 되었습니다...",
+    choices: [
+      {
+        text: "💎 무기의 힘을 더욱 깊게 이해한다",
+        next: "veloir_village_completed",
+        scoreA: 17,
+        scoreB: 17,
+      },
+    ],
+  },
+  veloir_moonlight_ceremony: {
+    text: "🌕 달빛 의식에 적극적으로 참여했습니다! 벨로아족의 영적 세계를 직접 체험했고, 그들의 신성한 전통을 이해하게 되었습니다...",
+    choices: [
+      {
+        text: "🌕 영적 체험을 더욱 깊게 한다",
+        next: "veloir_village_completed",
+        scoreA: 10,
+        scoreB: 10,
+      },
+    ],
+  },
+  veloir_ceremony_prophecy: {
+    text: "🔮 의식의 예언을 들었습니다! 벨로아족의 미래에 대한 통찰을 얻었고, 그들의 영적 지혜를 이해하게 되었습니다...",
+    choices: [
+      {
+        text: "🔮 예언의 의미를 더욱 깊게 이해한다",
+        next: "veloir_village_completed",
+        scoreA: 12,
+        scoreB: 12,
+      },
+    ],
+  },
+  veloir_ceremony_dance: {
+    text: "🎭 의식의 춤과 음악에 참여했습니다! 벨로아족의 문화적 표현을 직접 체험했고, 그들과의 유대감을 깊게 형성했습니다...",
+    choices: [
+      {
+        text: "🎭 문화적 체험을 더욱 깊게 한다",
+        next: "veloir_village_completed",
+        scoreA: 8,
+        scoreB: 8,
+      },
+    ],
+  },
+  veloir_ceremony_firekeeper: {
+    text: "🕯️ 의식의 불꽃을 지키는 역할을 맡았습니다! 벨로아족의 신성한 의식에서 중요한 역할을 수행했고, 그들의 영적 세계를 깊이 이해했습니다...",
+    choices: [
+      {
+        text: "🕯️ 신성한 역할을 더욱 깊게 수행한다",
+        next: "veloir_village_completed",
+        scoreA: 6,
+        scoreB: 6,
+      },
+    ],
+  },
+  // 새로운 동맹 시스템 노드들
+  share_fire_secret_with_drakar: {
+    text: "🔥 드라카르족에게 불꽃의 비밀을 알려주었습니다! 드라카르족의 족장이 매우 기뻐하며 '이 비밀을 알려준 자는 우리의 영원한 동맹이다!'라고 선언합니다. 드라카르족의 신뢰도가 크게 상승했습니다.",
+    choices: [
+      {
+        text: "🔥 드라카르족과 더 깊은 동맹을 맺는다",
+        next: "deep_drakar_alliance",
+        scoreA: 20,
+        scoreB: 20,
+      },
+      {
+        text: "🤝 다른 종족들에게도 이 비밀을 공유한다",
+        next: "share_with_other_tribes",
+        scoreA: 15,
+        scoreB: 15,
+      },
+      {
+        text: "📚 이 비밀을 연구하여 더 큰 힘을 얻는다",
+        next: "research_fire_power",
+        scoreA: 18,
+        scoreB: 18,
+      },
+    ],
+  },
+  share_fire_secret_with_all: {
+    text: "🤝 모든 종족들에게 불꽃의 비밀을 공유했습니다! 각 종족들이 이 비밀을 자신들의 방식으로 해석하고 활용하기 시작했습니다. 평화로운 협력 관계가 형성되고 있습니다.",
+    choices: [
+      {
+        text: "🤝 모든 종족과 평화 동맹을 맺는다",
+        next: "peace_alliance_with_all",
+        scoreA: 25,
+        scoreB: 25,
+      },
+      {
+        text: "⚖️ 중재자 역할을 맡아 종족들을 조율한다",
+        next: "mediator_role",
+        scoreA: 20,
+        scoreB: 20,
+      },
+      {
+        text: "📚 종족들의 지식을 종합하여 새로운 힘을 만든다",
+        next: "create_new_power",
+        scoreA: 30,
+        scoreB: 30,
+      },
+    ],
+  },
+  keep_fire_secret: {
+    text: "🔒 불꽃의 비밀을 혼자 간직하기로 했습니다! 이 비밀을 활용하여 개인적인 힘을 키우고 있습니다. 하지만 다른 종족들이 당신을 의심하기 시작할 수 있습니다.",
+    choices: [
+      {
+        text: "🔥 비밀의 힘을 더욱 강화한다",
+        next: "enhance_secret_power",
+        scoreA: 25,
+        scoreB: 25,
+      },
+      {
+        text: "🤝 나중에 필요할 때 비밀을 활용한다",
+        next: "save_secret_for_later",
+        scoreA: 15,
+        scoreB: 15,
+      },
+      {
+        text: "⚔️ 비밀의 힘으로 다른 종족들을 압도한다",
+        next: "dominate_with_secret",
+        scoreA: 30,
+        scoreB: 30,
       },
     ],
   },

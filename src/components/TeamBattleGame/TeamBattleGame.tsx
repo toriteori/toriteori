@@ -14,12 +14,12 @@ export interface GameState {
   currentNode: string;
   teamANode: string; // 팀별 노드 추가
   teamBNode: string; // 팀별 노드 추가
-  teamAChoice: string | null;
-  teamBChoice: string | null;
+  teamAChoice: any | null;
+  teamBChoice: any | null;
   gameHistory: Array<{
     node: string;
-    teamAChoice: string | null;
-    teamBChoice: string | null;
+    teamAChoice: any | null;
+    teamBChoice: any | null;
     teamAScore: number;
     teamBScore: number;
   }>;

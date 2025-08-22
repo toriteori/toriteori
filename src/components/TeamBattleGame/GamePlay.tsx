@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { GameState } from "./TeamBattleGame";
 import { storyData } from "./GameSettings";
 import { useScore } from "../../contexts/ScoreContext";
+import TypingText from "./TypingText";
+import ChoicePopup from "./ChoicePopup";
 
 interface GamePlayProps {
   gameState: GameState;
@@ -11,8 +13,12 @@ interface GamePlayProps {
 
 const GamePlay: React.FC<GamePlayProps> = ({ gameState, setGameState, onEndGame }) => {
   const { updateTeamScore } = useScore();
-  const [teamANodeData, setTeamANodeData] = useState<any>(null);
-  const [teamBNodeData, setTeamBNodeData] = useState<any>(null);
+  const [teamANodeData, setTeamANodeData] = useState<any>(
+    storyData[gameState.teamANode as keyof typeof storyData] || null,
+  );
+  const [teamBNodeData, setTeamBNodeData] = useState<any>(
+    storyData[gameState.teamBNode as keyof typeof storyData] || null,
+  );
   const [teamAReady, setTeamAReady] = useState(false);
   const [teamBReady, setTeamBReady] = useState(false);
   const [waitingMessage, setWaitingMessage] = useState("");
@@ -20,6 +26,10 @@ const GamePlay: React.FC<GamePlayProps> = ({ gameState, setGameState, onEndGame 
   const [teamBFinished, setTeamBFinished] = useState(false);
   const [teamAScoreChange, setTeamAScoreChange] = useState<number | null>(null);
   const [teamBScoreChange, setTeamBScoreChange] = useState<number | null>(null);
+  const [storyCompleted, setStoryCompleted] = useState(false);
+  const [showChoicePopup, setShowChoicePopup] = useState(false);
+  const [teamAStoryCompleted, setTeamAStoryCompleted] = useState(false);
+  const [teamBStoryCompleted, setTeamBStoryCompleted] = useState(false);
 
   // 현재 노드 데이터 가져오기
   useEffect(() => {
@@ -31,6 +41,11 @@ const GamePlay: React.FC<GamePlayProps> = ({ gameState, setGameState, onEndGame 
     if (teamBNodeData) {
       setTeamBNodeData(teamBNodeData);
     }
+    // 노드가 변경되면 스토리 완료 상태 리셋
+    setStoryCompleted(false);
+    setShowChoicePopup(false);
+    setTeamAStoryCompleted(false);
+    setTeamBStoryCompleted(false);
   }, [gameState.teamANode, gameState.teamBNode]);
 
   // 팀별 엔딩 확인
@@ -72,15 +87,18 @@ const GamePlay: React.FC<GamePlayProps> = ({ gameState, setGameState, onEndGame 
   useEffect(() => {
     // 한 파티가 완료된 경우, 다른 파티만 선택하면 바로 처리
     if (teamAFinished && gameState.teamBChoice && !teamBFinished) {
+      console.log("팀 A 완료, 팀 B 선택 처리");
       setTimeout(() => {
         processSingleTeamChoice("B");
       }, 1000);
     } else if (teamBFinished && gameState.teamAChoice && !teamAFinished) {
+      console.log("팀 B 완료, 팀 A 선택 처리");
       setTimeout(() => {
         processSingleTeamChoice("A");
       }, 1000);
     } else if (gameState.teamAChoice && gameState.teamBChoice && !teamAFinished && !teamBFinished) {
       // 두 팀 모두 선택 완료
+      console.log("두 팀 모두 선택 완료, 처리 시작");
       setTimeout(() => {
         processChoices();
       }, 1000); // 1초 대기 후 처리
@@ -247,8 +265,8 @@ const GamePlay: React.FC<GamePlayProps> = ({ gameState, setGameState, onEndGame 
 
     if (!nodeData || !choice) return;
 
-    // 선택지 찾기
-    const choiceData = nodeData.choices.find((c: any) => c.text === choice);
+    // 선택지 찾기 - choice 객체로 저장되므로 text로 비교
+    const choiceData = nodeData.choices.find((c: any) => c.text === choice.text);
     if (!choiceData) return;
 
     // 점수 계산
@@ -305,12 +323,12 @@ const GamePlay: React.FC<GamePlayProps> = ({ gameState, setGameState, onEndGame 
     if (!teamANodeData || !teamBNodeData || !gameState.teamAChoice || !gameState.teamBChoice)
       return;
 
-    // 선택지 찾기
+    // 선택지 찾기 - choice 객체로 저장되므로 text로 비교
     const teamAChoiceData = teamANodeData.choices.find(
-      (choice: any) => choice.text === gameState.teamAChoice,
+      (choice: any) => choice.text === gameState.teamAChoice.text,
     );
     const teamBChoiceData = teamBNodeData.choices.find(
-      (choice: any) => choice.text === gameState.teamBChoice,
+      (choice: any) => choice.text === gameState.teamBChoice.text,
     );
 
     if (!teamAChoiceData || !teamBChoiceData) return;
@@ -371,22 +389,28 @@ const GamePlay: React.FC<GamePlayProps> = ({ gameState, setGameState, onEndGame 
     setWaitingMessage("");
   };
 
-  const handleTeamChoice = (team: "A" | "B", choice: string) => {
+  const handleTeamChoice = (team: "A" | "B", choice: any) => {
+    console.log(`${team}팀 선택:`, choice.text);
+
     if (team === "A") {
       // 이미 선택된 선택지를 다시 클릭하면 선택 취소
-      if (gameState.teamAChoice === choice) {
+      if (gameState.teamAChoice && gameState.teamAChoice.text === choice.text) {
+        console.log("팀 A 선택 취소");
         setGameState((prev) => ({ ...prev, teamAChoice: null }));
         setTeamAReady(false);
       } else {
+        console.log("팀 A 선택 완료");
         setGameState((prev) => ({ ...prev, teamAChoice: choice }));
         setTeamAReady(true);
       }
     } else {
       // 이미 선택된 선택지를 다시 클릭하면 선택 취소
-      if (gameState.teamBChoice === choice) {
+      if (gameState.teamBChoice && gameState.teamBChoice.text === choice.text) {
+        console.log("팀 B 선택 취소");
         setGameState((prev) => ({ ...prev, teamBChoice: null }));
         setTeamBReady(false);
       } else {
+        console.log("팀 B 선택 완료");
         setGameState((prev) => ({ ...prev, teamBChoice: choice }));
         setTeamBReady(true);
       }
@@ -407,6 +431,42 @@ const GamePlay: React.FC<GamePlayProps> = ({ gameState, setGameState, onEndGame 
     let storyText = nodeData.text;
     return formatText(storyText);
   };
+
+  // 팀별 스토리 완료 콜백
+  const handleTeamAStoryComplete = () => {
+    console.log("팀 A 스토리 완료");
+    setTeamAStoryCompleted(true);
+  };
+
+  const handleTeamBStoryComplete = () => {
+    console.log("팀 B 스토리 완료");
+    setTeamBStoryCompleted(true);
+  };
+
+  // 공통 스토리 완료 콜백
+  const handleCommonStoryComplete = () => {
+    console.log("공통 스토리 완료");
+    setStoryCompleted(true);
+  };
+
+  // 모든 스토리 완료 확인
+  useEffect(() => {
+    const isStartNode = gameState.teamANode === "start" && gameState.teamBNode === "start";
+
+    if (isStartNode) {
+      // 시작 노드: 공통 스토리만 있음
+      // storyCompleted는 handleCommonStoryComplete에서만 설정됨
+      if (storyCompleted) {
+        console.log("시작 노드 스토리 완료, 선택지 표시 준비");
+      }
+    } else {
+      // 일반 노드: 팀별 스토리
+      if (teamAStoryCompleted && teamBStoryCompleted && !storyCompleted) {
+        console.log("모든 팀 스토리 완료, 선택지 표시 준비");
+        setStoryCompleted(true);
+      }
+    }
+  }, [teamAStoryCompleted, teamBStoryCompleted, gameState.teamANode, gameState.teamBNode]);
 
   // 두 팀이 같은 노드에 있는지 확인
   const isSameNode = gameState.teamANode === gameState.teamBNode;
@@ -449,7 +509,13 @@ const GamePlay: React.FC<GamePlayProps> = ({ gameState, setGameState, onEndGame 
           <div className="team-story-section common-story">
             <h3>스토리</h3>
             <div className="story-text">
-              <p>{formatText(teamANodeData.text)}</p>
+              <TypingText
+                text={formatText(teamANodeData.text)}
+                speed={50}
+                className="story-typing"
+                skipable={true}
+                onComplete={handleCommonStoryComplete}
+              />
             </div>
           </div>
         </div>
@@ -459,14 +525,26 @@ const GamePlay: React.FC<GamePlayProps> = ({ gameState, setGameState, onEndGame 
           <div className="team-story-section team-a-story">
             <h3>{gameState.teamAName} 파티 스토리</h3>
             <div className="story-text">
-              <p>{formatText(teamANodeData.text)}</p>
+              <TypingText
+                text={formatText(teamANodeData.text)}
+                speed={50}
+                className="story-typing"
+                skipable={true}
+                onComplete={handleTeamAStoryComplete}
+              />
             </div>
           </div>
 
           <div className="team-story-section team-b-story">
             <h3>{gameState.teamBName} 파티 스토리</h3>
             <div className="story-text">
-              <p>{formatText(teamBNodeData.text)}</p>
+              <TypingText
+                text={formatText(teamBNodeData.text)}
+                speed={50}
+                className="story-typing"
+                skipable={true}
+                onComplete={handleTeamBStoryComplete}
+              />
             </div>
           </div>
         </div>
@@ -475,60 +553,91 @@ const GamePlay: React.FC<GamePlayProps> = ({ gameState, setGameState, onEndGame 
       {/* 대기 메시지 */}
       {waitingMessage && <div className="waiting-message">{waitingMessage}</div>}
 
-      {/* 선택지 */}
-      {teamANodeData.choices.length > 0 && (
-        <div className="choices-container">
-          <div className="team-section team-a-section">
-            <h3>
-              {gameState.teamAName} 파티 {teamAFinished && "🏁 완료"}
-            </h3>
-            <div className="choices">
-              {teamANodeData.choices.map((choice: any, index: number) => (
-                <button
-                  key={`teamA-${index}`}
-                  className={`choice-button ${
-                    gameState.teamAChoice === choice.text ? "selected" : ""
-                  } ${teamAReady ? "ready" : ""}`}
-                  onClick={() => handleTeamChoice("A", choice.text)}
-                  disabled={false}
-                >
-                  <div className="choice-number">{index + 1}.</div>
-                  <div className="choice-text">{choice.text}</div>
-                </button>
-              ))}
+      {/* 스토리 진행 중 메시지 */}
+      {!storyCompleted &&
+        (teamANodeData.choices.length > 0 || teamBNodeData.choices.length > 0) && (
+          <div className="story-progress-message">
+            <div className="progress-indicator">
+              <span className="typing-cursor">|</span>
+              <span>스토리를 읽고 있습니다...</span>
             </div>
-            {gameState.teamAChoice && (
-              <div className="choice-status ready">✓ 선택 완료: {gameState.teamAChoice}</div>
-            )}
-            {teamAFinished && <div className="choice-status finished">🏁 모험 완료!</div>}
           </div>
+        )}
 
-          <div className="team-section team-b-section">
-            <h3>
-              {gameState.teamBName} 파티 {teamBFinished && "🏁 완료"}
-            </h3>
-            <div className="choices">
-              {teamBNodeData.choices.map((choice: any, index: number) => (
-                <button
-                  key={`teamB-${index}`}
-                  className={`choice-button ${
-                    gameState.teamBChoice === choice.text ? "selected" : ""
-                  } ${teamBReady ? "ready" : ""}`}
-                  onClick={() => handleTeamChoice("B", choice.text)}
-                  disabled={false}
-                >
-                  <div className="choice-number">{index + 1}.</div>
-                  <div className="choice-text">{choice.text}</div>
-                </button>
-              ))}
+      {/* 좌우 선택지 영역 */}
+      {storyCompleted &&
+        (teamANodeData.choices.length > 0 || teamBNodeData.choices.length > 0) &&
+        !waitingMessage.includes("스토리를 읽고 있습니다") && (
+          <div className="side-choices-container">
+            {/* 왼쪽 선택지 (팀 A) */}
+            <div className="left-choices">
+              {!teamAFinished && teamANodeData.choices.length > 0 ? (
+                <div className="team-choices">
+                  <h3>{gameState.teamAName} 파티 선택</h3>
+                  <div className="choices-list">
+                    {teamANodeData.choices.map((choice: any, index: number) => (
+                      <button
+                        key={index}
+                        onClick={() => handleTeamChoice("A", choice)}
+                        className={`choice-button ${
+                          gameState.teamAChoice && gameState.teamAChoice.text === choice.text
+                            ? "selected"
+                            : ""
+                        }`}
+                      >
+                        {choice.text}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              ) : teamAFinished ? (
+                <div className="team-finished">
+                  <h3>{gameState.teamAName} 파티</h3>
+                  <p>모험이 완료되었습니다!</p>
+                </div>
+              ) : (
+                <div className="no-choices">
+                  <h3>{gameState.teamAName} 파티</h3>
+                  <p>선택지가 없습니다.</p>
+                </div>
+              )}
             </div>
-            {gameState.teamBChoice && (
-              <div className="choice-status ready">✓ 선택 완료: {gameState.teamBChoice}</div>
-            )}
-            {teamBFinished && <div className="choice-status finished">🏁 모험 완료!</div>}
+
+            {/* 오른쪽 선택지 (팀 B) */}
+            <div className="right-choices">
+              {!teamBFinished && teamBNodeData.choices.length > 0 ? (
+                <div className="team-choices">
+                  <h3>{gameState.teamBName} 파티 선택</h3>
+                  <div className="choices-list">
+                    {teamBNodeData.choices.map((choice: any, index: number) => (
+                      <button
+                        key={index}
+                        onClick={() => handleTeamChoice("B", choice)}
+                        className={`choice-button ${
+                          gameState.teamBChoice && gameState.teamBChoice.text === choice.text
+                            ? "selected"
+                            : ""
+                        }`}
+                      >
+                        {choice.text}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              ) : teamBFinished ? (
+                <div className="team-finished">
+                  <h3>{gameState.teamBName} 파티</h3>
+                  <p>모험이 완료되었습니다!</p>
+                </div>
+              ) : (
+                <div className="no-choices">
+                  <h3>{gameState.teamBName} 파티</h3>
+                  <p>선택지가 없습니다.</p>
+                </div>
+              )}
+            </div>
           </div>
-        </div>
-      )}
+        )}
 
       {/* 게임 종료 메시지 */}
       {teamAFinished && teamBFinished && (
