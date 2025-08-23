@@ -41,6 +41,8 @@ const MusicGame: React.FC = () => {
   const [showHint, setShowHint] = useState<boolean>(false);
   const [completedQuestions, setCompletedQuestions] = useState<Set<string>>(new Set());
   const [audioRef, setAudioRef] = useState<HTMLAudioElement | null>(null);
+  const [currentTime, setCurrentTime] = useState<number>(0);
+  const [duration, setDuration] = useState<number>(0);
   const navigate = useNavigate();
   const { teams, updateTeamScore } = useScore();
 
@@ -58,41 +60,11 @@ const MusicGame: React.FC = () => {
     { id: "2020s", name: "2020년대", description: "2020년대 음악", icon: "🎧", color: "#ff6348" },
   ];
 
-  // 문제 데이터 (각 카테고리별로 10개씩)
+  // 문제 데이터 (각 카테고리별로 10개씩, 난이도 순서대로 정렬)
   const questions: Question[] = [
-    // 남자 아이돌 (10개)
+    // 남자 아이돌 (10개) - 난이도 순서대로
     {
       id: "male-idol1",
-      title: "Dynamite",
-      artist: "BTS",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
-      category: "male-idol",
-      difficulty: "easy",
-      keyword: "방탄소년단",
-      hint: "세계적인 인기를 얻은 7인조 그룹",
-    },
-    {
-      id: "male-idol2",
-      title: "Spring Day",
-      artist: "BTS",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
-      category: "male-idol",
-      difficulty: "hard",
-      keyword: "봄날",
-      hint: "방탄소년단의 감성적인 발라드",
-    },
-    {
-      id: "male-idol3",
-      title: "Butter",
-      artist: "BTS",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
-      category: "male-idol",
-      difficulty: "very-hard",
-      keyword: "버터",
-      hint: "방탄소년단의 영어 싱글",
-    },
-    {
-      id: "male-idol4",
       title: "하루하루",
       artist: "빅뱅",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
@@ -102,17 +74,7 @@ const MusicGame: React.FC = () => {
       hint: "무한도전에서 나온 곡",
     },
     {
-      id: "male-idol5",
-      title: "Gangnam Style",
-      artist: "PSY",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
-      category: "male-idol",
-      difficulty: "easy",
-      keyword: "강남스타일",
-      hint: "전 세계적으로 유명해진 K-POP 곡",
-    },
-    {
-      id: "male-idol6",
+      id: "male-idol2",
       title: "손성모",
       artist: "손성모",
       file: "https://youtu.be/8OAQ6RuYFGE?feature=shared",
@@ -122,7 +84,27 @@ const MusicGame: React.FC = () => {
       hint: "가수 이름과 노래 제목이 같습니다",
     },
     {
-      id: "male-idol7",
+      id: "male-idol3",
+      title: "Dynamite",
+      artist: "BTS",
+      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
+      category: "male-idol",
+      difficulty: "easy",
+      keyword: "방탄소년단",
+      hint: "세계적인 인기를 얻은 7인조 그룹",
+    },
+    {
+      id: "male-idol4",
+      title: "Gangnam Style",
+      artist: "PSY",
+      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
+      category: "male-idol",
+      difficulty: "easy",
+      keyword: "강남스타일",
+      hint: "전 세계적으로 유명해진 K-POP 곡",
+    },
+    {
+      id: "male-idol5",
       title: "EXO - Growl",
       artist: "EXO",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
@@ -132,7 +114,7 @@ const MusicGame: React.FC = () => {
       hint: "12인조 남성 그룹의 대표곡",
     },
     {
-      id: "male-idol8",
+      id: "male-idol6",
       title: "SHINee - Ring Ding Dong",
       artist: "SHINee",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
@@ -142,7 +124,17 @@ const MusicGame: React.FC = () => {
       hint: "5인조 남성 그룹의 히트곡",
     },
     {
-      id: "male-idol9",
+      id: "male-idol7",
+      title: "Spring Day",
+      artist: "BTS",
+      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
+      category: "male-idol",
+      difficulty: "hard",
+      keyword: "봄날",
+      hint: "방탄소년단의 감성적인 발라드",
+    },
+    {
+      id: "male-idol8",
       title: "Super Junior - Sorry Sorry",
       artist: "Super Junior",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
@@ -150,6 +142,16 @@ const MusicGame: React.FC = () => {
       difficulty: "hard",
       keyword: "슈퍼주니어",
       hint: "13인조 남성 그룹의 대표곡",
+    },
+    {
+      id: "male-idol9",
+      title: "Butter",
+      artist: "BTS",
+      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
+      category: "male-idol",
+      difficulty: "very-hard",
+      keyword: "버터",
+      hint: "방탄소년단의 영어 싱글",
     },
     {
       id: "male-idol10",
@@ -162,39 +164,49 @@ const MusicGame: React.FC = () => {
       hint: "5인조 남성 그룹의 히트곡",
     },
 
-    // 여자 아이돌 (10개)
+    // 여자 아이돌 (10개) - 난이도 순서대로
     {
       id: "female-idol1",
+      title: "테디베어",
+      artist: "스테이씨",
+      file: "/music/feidol1.mp4",
+      category: "female-idol",
+      difficulty: "very-easy",
+      keyword: "4세대 걸그룹",
+      hint: "박남정 딸",
+    },
+    {
+      id: "female-idol2",
+      title: "언더워터",
+      artist: "권은비",
+      file: "/music/feidol2.mp4",
+      category: "female-idol",
+      difficulty: "very-easy",
+      keyword: "여름",
+      hint: "워터밤",
+    },
+    {
+      id: "female-idol3",
+      title: "사뿐사뿐",
+      artist: "에이오에이",
+      file: "/music/feidol3.mp4",
+      category: "female-idol",
+      difficulty: "easy",
+      keyword: "에이스오브엔젤",
+      hint: "XXXX 걸어가",
+    },
+    {
+      id: "female-idol4",
       title: "How You Like That",
       artist: "BLACKPINK",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "female-idol",
-      difficulty: "medium",
+      difficulty: "easy",
       keyword: "블랙핑크",
       hint: "4인조 여성 그룹의 대표곡",
     },
     {
-      id: "female-idol2",
-      title: "Lovesick Girls",
-      artist: "BLACKPINK",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
-      category: "female-idol",
-      difficulty: "hard",
-      keyword: "러브씩",
-      hint: "블랙핑크의 팝 펑크 스타일 곡",
-    },
-    {
-      id: "female-idol3",
-      title: "DDU-DU DDU-DU",
-      artist: "BLACKPINK",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
-      category: "female-idol",
-      difficulty: "very-hard",
-      keyword: "두두두두",
-      hint: "블랙핑크의 히트곡",
-    },
-    {
-      id: "female-idol4",
+      id: "female-idol5",
       title: "Fancy",
       artist: "TWICE",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
@@ -202,16 +214,6 @@ const MusicGame: React.FC = () => {
       difficulty: "medium",
       keyword: "트와이스",
       hint: "9인조 여성 그룹의 히트곡",
-    },
-    {
-      id: "female-idol5",
-      title: "TT",
-      artist: "TWICE",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
-      category: "female-idol",
-      difficulty: "easy",
-      keyword: "트와이스",
-      hint: "9인조 여성 그룹의 대표곡",
     },
     {
       id: "female-idol6",
@@ -225,13 +227,13 @@ const MusicGame: React.FC = () => {
     },
     {
       id: "female-idol7",
-      title: "Girls' Generation - Gee",
-      artist: "Girls' Generation",
+      title: "Lovesick Girls",
+      artist: "BLACKPINK",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "female-idol",
-      difficulty: "easy",
-      keyword: "소녀시대",
-      hint: "9인조 여성 그룹의 대표곡",
+      difficulty: "hard",
+      keyword: "러브씩",
+      hint: "블랙핑크의 팝 펑크 스타일 곡",
     },
     {
       id: "female-idol8",
@@ -245,38 +247,28 @@ const MusicGame: React.FC = () => {
     },
     {
       id: "female-idol9",
-      title: "2NE1 - I Am The Best",
-      artist: "2NE1",
+      title: "DDU-DU DDU-DU",
+      artist: "BLACKPINK",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "female-idol",
       difficulty: "very-hard",
-      keyword: "투애니원",
-      hint: "4인조 여성 그룹의 히트곡",
+      keyword: "두두두두",
+      hint: "블랙핑크의 히트곡",
     },
     {
       id: "female-idol10",
-      title: "Wonder Girls - Nobody",
-      artist: "Wonder Girls",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
+      title: "이브프시케그리고푸른수염의아내",
+      artist: "르세라핌",
+      file: "/music/lesserafim-eve-psyche.mp4",
       category: "female-idol",
-      difficulty: "very-easy",
-      keyword: "원더걸스",
-      hint: "5인조 여성 그룹의 대표곡",
+      difficulty: "very-hard",
+      keyword: "대천사",
+      hint: "이브 프시케 그리고 XXXX의 아내",
     },
 
-    // 힙합  (10개)
+    // 힙합 (10개) - 난이도 순서대로
     {
       id: "hiphop1",
-      title: "Bohemian Rhapsody",
-      artist: "Queen",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
-      category: "hiphop",
-      difficulty: "easy",
-      keyword: "퀸",
-      hint: "영국의 전설적인 록 밴드",
-    },
-    {
-      id: "hiphop2",
       title: "Blinding Lights",
       artist: "The Weeknd",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
@@ -284,6 +276,16 @@ const MusicGame: React.FC = () => {
       difficulty: "very-easy",
       keyword: "위켄드",
       hint: "캐나다의 R&B 가수",
+    },
+    {
+      id: "hiphop2",
+      title: "Bohemian Rhapsody",
+      artist: "Queen",
+      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
+      category: "hiphop",
+      difficulty: "easy",
+      keyword: "퀸",
+      hint: "영국의 전설적인 록 밴드",
     },
     {
       id: "hiphop3",
@@ -365,7 +367,8 @@ const MusicGame: React.FC = () => {
       keyword: "24kgoldn",
       hint: "미국의 래퍼이자 가수",
     },
-    // 밴드 (10개)
+
+    // 밴드 (10개) - 난이도 순서대로
     {
       id: "band1",
       title: "Bohemian Rhapsody",
@@ -466,7 +469,8 @@ const MusicGame: React.FC = () => {
       keyword: "라디오헤드",
       hint: "라디오헤드의 대표곡",
     },
-    // 1990년대 (10개)
+
+    // 1990년대 (10개) - 난이도 순서대로
     {
       id: "1990s1",
       title: "In Da Club",
@@ -567,7 +571,8 @@ const MusicGame: React.FC = () => {
       keyword: "메간더스탤리언",
       hint: "미국의 여성 래퍼",
     },
-    // 2000년대 (10개)
+
+    // 2000년대 (10개) - 난이도 순서대로
     {
       id: "2000s1",
       title: "Take Five",
@@ -668,7 +673,8 @@ const MusicGame: React.FC = () => {
       keyword: "마일스데이비스",
       hint: "퓨전 재즈의 대표작",
     },
-    // 2010년대 (10개)
+
+    // 2010년대 (10개) - 난이도 순서대로
     {
       id: "2010s1",
       title: "Symphony No. 5",
@@ -769,7 +775,8 @@ const MusicGame: React.FC = () => {
       keyword: "바흐",
       hint: "피아노 변주곡",
     },
-    // 애니메이션 (10개)
+
+    // 애니메이션 (10개) - 난이도 순서대로
     {
       id: "animation1",
       title: "겨울왕국",
@@ -870,7 +877,8 @@ const MusicGame: React.FC = () => {
       keyword: "라이온킹",
       hint: "디즈니 애니메이션의 오프닝 곡",
     },
-    // OST (10개)
+
+    // OST (10개) - 난이도 순서대로
     {
       id: "ost1",
       title: "타이타닉",
@@ -971,7 +979,8 @@ const MusicGame: React.FC = () => {
       keyword: "어게인스트올오즈",
       hint: "제프 브리지스 주연의 스릴러 영화",
     },
-    // 2020년대 (10개)
+
+    // 2020년대 (10개) - 난이도 순서대로
     {
       id: "2020s1",
       title: "Old Town Road",
@@ -1107,6 +1116,7 @@ const MusicGame: React.FC = () => {
     setShowAnswer(false);
     setIsPlaying(false);
     setShowHint(false);
+    setCurrentTime(0);
 
     // 새로운 오디오 객체 생성
     if (audioRef) {
@@ -1116,6 +1126,22 @@ const MusicGame: React.FC = () => {
 
     const newAudio = new Audio(question.file);
     newAudio.volume = 0.7; // 볼륨 설정
+    
+    // 오디오 로딩 이벤트 추가
+    newAudio.addEventListener('loadeddata', () => {
+      console.log('오디오 로딩 완료:', question.file);
+    });
+    
+    // 시간 업데이트 이벤트 추가
+    newAudio.addEventListener('timeupdate', () => {
+      setCurrentTime(newAudio.currentTime);
+    });
+    
+    newAudio.addEventListener('error', (e) => {
+      console.error('오디오 로딩 실패:', e);
+      alert('오디오 파일을 로드할 수 없습니다. 파일 경로를 확인해주세요.');
+    });
+    
     setAudioRef(newAudio);
 
     // 히스토리에 상태 추가
@@ -1129,11 +1155,15 @@ const MusicGame: React.FC = () => {
       audioRef.pause();
       setIsPlaying(false);
     } else {
-      audioRef.play().catch((error) => {
-        console.error("오디오 재생 실패:", error);
-        alert("오디오를 재생할 수 없습니다. 링크를 확인해주세요.");
-      });
-      setIsPlaying(true);
+      audioRef.play()
+        .then(() => {
+          setIsPlaying(true);
+        })
+        .catch((error) => {
+          console.error("오디오 재생 실패:", error);
+          alert("오디오를 재생할 수 없습니다. 링크를 확인해주세요.");
+          setIsPlaying(false);
+        });
     }
   };
 
@@ -1180,7 +1210,7 @@ const MusicGame: React.FC = () => {
     };
   }, [currentQuestion, selectedCategory]);
 
-  const handleCheckAnswer = () => {
+  const handleCheckAnswer = (teamId: string) => {
     if (!currentQuestion) return;
 
     // 입력값 정규화 (띄어쓰기 제거)
@@ -1229,8 +1259,8 @@ const MusicGame: React.FC = () => {
 
       const scoreToAdd = getScoreByDifficulty(currentQuestion.difficulty);
 
-      // 현재 팀의 점수 증가
-      updateTeamScore(currentTeam, scoreToAdd);
+      // 해당 팀의 점수 증가
+      updateTeamScore(teamId, scoreToAdd);
       // 완료된 문제에 추가
       setCompletedQuestions((prev) => new Set([...prev, currentQuestion.id]));
       setIsCorrect(true);
@@ -1246,11 +1276,7 @@ const MusicGame: React.FC = () => {
     }
   };
 
-  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter" && userAnswer.trim() && !showAnswer) {
-      handleCheckAnswer();
-    }
-  };
+
 
   const handleShowHint = () => {
     if (!currentQuestion) return;
@@ -1258,14 +1284,7 @@ const MusicGame: React.FC = () => {
     setShowHint(true);
   };
 
-  const handleTeamSwitch = () => {
-    setCurrentTeam(currentTeam === "team1" ? "team2" : "team1");
-  };
 
-  const handleResetScores = () => {
-    // 전역 점수 초기화는 ScoreContext에서 처리
-    // 이 함수는 게임 내 점수만 초기화
-  };
 
   const getCategoryQuestions = (categoryId: string) => {
     return questions.filter((q) => q.category === categoryId);
@@ -1275,16 +1294,34 @@ const MusicGame: React.FC = () => {
     return categories.find((c) => c.id === selectedCategory);
   };
 
-  const getCurrentTeam = () => {
-    return teams.find((team) => team.id === currentTeam);
-  };
+
 
   const getTotalScore = () => {
     return teams.reduce((total, team) => total + team.score, 0);
   };
 
+  // 이기는 팀을 판단하는 함수
+  const getWinningTeam = () => {
+    if (teams.length === 0) return null;
+    
+    const maxScore = Math.max(...teams.map(team => team.score));
+    const winningTeams = teams.filter(team => team.score === maxScore);
+    
+    // 동점인 경우 null 반환 (무승부)
+    if (winningTeams.length > 1) return null;
+    
+    return winningTeams[0];
+  };
+
   const getHintText = (question: Question) => {
     return question.hint;
+  };
+
+  // 시간 포맷팅 함수 (초를 mm:ss 형태로 변환)
+  const formatTime = (seconds: number) => {
+    const mins = Math.floor(seconds / 60);
+    const secs = Math.floor(seconds % 60);
+    return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
   };
 
   // 카테고리 선택 화면
@@ -1298,21 +1335,22 @@ const MusicGame: React.FC = () => {
             </button>
             <h1>🎵 음악 맞추기 게임</h1>
             <div className="team-scores">
-              {teams.map((team) => (
-                <div
-                  key={team.id}
-                  className={`team-score ${team.id === currentTeam ? "active" : ""}`}
-                  style={{ borderColor: team.color }}
-                >
-                  <span className="team-name">{team.name}</span>
-                  <span className="team-points">{team.score}점</span>
-                </div>
-              ))}
+              {teams.map((team) => {
+                const winningTeam = getWinningTeam();
+                const isWinning = winningTeam && winningTeam.id === team.id;
+                
+                return (
+                  <div
+                    key={team.id}
+                    className={`team-score ${isWinning ? "winning" : ""}`}
+                    style={{ borderColor: team.color }}
+                  >
+                    <span className="team-name">{team.name}</span>
+                    <span className="team-points">{team.score}점</span>
+                  </div>
+                );
+              })}
             </div>
-          </div>
-          <div className="current-team-display">
-            현재 턴:{" "}
-            <span style={{ color: getCurrentTeam()?.color }}>{getCurrentTeam()?.name}</span>
           </div>
           <p className="game-description">카테고리를 선택하고 음악을 맞춰보세요!</p>
         </div>
@@ -1335,25 +1373,6 @@ const MusicGame: React.FC = () => {
           ))}
         </div>
 
-        {/* 퀵메뉴 */}
-        <QuickMenu
-          buttons={[
-            {
-              id: "team-switch",
-              icon: "🔄",
-              title: "턴 변경",
-              onClick: handleTeamSwitch,
-              color: "switch",
-            },
-            {
-              id: "reset-scores",
-              icon: "🗑️",
-              title: "점수 초기화",
-              onClick: handleResetScores,
-              color: "reset",
-            },
-          ]}
-        />
       </div>
     );
   }
@@ -1374,21 +1393,22 @@ const MusicGame: React.FC = () => {
               {currentCategory?.icon} {currentCategory?.name}
             </h1>
             <div className="team-scores">
-              {teams.map((team) => (
-                <div
-                  key={team.id}
-                  className={`team-score ${team.id === currentTeam ? "active" : ""}`}
-                  style={{ borderColor: team.color }}
-                >
-                  <span className="team-name">{team.name}</span>
-                  <span className="team-points">{team.score}점</span>
-                </div>
-              ))}
+              {teams.map((team) => {
+                const winningTeam = getWinningTeam();
+                const isWinning = winningTeam && winningTeam.id === team.id;
+                
+                return (
+                  <div
+                    key={team.id}
+                    className={`team-score ${isWinning ? "winning" : ""}`}
+                    style={{ borderColor: team.color }}
+                  >
+                    <span className="team-name">{team.name}</span>
+                    <span className="team-points">{team.score}점</span>
+                  </div>
+                );
+              })}
             </div>
-          </div>
-          <div className="current-team-display">
-            현재 턴:{" "}
-            <span style={{ color: getCurrentTeam()?.color }}>{getCurrentTeam()?.name}</span>
           </div>
           <p className="game-description">{currentCategory?.description} 문제를 선택하세요!</p>
         </div>
@@ -1424,25 +1444,6 @@ const MusicGame: React.FC = () => {
           ))}
         </div>
 
-        {/* 퀵메뉴 */}
-        <QuickMenu
-          buttons={[
-            {
-              id: "team-switch",
-              icon: "🔄",
-              title: "턴 변경",
-              onClick: handleTeamSwitch,
-              color: "switch",
-            },
-            {
-              id: "reset-scores",
-              icon: "🗑️",
-              title: "점수 초기화",
-              onClick: handleResetScores,
-              color: "reset",
-            },
-          ]}
-        />
       </div>
     );
   }
@@ -1457,21 +1458,24 @@ const MusicGame: React.FC = () => {
           </button>
           <h1>🎵 음악 맞추기</h1>
           <div className="team-scores">
-            {teams.map((team) => (
-              <div
-                key={team.id}
-                className={`team-score ${team.id === currentTeam ? "active" : ""}`}
-                style={{ borderColor: team.color }}
-              >
-                <span className="team-name">{team.name}</span>
-                <span className="team-points">{team.score}점</span>
-              </div>
-            ))}
+            {teams.map((team) => {
+              const winningTeam = getWinningTeam();
+              const isWinning = winningTeam && winningTeam.id === team.id;
+              
+              return (
+                <div
+                  key={team.id}
+                  className={`team-score ${isWinning ? "winning" : ""}`}
+                  style={{ borderColor: team.color }}
+                >
+                  <span className="team-name">{team.name}</span>
+                  <span className="team-points">{team.score}점</span>
+                </div>
+              );
+            })}
           </div>
         </div>
-        <div className="current-team-display">
-          현재 턴: <span style={{ color: getCurrentTeam()?.color }}>{getCurrentTeam()?.name}</span>
-        </div>
+
       </div>
 
       <div className="game-area">
@@ -1488,6 +1492,9 @@ const MusicGame: React.FC = () => {
           >
             {isPlaying ? "⏸️ 정지" : "▶️ 재생"}
           </button>
+          <div className="timer-display">
+            <span className="timer-text">⏱️ {formatTime(currentTime)}</span>
+          </div>
         </div>
 
         <div className="answer-section">
@@ -1495,18 +1502,26 @@ const MusicGame: React.FC = () => {
             type="text"
             value={userAnswer}
             onChange={(e) => setUserAnswer(e.target.value)}
-            onKeyPress={handleKeyPress}
             placeholder="가수 '이름'과 노래 '제목' 순서대로 말해주세요."
             className={`answer-input ${isCorrect === false ? "wrong" : ""}`}
             disabled={showAnswer}
           />
           <div className="answer-buttons">
             <button
-              onClick={handleCheckAnswer}
-              className="btn btn-check"
+              onClick={() => handleCheckAnswer("team1")}
+              className="btn btn-check-team1"
               disabled={showAnswer || !userAnswer.trim()}
+              style={{ backgroundColor: teams.find(t => t.id === "team1")?.color }}
             >
-              정답 확인
+              {teams.find(t => t.id === "team1")?.name}
+            </button>
+            <button
+              onClick={() => handleCheckAnswer("team2")}
+              className="btn btn-check-team2"
+              disabled={showAnswer || !userAnswer.trim()}
+              style={{ backgroundColor: teams.find(t => t.id === "team2")?.color }}
+            >
+              {teams.find(t => t.id === "team2")?.name}
             </button>
             <button
               onClick={handleShowHint}
@@ -1555,25 +1570,6 @@ const MusicGame: React.FC = () => {
         )}
       </div>
 
-      {/* 퀵메뉴 */}
-      <QuickMenu
-        buttons={[
-          {
-            id: "team-switch",
-            icon: "🔄",
-            title: "턴 변경",
-            onClick: handleTeamSwitch,
-            color: "switch",
-          },
-          {
-            id: "reset-scores",
-            icon: "🗑️",
-            title: "점수 초기화",
-            onClick: handleResetScores,
-            color: "reset",
-          },
-        ]}
-      />
     </div>
   );
 };
