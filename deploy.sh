@@ -17,3 +17,5 @@ git push origin main
 
 echo "✅ 배포 완료! Vercel에서 자동 배포를 확인하세요."
 echo "🌐 Vercel 대시보드: https://vercel.com/dashboard"
+
+

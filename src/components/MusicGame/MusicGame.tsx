@@ -41,6 +41,8 @@ const MusicGame: React.FC = () => {
   const [showHint, setShowHint] = useState<boolean>(false);
   const [completedQuestions, setCompletedQuestions] = useState<Set<string>>(new Set());
   const [audioRef, setAudioRef] = useState<HTMLAudioElement | null>(null);
+  const [currentTime, setCurrentTime] = useState<number>(0);
+  const [duration, setDuration] = useState<number>(0);
   const navigate = useNavigate();
   const { teams, updateTeamScore } = useScore();
 
@@ -52,192 +54,195 @@ const MusicGame: React.FC = () => {
     { id: "hiphop", name: "힙합", description: "힙합/랩 음악", icon: "🎤", color: "#96ceb4" },
     { id: "animation", name: "애니메이션", description: "애니메이션 OST", icon: "🎬", color: "#ff9ff3" },
     { id: "ost", name: "OST", description: "드라마/영화 OST", icon: "🎭", color: "#feca57" },
-    { id: "1990s", name: "1990년대", description: "90년대 음악", icon: "📻", color: "#54a0ff" },
+    { id: "melon", name: "멜론 탑 100", description: "멜론 차트 인기곡", icon: "🍈", color: "#54a0ff" },
     { id: "2000s", name: "2000년대", description: "2000년대 음악", icon: "💿", color: "#5f27cd" },
     { id: "2010s", name: "2010년대", description: "2010년대 음악", icon: "📱", color: "#00d2d3" },
     { id: "2020s", name: "2020년대", description: "2020년대 음악", icon: "🎧", color: "#ff6348" },
   ];
 
-  // 문제 데이터 (각 카테고리별로 10개씩)
+  // 문제 데이터 (각 카테고리별로 10개씩, 난이도 순서대로 정렬)
   const questions: Question[] = [
-    // 남자 아이돌 (10개)
+    // 남자 아이돌 (10개) - 난이도 순서대로
     {
       id: "male-idol1",
-      title: "Dynamite",
-      artist: "BTS",
+      title: "",
+      artist: "",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "male-idol",
-      difficulty: "easy",
-      keyword: "방탄소년단",
-      hint: "세계적인 인기를 얻은 7인조 그룹",
+      difficulty: "very-easy",
+      keyword: "",
+      hint: "",
     },
     {
       id: "male-idol2",
-      title: "Spring Day",
-      artist: "BTS",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
-      category: "male-idol",
-      difficulty: "hard",
-      keyword: "봄날",
-      hint: "방탄소년단의 감성적인 발라드",
-    },
-    {
-      id: "male-idol3",
-      title: "Butter",
-      artist: "BTS",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
-      category: "male-idol",
-      difficulty: "very-hard",
-      keyword: "버터",
-      hint: "방탄소년단의 영어 싱글",
-    },
-    {
-      id: "male-idol4",
-      title: "하루하루",
-      artist: "빅뱅",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
-      category: "male-idol",
-      difficulty: "very-easy",
-      keyword: "빅뱅",
-      hint: "무한도전에서 나온 곡",
-    },
-    {
-      id: "male-idol5",
-      title: "Gangnam Style",
-      artist: "PSY",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
-      category: "male-idol",
-      difficulty: "easy",
-      keyword: "강남스타일",
-      hint: "전 세계적으로 유명해진 K-POP 곡",
-    },
-    {
-      id: "male-idol6",
-      title: "손성모",
-      artist: "손성모",
+      title: "",
+      artist: "",
       file: "https://youtu.be/8OAQ6RuYFGE?feature=shared",
       category: "male-idol",
       difficulty: "very-easy",
-      keyword: "일이삼사오륙칠팔",
-      hint: "가수 이름과 노래 제목이 같습니다",
+      keyword: "",
+      hint: "",
+    },
+    {
+      id: "male-idol3",
+      title: "",
+      artist: "",
+      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
+      category: "male-idol",
+      difficulty: "easy",
+      keyword: "",
+      hint: "",
+    },
+    {
+      id: "male-idol4",
+      title: "",
+      artist: "",
+      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
+      category: "male-idol",
+      difficulty: "easy",
+      keyword: "",
+      hint: "",
+    },
+    {
+      id: "male-idol5",
+      title: "",
+      artist: "",
+      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
+      category: "male-idol",
+      difficulty: "medium",
+      keyword: "",
+      hint: "",
+    },
+    {
+      id: "male-idol6",
+      title: "",
+      artist: "",
+      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
+      category: "male-idol",
+      difficulty: "medium",
+      keyword: "",
+      hint: "",
     },
     {
       id: "male-idol7",
-      title: "EXO - Growl",
-      artist: "EXO",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
-      category: "male-idol",
-      difficulty: "medium",
-      keyword: "엑소",
-      hint: "12인조 남성 그룹의 대표곡",
-    },
-    {
-      id: "male-idol8",
-      title: "SHINee - Ring Ding Dong",
-      artist: "SHINee",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
-      category: "male-idol",
-      difficulty: "medium",
-      keyword: "샤이니",
-      hint: "5인조 남성 그룹의 히트곡",
-    },
-    {
-      id: "male-idol9",
-      title: "Super Junior - Sorry Sorry",
-      artist: "Super Junior",
+      title: "",
+      artist: "",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "male-idol",
       difficulty: "hard",
-      keyword: "슈퍼주니어",
-      hint: "13인조 남성 그룹의 대표곡",
+      keyword: "",
+      hint: "",
     },
     {
-      id: "male-idol10",
-      title: "Big Bang - Fantastic Baby",
-      artist: "Big Bang",
+      id: "male-idol8",
+      title: "",
+      artist: "",
+      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
+      category: "male-idol",
+      difficulty: "hard",
+      keyword: "",
+      hint: "",
+    },
+    {
+      id: "male-idol9",
+      title: "",
+      artist: "",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "male-idol",
       difficulty: "very-hard",
-      keyword: "빅뱅",
-      hint: "5인조 남성 그룹의 히트곡",
+      keyword: "",
+      hint: "",
+    },
+    {
+      id: "male-idol10",
+      title: "",
+      artist: "",
+      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
+      category: "male-idol",
+      difficulty: "very-hard",
+      keyword: "",
+      hint: "",
     },
 
-    // 여자 아이돌 (10개)
+    // 여자 아이돌 (10개) - 난이도 순서대로
     {
       id: "female-idol1",
+      title: "붐바야",
+      artist: "블랙핑크",
+      file: "/music/feidol1.mp4",
+      category: "female-idol",
+      difficulty: "very-easy",
+      keyword: "엠버서더",
+      hint: "이걸 힌트봐?",
+    },
+    
+    {
+      id: "female-idol2",
+      title: "언더워터",
+      artist: "권은비",
+      file: "/music/feidol2.mp4",
+      category: "female-idol",
+      difficulty: "very-easy",
+      keyword: "여름",
+      hint: "워터밤",
+    },
+    {
+      id: "female-idol3",
+      title: "테디베어",
+      artist: "스테이씨",
+      file: "/music/feidol3.mp4",
+      category: "female-idol",
+      difficulty: "easy",
+      keyword: "4세대 걸그룹",
+      hint: "박남정 딸",
+    },
+    
+    {
+      id: "female-idol4",
       title: "How You Like That",
       artist: "BLACKPINK",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
+      file: "/music/feidol4.mp4",
       category: "female-idol",
-      difficulty: "medium",
+      difficulty: "easy",
       keyword: "블랙핑크",
       hint: "4인조 여성 그룹의 대표곡",
     },
     {
-      id: "female-idol2",
+      id: "female-idol5",
+      title: "Fancy",
+      artist: "TWICE",
+      file: "/music/feidol5.mp4",
+      category: "female-idol",
+      difficulty: "medium",
+      keyword: "트와이스",
+      hint: "9인조 여성 그룹의 히트곡",
+    },
+    
+    {
+      id: "female-idol6",
+      title: "사뿐사뿐",
+      artist: "에이오에이",
+      file: "/music/feidol6.mp4",
+      category: "female-idol",
+      difficulty: "medium",
+      keyword: "에이스오브엔젤",
+      hint: "XXXX 걸어가",
+    },
+    {
+      id: "female-idol7",
       title: "Lovesick Girls",
       artist: "BLACKPINK",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
+      file: "/music/feidol7.mp4",
       category: "female-idol",
       difficulty: "hard",
       keyword: "러브씩",
       hint: "블랙핑크의 팝 펑크 스타일 곡",
     },
     {
-      id: "female-idol3",
-      title: "DDU-DU DDU-DU",
-      artist: "BLACKPINK",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
-      category: "female-idol",
-      difficulty: "very-hard",
-      keyword: "두두두두",
-      hint: "블랙핑크의 히트곡",
-    },
-    {
-      id: "female-idol4",
-      title: "Fancy",
-      artist: "TWICE",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
-      category: "female-idol",
-      difficulty: "medium",
-      keyword: "트와이스",
-      hint: "9인조 여성 그룹의 히트곡",
-    },
-    {
-      id: "female-idol5",
-      title: "TT",
-      artist: "TWICE",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
-      category: "female-idol",
-      difficulty: "easy",
-      keyword: "트와이스",
-      hint: "9인조 여성 그룹의 대표곡",
-    },
-    {
-      id: "female-idol6",
-      title: "Red Velvet - Red Flavor",
-      artist: "Red Velvet",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
-      category: "female-idol",
-      difficulty: "medium",
-      keyword: "레드벨벳",
-      hint: "5인조 여성 그룹의 히트곡",
-    },
-    {
-      id: "female-idol7",
-      title: "Girls' Generation - Gee",
-      artist: "Girls' Generation",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
-      category: "female-idol",
-      difficulty: "easy",
-      keyword: "소녀시대",
-      hint: "9인조 여성 그룹의 대표곡",
-    },
-    {
       id: "female-idol8",
       title: "IU - Good Day",
       artist: "IU",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
+      file: "/music/feidol8.mp4",
       category: "female-idol",
       difficulty: "hard",
       keyword: "아이유",
@@ -245,832 +250,840 @@ const MusicGame: React.FC = () => {
     },
     {
       id: "female-idol9",
-      title: "2NE1 - I Am The Best",
-      artist: "2NE1",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
+      title: "이브프시케그리고푸른수염의아내",
+      artist: "르세라핌",
+      file: "/music/feidol9.mp4",
       category: "female-idol",
       difficulty: "very-hard",
-      keyword: "투애니원",
-      hint: "4인조 여성 그룹의 히트곡",
+      keyword: "대천사",
+      hint: "이브 프시케 그리고 XXXX의 아내",
     },
     {
       id: "female-idol10",
-      title: "Wonder Girls - Nobody",
-      artist: "Wonder Girls",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
+      title: "DDU-DU DDU-DU",
+      artist: "BLACKPINK",
+      file: "/music/feidol10.mp4",
       category: "female-idol",
-      difficulty: "very-easy",
-      keyword: "원더걸스",
-      hint: "5인조 여성 그룹의 대표곡",
+      difficulty: "very-hard",
+      keyword: "두두두두",
+      hint: "블랙핑크의 히트곡",
     },
+    
 
-    // 힙합  (10개)
+    // 힙합 (10개) - 난이도 순서대로
     {
       id: "hiphop1",
-      title: "Bohemian Rhapsody",
-      artist: "Queen",
+      title: "",
+      artist: "",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "hiphop",
-      difficulty: "easy",
-      keyword: "퀸",
-      hint: "영국의 전설적인 록 밴드",
+      difficulty: "very-easy",
+      keyword: "",
+      hint: "",
     },
     {
       id: "hiphop2",
-      title: "Blinding Lights",
-      artist: "The Weeknd",
+      title: "",
+      artist: "",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "hiphop",
-      difficulty: "very-easy",
-      keyword: "위켄드",
-      hint: "캐나다의 R&B 가수",
+      difficulty: "easy",
+      keyword: "",
+      hint: "",
     },
     {
       id: "hiphop3",
-      title: "Bad Guy",
-      artist: "Billie Eilish",
+      title: "",
+      artist: "",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "hiphop",
       difficulty: "easy",
-      keyword: "빌리아일리시",
-      hint: "미국의 젊은 팝스타",
+      keyword: "",
+      hint: "",
     },
     {
       id: "hiphop4",
-      title: "Levitating",
-      artist: "Dua Lipa",
+      title: "",
+      artist: "",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "hiphop",
       difficulty: "easy",
-      keyword: "듀아리파",
-      hint: "영국의 팝 가수",
+      keyword: "",
+      hint: "",
     },
     {
       id: "hiphop5",
-      title: "Watermelon Sugar",
-      artist: "Harry Styles",
+      title: "",
+      artist: "",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "hiphop",
       difficulty: "medium",
-      keyword: "해리스타일즈",
-      hint: "원디렉션 출신 솔로 가수",
+      keyword: "",
+      hint: "",
     },
     {
       id: "hiphop6",
-      title: "Don't Start Now",
-      artist: "Dua Lipa",
+      title: "",
+      artist: "",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "hiphop",
       difficulty: "medium",
-      keyword: "듀아리파",
-      hint: "디스코 팝 스타일의 곡",
+      keyword: "",
+      hint: "",
     },
     {
       id: "hiphop7",
-      title: "Circles",
-      artist: "Post Malone",
+      title: "",
+      artist: "",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "hiphop",
       difficulty: "hard",
-      keyword: "포스트말론",
-      hint: "미국의 힙합/팝 가수",
+      keyword: "",
+      hint: "",
     },
     {
       id: "hiphop8",
-      title: "Adore You",
-      artist: "Harry Styles",
+      title: "",
+      artist: "",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "hiphop",
       difficulty: "hard",
-      keyword: "해리스타일즈",
-      hint: "해리 스타일즈의 감성적인 곡",
+      keyword: "",
+      hint: "",
     },
     {
       id: "hiphop9",
-      title: "Therefore I Am",
-      artist: "Billie Eilish",
+      title: "",
+      artist: "",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "hiphop",
       difficulty: "very-hard",
-      keyword: "빌리아일리시",
-      hint: "빌리 아일리시의 자신감 넘치는 곡",
+      keyword: "",
+      hint: "",
     },
     {
       id: "hiphop10",
-      title: "Mood",
-      artist: "24kGoldn",
+      title: "",
+      artist: "",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "hiphop",
       difficulty: "very-hard",
-      keyword: "24kgoldn",
-      hint: "미국의 래퍼이자 가수",
+      keyword: "",
+      hint: "",
     },
-    // 밴드 (10개)
+
+    // 밴드 (10개) - 난이도 순서대로
     {
       id: "band1",
-      title: "Bohemian Rhapsody",
-      artist: "Queen",
+      title: "",
+      artist: "",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "band",
       difficulty: "very-easy",
-      keyword: "퀸",
-      hint: "영국의 전설적인 록 밴드",
+      keyword: "",
+      hint: "",
     },
     {
       id: "band2",
-      title: "Stairway to Heaven",
-      artist: "Led Zeppelin",
+      title: "",
+      artist: "",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "band",
       difficulty: "very-easy",
-      keyword: "레드제플린",
-      hint: "클래식 록의 대표곡",
+      keyword: "",
+      hint: "",
     },
     {
       id: "band3",
-      title: "Sweet Child O' Mine",
-      artist: "Guns N' Roses",
+      title: "",
+      artist: "",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "band",
       difficulty: "easy",
-      keyword: "건즈앤로지즈",
-      hint: "미국의 하드 록 밴드",
+      keyword: "",
+      hint: "",
     },
     {
       id: "band4",
-      title: "Hotel California",
-      artist: "Eagles",
+      title: "",
+      artist: "",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "band",
       difficulty: "easy",
-      keyword: "이글스",
-      hint: "미국의 록 밴드",
+      keyword: "",
+      hint: "",
     },
     {
       id: "band5",
-      title: "Smells Like Teen Spirit",
-      artist: "Nirvana",
+      title: "",
+      artist: "",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "band",
       difficulty: "medium",
-      keyword: "너바나",
-      hint: "그런지 록의 대표 밴드",
+      keyword: "",
+      hint: "",
     },
     {
       id: "band6",
-      title: "Wonderwall",
-      artist: "Oasis",
+      title: "",
+      artist: "",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "band",
       difficulty: "medium",
-      keyword: "오아시스",
-      hint: "영국의 브릿팝 밴드",
+      keyword: "",
+      hint: "",
     },
     {
       id: "band7",
-      title: "Creep",
-      artist: "Radiohead",
+      title: "",
+      artist: "",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "band",
       difficulty: "hard",
-      keyword: "라디오헤드",
-      hint: "영국의 얼터너티브 록 밴드",
+      keyword: "",
+      hint: "",
     },
     {
       id: "band8",
-      title: "Zombie",
-      artist: "The Cranberries",
+      title: "",
+      artist: "",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "band",
       difficulty: "hard",
-      keyword: "크랜베리스",
-      hint: "아일랜드의 록 밴드",
+      keyword: "",
+      hint: "",
     },
     {
       id: "band9",
-      title: "Paranoid Android",
-      artist: "Radiohead",
+      title: "",
+      artist: "",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "band",
       difficulty: "very-hard",
-      keyword: "라디오헤드",
-      hint: "라디오헤드의 실험적인 곡",
+      keyword: "",
+      hint: "",
     },
     {
       id: "band10",
-      title: "Karma Police",
-      artist: "Radiohead",
+      title: "",
+      artist: "",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "band",
       difficulty: "very-hard",
-      keyword: "라디오헤드",
-      hint: "라디오헤드의 대표곡",
+      keyword: "",
+      hint: "",
     },
-    // 1990년대 (10개)
+
+    // 멜론 탑 100 (10개) - 난이도 순서대로
     {
-      id: "1990s1",
-      title: "In Da Club",
-      artist: "50 Cent",
+      id: "melon1",
+      title: "",
+      artist: "",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
-      category: "1990s",
+      category: "melon",
       difficulty: "very-easy",
-      keyword: "50센트",
-      hint: "미국의 래퍼",
+      keyword: "",
+      hint: "",
     },
     {
-      id: "1990s2",
-      title: "Lose Yourself",
-      artist: "Eminem",
+      id: "melon2",
+      title: "",
+      artist: "",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
-      category: "1990s",
+      category: "melon",
       difficulty: "very-easy",
-      keyword: "에미넴",
-      hint: "8마일 영화 주제곡",
+      keyword: "",
+      hint: "",
     },
     {
-      id: "1990s3",
-      title: "Stronger",
-      artist: "Kanye West",
+      id: "melon3",
+      title: "",
+      artist: "",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
-      category: "1990s",
+      category: "melon",
       difficulty: "easy",
-      keyword: "카니예웨스트",
-      hint: "미국의 힙합 아티스트",
+      keyword: "",
+      hint: "",
     },
     {
-      id: "1990s4",
-      title: "Empire State of Mind",
-      artist: "Jay-Z",
+      id: "melon4",
+      title: "",
+      artist: "",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
-      category: "1990s",
+      category: "melon",
       difficulty: "easy",
-      keyword: "제이지",
-      hint: "뉴욕을 노래한 힙합 곡",
+      keyword: "",
+      hint: "",
     },
     {
-      id: "1990s5",
-      title: "God's Plan",
-      artist: "Drake",
+      id: "melon5",
+      title: "",
+      artist: "",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
-      category: "1990s",
+      category: "melon",
       difficulty: "medium",
-      keyword: "드레이크",
-      hint: "캐나다의 래퍼",
+      keyword: "",
+      hint: "",
     },
     {
-      id: "1990s6",
-      title: "Sicko Mode",
-      artist: "Travis Scott",
+      id: "melon6",
+      title: "",
+      artist: "",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
-      category: "1990s",
+      category: "melon",
       difficulty: "medium",
-      keyword: "트래비스스캇",
-      hint: "미국의 트랩 아티스트",
+      keyword: "",
+      hint: "",
     },
     {
-      id: "1990s7",
-      title: "Old Town Road",
-      artist: "Lil Nas X",
+      id: "melon7",
+      title: "",
+      artist: "",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
-      category: "1990s",
+      category: "melon",
       difficulty: "hard",
-      keyword: "릴나스엑스",
-      hint: "컨트리와 힙합을 결합한 곡",
+      keyword: "",
+      hint: "",
     },
     {
-      id: "1990s8",
-      title: "The Box",
-      artist: "Roddy Ricch",
+      id: "melon8",
+      title: "",
+      artist: "",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
-      category: "1990s",
+      category: "melon",
       difficulty: "hard",
-      keyword: "로디리치",
-      hint: "미국의 래퍼",
+      keyword: "",
+      hint: "",
     },
     {
-      id: "1990s9",
-      title: "Blinding Lights",
-      artist: "The Weeknd",
+      id: "melon9",
+      title: "",
+      artist: "",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
-      category: "1990s",
+      category: "melon",
       difficulty: "very-hard",
-      keyword: "위켄드",
-      hint: "R&B와 힙합이 결합된 곡",
+      keyword: "",
+      hint: "",
     },
     {
-      id: "1990s10",
-      title: "Savage",
-      artist: "Megan Thee Stallion",
+      id: "melon10",
+      title: "",
+      artist: "",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
-      category: "1990s",
+      category: "melon",
       difficulty: "very-hard",
-      keyword: "메간더스탤리언",
-      hint: "미국의 여성 래퍼",
+      keyword: "",
+      hint: "",
     },
-    // 2000년대 (10개)
+
+    // 2000년대 (10개) - 난이도 순서대로
     {
       id: "2000s1",
-      title: "Take Five",
-      artist: "Dave Brubeck",
+      title: "",
+      artist: "",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "2000s",
       difficulty: "very-easy",
-      keyword: "데이브브루벡",
-      hint: "5/4 박자의 재즈 곡",
+      keyword: "",
+      hint: "",
     },
     {
       id: "2000s2",
-      title: "So What",
-      artist: "Miles Davis",
+      title: "",
+      artist: "",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "2000s",
       difficulty: "very-easy",
-      keyword: "마일스데이비스",
-      hint: "재즈의 대가",
+      keyword: "",
+      hint: "",
     },
     {
       id: "2000s3",
-      title: "Take the A Train",
-      artist: "Duke Ellington",
+      title: "",
+      artist: "",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "2000s",
       difficulty: "easy",
-      keyword: "듀크엘링턴",
-      hint: "스윙 재즈의 대표곡",
+      keyword: "",
+      hint: "",
     },
     {
       id: "2000s4",
-      title: "What a Wonderful World",
-      artist: "Louis Armstrong",
+      title: "",
+      artist: "",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "2000s",
       difficulty: "easy",
-      keyword: "루이암스트롱",
-      hint: "재즈의 전설적인 트럼펫 연주자",
+      keyword: "",
+      hint: "",
     },
     {
       id: "2000s5",
-      title: "Giant Steps",
-      artist: "John Coltrane",
+      title: "",
+      artist: "",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "2000s",
       difficulty: "medium",
-      keyword: "존콜트레인",
-      hint: "비밥 재즈의 대표곡",
+      keyword: "",
+      hint: "",
     },
     {
       id: "2000s6",
-      title: "Blue in Green",
-      artist: "Miles Davis",
+      title: "",
+      artist: "",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "2000s",
       difficulty: "medium",
-      keyword: "마일스데이비스",
-      hint: "모달 재즈의 대표곡",
+      keyword: "",
+      hint: "",
     },  
     {
       id: "2000s7",
-      title: "A Love Supreme",
-      artist: "John Coltrane",
+      title: "",
+      artist: "",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "2000s",
       difficulty: "hard",
-      keyword: "존콜트레인",
-      hint: "스피리추얼 재즈의 대표작",
+      keyword: "",
+      hint: "",
     },
     {
       id: "2000s8",
-      title: "Kind of Blue",
-      artist: "Miles Davis",
+      title: "",
+      artist: "",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "2000s",
       difficulty: "hard",
-      keyword: "마일스데이비스",
-      hint: "모달 재즈의 대표 앨범",
+      keyword: "",
+      hint: "",
     },
     {
       id: "2000s9",
-      title: "My Favorite Things",
-      artist: "John Coltrane",
+      title: "",
+      artist: "",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "2000s",
       difficulty: "very-hard",
-      keyword: "존콜트레인",
-      hint: "사운드 오브 뮤직의 재즈 버전",
+      keyword: "",
+      hint: "",
     },
     {
       id: "2000s10",
-      title: "Bitches Brew",
-      artist: "Miles Davis",
+      title: "",
+      artist: "",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "2000s",
       difficulty: "very-hard",
-      keyword: "마일스데이비스",
-      hint: "퓨전 재즈의 대표작",
+      keyword: "",
+      hint: "",
     },
-    // 2010년대 (10개)
+
+    // 2010년대 (10개) - 난이도 순서대로
     {
       id: "2010s1",
-      title: "Symphony No. 5",
-      artist: "Beethoven",
+      title: "",
+      artist: "",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "2010s",
       difficulty: "very-easy",
-      keyword: "베토벤",
-      hint: "운명 교향곡",
+      keyword: "",
+      hint: "",
     },
     {
       id: "2010s2",
-      title: "Für Elise",
-      artist: "Beethoven",
+      title: "",
+      artist: "",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "2010s",
       difficulty: "very-easy",
-      keyword: "베토벤",
-      hint: "피아노 소곡",
+      keyword: "",
+      hint: "",
     },
     {
       id: "2010s3",
-      title: "Moonlight Sonata",
-      artist: "Beethoven",
+      title: "",
+      artist: "",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "2010s",
       difficulty: "easy",
-      keyword: "베토벤",
-      hint: "월광 소나타",
+      keyword: "",
+      hint: "",
     },
     {
       id: "2010s4",
-      title: "Symphony No. 9",
-      artist: "Beethoven",
+      title: "",
+      artist: "",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "2010s",
       difficulty: "easy",
-      keyword: "베토벤",
-      hint: "합창 교향곡",
+      keyword: "",
+      hint: "",
     },
     {
       id: "2010s5",
-      title: "The Four Seasons",
-      artist: "Vivaldi",
+      title: "",
+      artist: "",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "2010s",
       difficulty: "medium",
-      keyword: "비발디",
-      hint: "사계",
+      keyword: "",
+      hint: "",
     },
     {
       id: "2010s6",
-      title: "Canon in D",
-      artist: "Pachelbel",
+      title: "",
+      artist: "",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "2010s",
       difficulty: "medium",
-      keyword: "파헬벨",
-      hint: "바로크 시대의 대표곡",
+      keyword: "",
+      hint: "",
     },
     {
       id: "2010s7",
-      title: "Symphony No. 40",
-      artist: "Mozart",
+      title: "",
+      artist: "",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "2010s",
       difficulty: "hard",
-      keyword: "모차르트",
-      hint: "교향곡 40번",
+      keyword: "",
+      hint: "",
     },
     {
       id: "2010s8",
-      title: "Requiem",
-      artist: "Mozart",
+      title: "",
+      artist: "",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "2010s",
       difficulty: "hard",
-      keyword: "모차르트",
-      hint: "모차르트의 마지막 작품",
+      keyword: "",
+      hint: "",
     },
     {
       id: "2010s9",
-      title: "Toccata and Fugue",
-      artist: "Bach",
+      title: "",
+      artist: "",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "2010s",
       difficulty: "very-hard",
-      keyword: "바흐",
-      hint: "오르간 작품",
+      keyword: "",
+      hint: "",
     },
     {
       id: "2010s10",
-      title: "Goldberg Variations",
-      artist: "Bach",
+      title: "",
+      artist: "",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "2010s",
       difficulty: "very-hard",
-      keyword: "바흐",
-      hint: "피아노 변주곡",
+      keyword: "",
+      hint: "",
     },
-    // 애니메이션 (10개)
+
+    // 애니메이션 (10개) - 난이도 순서대로
     {
       id: "animation1",
-      title: "겨울왕국",
-      artist: "겨울왕국",
+      title: "",
+      artist: "",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "animation",
       difficulty: "very-easy",
-      keyword: "겨울왕국",
-      hint: "디즈니 애니메이션의 히트곡",
+      keyword: "",
+      hint: "",
     },
     {
       id: "animation2",
-      title: "모아나",
-      artist: "모아나",
+      title: "",
+      artist: "",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "animation",
       difficulty: "very-easy",
-      keyword: "모아나",
-      hint: "디즈니 애니메이션의 주제곡",
+      keyword: "",
+      hint: "",
     },
     {
       id: "animation3",
-      title: "코코",
-      artist: "코코",
+      title: "",
+      artist: "",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "animation",
       difficulty: "easy",
-      keyword: "코코",
-      hint: "픽사 애니메이션의 감동적인 곡",
+      keyword: "",
+      hint: "",
     },
     {
       id: "animation4",
-      title: "주토피아",
-      artist: "주토피아",
+      title: "",
+      artist: "",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "animation",
       difficulty: "easy",
-      keyword: "주토피아",
-      hint: "디즈니 애니메이션의 활기찬 곡",
+      keyword: "",
+      hint: "",
     },
     {
       id: "animation5",
-      title: "토이스토리",
-      artist: "토이스토리",
+      title: "",
+      artist: "",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "animation",
       difficulty: "medium",
-      keyword: "토이스토리",
-      hint: "픽사의 대표 애니메이션",
+      keyword: "",
+      hint: "",
     },
     {
       id: "animation6",
-      title: "알라딘",
-      artist: "알라딘",
+      title: "",
+      artist: "",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "animation",
       difficulty: "medium",
-      keyword: "알라딘",
-      hint: "디즈니 클래식 애니메이션",
+      keyword: "",
+      hint: "",
     },
     {
       id: "animation7",
-      title: "라이온킹",
-      artist: "라이온킹",
+      title: "",
+      artist: "",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "animation",
       difficulty: "hard",
-      keyword: "라이온킹",
-      hint: "디즈니의 명작 애니메이션",
+      keyword: "",
+      hint: "",
     },
     {
       id: "animation8",
-      title: "인어공주",
-      artist: "인어공주",
+      title: "",
+      artist: "",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "animation",
       difficulty: "hard",
-      keyword: "인어공주",
-      hint: "디즈니 애니메이션의 클래식",
+      keyword: "",
+      hint: "",
     },
     {
       id: "animation9",
-      title: "미녀와야수",
-      artist: "미녀와야수",
+      title: "",
+      artist: "",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "animation",
       difficulty: "very-hard",
-      keyword: "미녀와야수",
-      hint: "디즈니의 로맨틱 애니메이션",
+      keyword: "",
+      hint: "",
     },
     {
       id: "animation10",
-      title: "라이온킹",
-      artist: "라이온킹",
+      title: "",
+      artist: "",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "animation",
       difficulty: "very-hard",
-      keyword: "라이온킹",
-      hint: "디즈니 애니메이션의 오프닝 곡",
+      keyword: "",
+      hint: "",
     },
-    // OST (10개)
+
+    // OST (10개) - 난이도 순서대로
     {
       id: "ost1",
-      title: "타이타닉",
-      artist: "타이타닉",
+      title: "",
+      artist: "",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "ost",
       difficulty: "very-easy",
-      keyword: "타이타닉",
-      hint: "레오나르도 디카프리오 주연의 로맨틱 영화",
+      keyword: "",
+      hint: "",
     },
     {
       id: "ost2",
-      title: "보디가드",
-      artist: "보디가드",
+      title: "",
+      artist: "",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "ost",
       difficulty: "very-easy",
-      keyword: "보디가드",
-      hint: "휘트니 휴스턴 주연의 영화",
+      keyword: "",
+      hint: "",
     },
     {
       id: "ost3",
-      title: "화이트나이츠",
-      artist: "화이트나이츠",
+      title: "",
+      artist: "",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "ost",
       difficulty: "easy",
-      keyword: "화이트나이츠",
-      hint: "발레리나와 댄서의 이야기",
+      keyword: "",
+      hint: "",
     },
     {
       id: "ost4",
-      title: "탑건",
-      artist: "탑건",
+      title: "",
+      artist: "",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "ost",
       difficulty: "easy",
-      keyword: "탑건",
-      hint: "톰 크루즈 주연의 액션 영화",
+      keyword: "",
+      hint: "",
     },
     {
       id: "ost5",
-      title: "록키",
-      artist: "록키",
+      title: "",
+      artist: "",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "ost",
       difficulty: "medium",
-      keyword: "록키",
-      hint: "실베스터 스탤론 주연의 스포츠 영화",
+      keyword: "",
+      hint: "",
     },
     {
       id: "ost6",
-      title: "탑건",
-      artist: "탑건",
+      title: "",
+      artist: "",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "ost",
       difficulty: "medium",
-      keyword: "탑건",
-      hint: "톰 크루즈의 전투기 조종사 영화",
+      keyword: "",
+      hint: "",
     },
     {
       id: "ost7",
-      title: "고스트",
-      artist: "고스트",
+      title: "",
+      artist: "",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "ost",
       difficulty: "hard",
-      keyword: "고스트",
-      hint: "패트릭 스웨이지 주연의 판타지 로맨스",
+      keyword: "",
+      hint: "",
     },
     {
       id: "ost8",
-      title: "마네킹",
-      artist: "마네킹",
+      title: "",
+      artist: "",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "ost",
       difficulty: "hard",
-      keyword: "마네킹",
-      hint: "인형이 살아나는 판타지 영화",
+      keyword: "",
+      hint: "",
     },
     {
       id: "ost9",
-      title: "오피서앤젠틀맨",
-      artist: "오피서앤젠틀맨",
+      title: "",
+      artist: "",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "ost",
       difficulty: "very-hard",
-      keyword: "오피서앤젠틀맨",
-      hint: "리처드 기어 주연의 로맨틱 드라마",
+      keyword: "",
+      hint: "",
     },
     {
       id: "ost10",
-      title: "어게인스트올오즈",
-      artist: "어게인스트올오즈",
+      title: "",
+      artist: "",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "ost",
       difficulty: "very-hard",
-      keyword: "어게인스트올오즈",
-      hint: "제프 브리지스 주연의 스릴러 영화",
+      keyword: "",
+      hint: "",
     },
-    // 2020년대 (10개)
+
+    // 2020년대 (10개) - 난이도 순서대로
     {
       id: "2020s1",
-      title: "Old Town Road",
-      artist: "Lil Nas X",
+      title: "",
+      artist: "",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "2020s",
       difficulty: "very-easy",
-      keyword: "릴나스엑스",
-      hint: "컨트리와 힙합의 결합",
+      keyword: "",
+      hint: "",
     },
     {
       id: "2020s2",
-      title: "The Gambler",
-      artist: "Kenny Rogers",
+      title: "",
+      artist: "",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "2020s",
       difficulty: "very-easy",
-      keyword: "케니로저스",
-      hint: "컨트리 음악의 전설",
+      keyword: "",
+      hint: "",
     },
     {
       id: "2020s3",
-      title: "Jolene",
-      artist: "Dolly Parton",
+      title: "",
+      artist: "",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "2020s",
       difficulty: "easy",
-      keyword: "돌리파튼",
-      hint: "컨트리 음악의 여왕",
+      keyword: "",
+      hint: "",
     },
     {
       id: "2020s4",
-      title: "Ring of Fire",
-      artist: "Johnny Cash",
+      title: "",
+      artist: "",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "2020s",
       difficulty: "easy",
-      keyword: "조니캐시",
-      hint: "맨 인 블랙",
+      keyword: "",
+      hint: "",
     },
     {
       id: "2020s5",
-      title: "Friends in Low Places",
-      artist: "Garth Brooks",
+      title: "",
+      artist: "",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "2020s",
       difficulty: "medium",
-      keyword: "가스브룩스",
-      hint: "미국의 컨트리 가수",
+      keyword: "",
+      hint: "",
     },
     {
       id: "2020s6",
-      title: "I Walk the Line",
-      artist: "Johnny Cash",
+      title: "",
+      artist: "",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "2020s",
       difficulty: "medium",
-      keyword: "조니캐시",
-      hint: "조니 캐시의 대표곡",
+      keyword: "",
+      hint: "",
     },
     {
       id: "2020s7",
-      title: "9 to 5",
-      artist: "Dolly Parton",
+      title: "",
+      artist: "",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "2020s",
       difficulty: "hard",
-      keyword: "돌리파튼",
-      hint: "돌리 파튼의 히트곡",
+      keyword: "",
+      hint: "",
     },
     {
       id: "2020s8",
-      title: "A Boy Named Sue",
-      artist: "Johnny Cash",
+      title: "",
+      artist: "",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "2020s",
       difficulty: "hard",
-      keyword: "조니캐시",
-      hint: "조니 캐시의 스토리텔링 곡",
+      keyword: "",
+      hint: "",
     },
     {
       id: "2020s9",
-      title: "Coat of Many Colors",
-      artist: "Dolly Parton",
+      title: "",
+      artist: "",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "2020s",
       difficulty: "very-hard",
-      keyword: "돌리파튼",
-      hint: "돌리 파튼의 자전적 곡",
+      keyword: "",
+      hint: "",
     },
     {
       id: "2020s10",
-      title: "Folsom Prison Blues",
-      artist: "Johnny Cash",
+      title: "",
+      artist: "",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "2020s",
       difficulty: "very-hard",
-      keyword: "조니캐시",
-      hint: "조니 캐시의 감옥 콘서트",
+      keyword: "",
+      hint: "",
     },
   ];
 
@@ -1107,6 +1120,7 @@ const MusicGame: React.FC = () => {
     setShowAnswer(false);
     setIsPlaying(false);
     setShowHint(false);
+    setCurrentTime(0);
 
     // 새로운 오디오 객체 생성
     if (audioRef) {
@@ -1116,6 +1130,22 @@ const MusicGame: React.FC = () => {
 
     const newAudio = new Audio(question.file);
     newAudio.volume = 0.7; // 볼륨 설정
+    
+    // 오디오 로딩 이벤트 추가
+    newAudio.addEventListener('loadeddata', () => {
+      console.log('오디오 로딩 완료:', question.file);
+    });
+    
+    // 시간 업데이트 이벤트 추가
+    newAudio.addEventListener('timeupdate', () => {
+      setCurrentTime(newAudio.currentTime);
+    });
+    
+    newAudio.addEventListener('error', (e) => {
+      console.error('오디오 로딩 실패:', e);
+      alert('오디오 파일을 로드할 수 없습니다. 파일 경로를 확인해주세요.');
+    });
+    
     setAudioRef(newAudio);
 
     // 히스토리에 상태 추가
@@ -1129,12 +1159,45 @@ const MusicGame: React.FC = () => {
       audioRef.pause();
       setIsPlaying(false);
     } else {
-      audioRef.play().catch((error) => {
+      audioRef.play()
+        .then(() => {
+          setIsPlaying(true);
+        })
+        .catch((error) => {
+          console.error("오디오 재생 실패:", error);
+          alert("오디오를 재생할 수 없습니다. 링크를 확인해주세요.");
+          setIsPlaying(false);
+        });
+    }
+  };
+
+  const handlePlay5Seconds = () => {
+    if (!audioRef) return;
+
+    // 현재 재생 중이면 정지
+    if (isPlaying) {
+      audioRef.pause();
+      setIsPlaying(false);
+    }
+
+    // 5초 후 자동 정지
+    const stopAfter5Seconds = setTimeout(() => {
+      if (audioRef) {
+        audioRef.pause();
+        setIsPlaying(false);
+      }
+    }, 5000);
+    
+    audioRef.play()
+      .then(() => {
+        setIsPlaying(true);
+      })
+      .catch((error) => {
         console.error("오디오 재생 실패:", error);
         alert("오디오를 재생할 수 없습니다. 링크를 확인해주세요.");
+        setIsPlaying(false);
+        clearTimeout(stopAfter5Seconds);
       });
-      setIsPlaying(true);
-    }
   };
 
   // 오디오 종료 시 상태 업데이트
@@ -1180,7 +1243,7 @@ const MusicGame: React.FC = () => {
     };
   }, [currentQuestion, selectedCategory]);
 
-  const handleCheckAnswer = () => {
+  const handleCheckAnswer = (teamId: string) => {
     if (!currentQuestion) return;
 
     // 입력값 정규화 (띄어쓰기 제거)
@@ -1229,8 +1292,8 @@ const MusicGame: React.FC = () => {
 
       const scoreToAdd = getScoreByDifficulty(currentQuestion.difficulty);
 
-      // 현재 팀의 점수 증가
-      updateTeamScore(currentTeam, scoreToAdd);
+      // 해당 팀의 점수 증가
+      updateTeamScore(teamId, scoreToAdd);
       // 완료된 문제에 추가
       setCompletedQuestions((prev) => new Set([...prev, currentQuestion.id]));
       setIsCorrect(true);
@@ -1246,11 +1309,7 @@ const MusicGame: React.FC = () => {
     }
   };
 
-  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter" && userAnswer.trim() && !showAnswer) {
-      handleCheckAnswer();
-    }
-  };
+
 
   const handleShowHint = () => {
     if (!currentQuestion) return;
@@ -1258,14 +1317,7 @@ const MusicGame: React.FC = () => {
     setShowHint(true);
   };
 
-  const handleTeamSwitch = () => {
-    setCurrentTeam(currentTeam === "team1" ? "team2" : "team1");
-  };
 
-  const handleResetScores = () => {
-    // 전역 점수 초기화는 ScoreContext에서 처리
-    // 이 함수는 게임 내 점수만 초기화
-  };
 
   const getCategoryQuestions = (categoryId: string) => {
     return questions.filter((q) => q.category === categoryId);
@@ -1275,16 +1327,34 @@ const MusicGame: React.FC = () => {
     return categories.find((c) => c.id === selectedCategory);
   };
 
-  const getCurrentTeam = () => {
-    return teams.find((team) => team.id === currentTeam);
-  };
+
 
   const getTotalScore = () => {
     return teams.reduce((total, team) => total + team.score, 0);
   };
 
+  // 이기는 팀을 판단하는 함수
+  const getWinningTeam = () => {
+    if (teams.length === 0) return null;
+    
+    const maxScore = Math.max(...teams.map(team => team.score));
+    const winningTeams = teams.filter(team => team.score === maxScore);
+    
+    // 동점인 경우 null 반환 (무승부)
+    if (winningTeams.length > 1) return null;
+    
+    return winningTeams[0];
+  };
+
   const getHintText = (question: Question) => {
     return question.hint;
+  };
+
+  // 시간 포맷팅 함수 (초를 mm:ss 형태로 변환)
+  const formatTime = (seconds: number) => {
+    const mins = Math.floor(seconds / 60);
+    const secs = Math.floor(seconds % 60);
+    return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
   };
 
   // 카테고리 선택 화면
@@ -1298,21 +1368,22 @@ const MusicGame: React.FC = () => {
             </button>
             <h1>🎵 음악 맞추기 게임</h1>
             <div className="team-scores">
-              {teams.map((team) => (
-                <div
-                  key={team.id}
-                  className={`team-score ${team.id === currentTeam ? "active" : ""}`}
-                  style={{ borderColor: team.color }}
-                >
-                  <span className="team-name">{team.name}</span>
-                  <span className="team-points">{team.score}점</span>
-                </div>
-              ))}
+              {teams.map((team) => {
+                const winningTeam = getWinningTeam();
+                const isWinning = winningTeam && winningTeam.id === team.id;
+                
+                return (
+                  <div
+                    key={team.id}
+                    className={`team-score ${isWinning ? "winning" : ""}`}
+                    style={{ borderColor: team.color }}
+                  >
+                    <span className="team-name">{team.name}</span>
+                    <span className="team-points">{team.score}점</span>
+                  </div>
+                );
+              })}
             </div>
-          </div>
-          <div className="current-team-display">
-            현재 턴:{" "}
-            <span style={{ color: getCurrentTeam()?.color }}>{getCurrentTeam()?.name}</span>
           </div>
           <p className="game-description">카테고리를 선택하고 음악을 맞춰보세요!</p>
         </div>
@@ -1335,25 +1406,6 @@ const MusicGame: React.FC = () => {
           ))}
         </div>
 
-        {/* 퀵메뉴 */}
-        <QuickMenu
-          buttons={[
-            {
-              id: "team-switch",
-              icon: "🔄",
-              title: "턴 변경",
-              onClick: handleTeamSwitch,
-              color: "switch",
-            },
-            {
-              id: "reset-scores",
-              icon: "🗑️",
-              title: "점수 초기화",
-              onClick: handleResetScores,
-              color: "reset",
-            },
-          ]}
-        />
       </div>
     );
   }
@@ -1374,21 +1426,22 @@ const MusicGame: React.FC = () => {
               {currentCategory?.icon} {currentCategory?.name}
             </h1>
             <div className="team-scores">
-              {teams.map((team) => (
-                <div
-                  key={team.id}
-                  className={`team-score ${team.id === currentTeam ? "active" : ""}`}
-                  style={{ borderColor: team.color }}
-                >
-                  <span className="team-name">{team.name}</span>
-                  <span className="team-points">{team.score}점</span>
-                </div>
-              ))}
+              {teams.map((team) => {
+                const winningTeam = getWinningTeam();
+                const isWinning = winningTeam && winningTeam.id === team.id;
+                
+                return (
+                  <div
+                    key={team.id}
+                    className={`team-score ${isWinning ? "winning" : ""}`}
+                    style={{ borderColor: team.color }}
+                  >
+                    <span className="team-name">{team.name}</span>
+                    <span className="team-points">{team.score}점</span>
+                  </div>
+                );
+              })}
             </div>
-          </div>
-          <div className="current-team-display">
-            현재 턴:{" "}
-            <span style={{ color: getCurrentTeam()?.color }}>{getCurrentTeam()?.name}</span>
           </div>
           <p className="game-description">{currentCategory?.description} 문제를 선택하세요!</p>
         </div>
@@ -1424,25 +1477,6 @@ const MusicGame: React.FC = () => {
           ))}
         </div>
 
-        {/* 퀵메뉴 */}
-        <QuickMenu
-          buttons={[
-            {
-              id: "team-switch",
-              icon: "🔄",
-              title: "턴 변경",
-              onClick: handleTeamSwitch,
-              color: "switch",
-            },
-            {
-              id: "reset-scores",
-              icon: "🗑️",
-              title: "점수 초기화",
-              onClick: handleResetScores,
-              color: "reset",
-            },
-          ]}
-        />
       </div>
     );
   }
@@ -1457,21 +1491,24 @@ const MusicGame: React.FC = () => {
           </button>
           <h1>🎵 음악 맞추기</h1>
           <div className="team-scores">
-            {teams.map((team) => (
-              <div
-                key={team.id}
-                className={`team-score ${team.id === currentTeam ? "active" : ""}`}
-                style={{ borderColor: team.color }}
-              >
-                <span className="team-name">{team.name}</span>
-                <span className="team-points">{team.score}점</span>
-              </div>
-            ))}
+            {teams.map((team) => {
+              const winningTeam = getWinningTeam();
+              const isWinning = winningTeam && winningTeam.id === team.id;
+              
+              return (
+                <div
+                  key={team.id}
+                  className={`team-score ${isWinning ? "winning" : ""}`}
+                  style={{ borderColor: team.color }}
+                >
+                  <span className="team-name">{team.name}</span>
+                  <span className="team-points">{team.score}점</span>
+                </div>
+              );
+            })}
           </div>
         </div>
-        <div className="current-team-display">
-          현재 턴: <span style={{ color: getCurrentTeam()?.color }}>{getCurrentTeam()?.name}</span>
-        </div>
+
       </div>
 
       <div className="game-area">
@@ -1481,13 +1518,25 @@ const MusicGame: React.FC = () => {
         </div>
 
         <div className="audio-controls">
-          <button
-            onClick={handlePlayPause}
-            className={`btn ${isPlaying ? "btn-pause" : "btn-play"}`}
-            disabled={!currentQuestion}
-          >
-            {isPlaying ? "⏸️ 정지" : "▶️ 재생"}
-          </button>
+          <div className="audio-buttons">
+            <button
+              onClick={handlePlayPause}
+              className={`btn ${isPlaying ? "btn-pause" : "btn-play"}`}
+              disabled={!currentQuestion}
+            >
+              {isPlaying ? "⏸️ 정지" : "▶️ 재생"}
+            </button>
+            <button
+              onClick={handlePlay5Seconds}
+              className="btn btn-play-5s"
+              disabled={!currentQuestion || isPlaying}
+            >
+              ⏱️ 5초 더 듣기
+            </button>
+          </div>
+          <div className="timer-display">
+            <span className="timer-text">⏱️ {formatTime(currentTime)}</span>
+          </div>
         </div>
 
         <div className="answer-section">
@@ -1495,18 +1544,26 @@ const MusicGame: React.FC = () => {
             type="text"
             value={userAnswer}
             onChange={(e) => setUserAnswer(e.target.value)}
-            onKeyPress={handleKeyPress}
             placeholder="가수 '이름'과 노래 '제목' 순서대로 말해주세요."
             className={`answer-input ${isCorrect === false ? "wrong" : ""}`}
             disabled={showAnswer}
           />
           <div className="answer-buttons">
             <button
-              onClick={handleCheckAnswer}
-              className="btn btn-check"
+              onClick={() => handleCheckAnswer("team1")}
+              className="btn btn-check-team1"
               disabled={showAnswer || !userAnswer.trim()}
+              style={{ backgroundColor: teams.find(t => t.id === "team1")?.color }}
             >
-              정답 확인
+              {teams.find(t => t.id === "team1")?.name}
+            </button>
+            <button
+              onClick={() => handleCheckAnswer("team2")}
+              className="btn btn-check-team2"
+              disabled={showAnswer || !userAnswer.trim()}
+              style={{ backgroundColor: teams.find(t => t.id === "team2")?.color }}
+            >
+              {teams.find(t => t.id === "team2")?.name}
             </button>
             <button
               onClick={handleShowHint}
@@ -1555,25 +1612,6 @@ const MusicGame: React.FC = () => {
         )}
       </div>
 
-      {/* 퀵메뉴 */}
-      <QuickMenu
-        buttons={[
-          {
-            id: "team-switch",
-            icon: "🔄",
-            title: "턴 변경",
-            onClick: handleTeamSwitch,
-            color: "switch",
-          },
-          {
-            id: "reset-scores",
-            icon: "🗑️",
-            title: "점수 초기화",
-            onClick: handleResetScores,
-            color: "reset",
-          },
-        ]}
-      />
     </div>
   );
 };

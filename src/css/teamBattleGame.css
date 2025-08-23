@@ -1310,6 +1310,69 @@
   opacity: 0.8;
 }
 
+/* 플로팅 스킵 버튼 */
+.floating-skip-button {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  animation: fadeInBounce 0.8s ease-out;
+}
+
+.skip-btn {
+  background: linear-gradient(45deg, #ffd700, #ffed4e);
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-radius: 25px;
+  padding: 12px 24px;
+  color: #000;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 20px rgba(255, 215, 0, 0.4);
+  backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  animation: pulse 2s infinite;
+}
+
+.skip-btn:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 8px 30px rgba(255, 215, 0, 0.6);
+  background: linear-gradient(45deg, #ffed4e, #ffd700);
+}
+
+.skip-btn:active {
+  transform: translateY(-1px) scale(1.02);
+}
+
+@keyframes fadeInBounce {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(50px) scale(0.3);
+  }
+  50% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(-10px) scale(1.1);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0) scale(1);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
 /* 애니메이션 */
 @keyframes slideInFromLeft {
   from {

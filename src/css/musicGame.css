@@ -93,10 +93,20 @@
   flex-shrink: 0;
 }
 
-.team-score.active {
+.team-score.winning {
   transform: scale(1.05);
-  box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
-  background: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);
+  background: rgba(255, 215, 0, 0.2);
+  animation: winning-pulse 2s ease-in-out infinite;
+}
+
+@keyframes winning-pulse {
+  0%, 100% {
+    box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);
+  }
+  50% {
+    box-shadow: 0 4px 20px rgba(255, 215, 0, 0.6);
+  }
 }
 
 .team-name {
@@ -483,6 +493,58 @@
 .audio-controls {
   text-align: center;
   margin: 2rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.audio-buttons {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.btn-play-5s {
+  background: linear-gradient(45deg, #ff9800, #f57c00);
+  color: white;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-play-5s:hover:not(:disabled) {
+  background: linear-gradient(45deg, #f57c00, #e65100);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 152, 0, 0.3);
+}
+
+.btn-play-5s:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.timer-display {
+  background: rgba(255, 255, 255, 0.9);
+  border: 2px solid #ffffff;
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  animation: fadeIn 0.3s ease-in;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.timer-text {
+  color: #333;
+  font-size: var(--tv-font-size-large);
+  font-weight: bold;
+  font-family: 'Courier New', monospace;
+  letter-spacing: 2px;
 }
 
 .answer-section {
@@ -540,6 +602,21 @@
   display: flex;
   gap: 1rem;
   flex-wrap: wrap;
+}
+
+.btn-check-team1,
+.btn-check-team2 {
+  color: white;
+  font-weight: bold;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  transition: all 0.3s ease;
+}
+
+.btn-check-team1:hover,
+.btn-check-team2:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  border-color: rgba(255, 255, 255, 0.6);
 }
 
 .btn-hint {
