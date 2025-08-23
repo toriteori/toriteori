@@ -13,6 +13,7 @@ interface ScoreContextType {
   resetScores: () => void;
   getTotalScore: (teamId: string) => number;
   updateTeamName: (teamId: string, name: string) => void;
+  clearAllScores: () => void;
 }
 
 const ScoreContext = createContext<ScoreContextType | undefined>(undefined);
@@ -30,19 +31,42 @@ interface ScoreProviderProps {
 }
 
 export const ScoreProvider: React.FC<ScoreProviderProps> = ({ children }) => {
-  const [teams, setTeams] = useState<Team[]>([
-    { id: "team1", name: "팀 정지윤", score: 0, color: "#ff6b6b" },
-    { id: "team2", name: "팀 한지우", score: 0, color: "#4ecdc4" },
-  ]);
+  // 로컬 스토리지에서 팀 데이터 불러오기
+  const getInitialTeams = (): Team[] => {
+    const savedTeams = localStorage.getItem('gameTeams');
+    if (savedTeams) {
+      try {
+        return JSON.parse(savedTeams);
+      } catch (error) {
+        console.error('저장된 팀 데이터 파싱 실패:', error);
+      }
+    }
+    return [
+      { id: "team1", name: "팀 정지윤", score: 0, color: "#ff6b6b" },
+      { id: "team2", name: "팀 한지우", score: 0, color: "#4ecdc4" },
+    ];
+  };
+
+  const [teams, setTeams] = useState<Team[]>(getInitialTeams);
 
   const updateTeamScore = (teamId: string, points: number) => {
-    setTeams((prev) =>
-      prev.map((team) => (team.id === teamId ? { ...team, score: team.score + points } : team)),
-    );
+    setTeams((prev) => {
+      const updatedTeams = prev.map((team) => 
+        team.id === teamId ? { ...team, score: team.score + points } : team
+      );
+      // 로컬 스토리지에 저장
+      localStorage.setItem('gameTeams', JSON.stringify(updatedTeams));
+      return updatedTeams;
+    });
   };
 
   const resetScores = () => {
-    setTeams((prev) => prev.map((team) => ({ ...team, score: 0 })));
+    setTeams((prev) => {
+      const resetTeams = prev.map((team) => ({ ...team, score: 0 }));
+      // 로컬 스토리지에 저장
+      localStorage.setItem('gameTeams', JSON.stringify(resetTeams));
+      return resetTeams;
+    });
   };
 
   const getTotalScore = (teamId: string) => {
@@ -51,12 +75,28 @@ export const ScoreProvider: React.FC<ScoreProviderProps> = ({ children }) => {
   };
 
   const updateTeamName = (teamId: string, name: string) => {
-    setTeams((prev) => prev.map((team) => (team.id === teamId ? { ...team, name } : team)));
+    setTeams((prev) => {
+      const updatedTeams = prev.map((team) => 
+        team.id === teamId ? { ...team, name } : team
+      );
+      // 로컬 스토리지에 저장
+      localStorage.setItem('gameTeams', JSON.stringify(updatedTeams));
+      return updatedTeams;
+    });
+  };
+
+  const clearAllScores = () => {
+    // 로컬 스토리지에서 완전히 삭제
+    localStorage.removeItem('gameTeams');
+    setTeams([
+      { id: "team1", name: "팀 정지윤", score: 0, color: "#ff6b6b" },
+      { id: "team2", name: "팀 한지우", score: 0, color: "#4ecdc4" },
+    ]);
   };
 
   return (
     <ScoreContext.Provider
-      value={{ teams, updateTeamScore, resetScores, getTotalScore, updateTeamName }}
+      value={{ teams, updateTeamScore, resetScores, getTotalScore, updateTeamName, clearAllScores }}
     >
       {children}
     </ScoreContext.Provider>
