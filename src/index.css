@@ -1,0 +1,5 @@
+/* CSS 모듈 import */
+@import "./css/global.css";
+@import "./css/entryPage.css";
+@import "./css/mainPage.css";
+@import "./css/musicGame.css";
