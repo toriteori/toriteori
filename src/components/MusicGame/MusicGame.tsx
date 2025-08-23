@@ -46,7 +46,6 @@ const MusicGame: React.FC = () => {
 
   // 카테고리 데이터
   const categories: Category[] = [
-<<<<<<< HEAD
     { id: "male-idol", name: "남자 아이돌", description: "남성 아이돌 그룹/솔로", icon: "👨‍🎤", color: "#ff6b6b" },
     { id: "female-idol", name: "여자 아이돌", description: "여성 아이돌 그룹/솔로", icon: "👩‍🎤", color: "#ff8e8e" },
     { id: "band", name: "밴드", description: "록/밴드 음악", icon: "🤘", color: "#45b7d1" },
@@ -118,47 +117,11 @@ const MusicGame: React.FC = () => {
       artist: "손성모",
       file: "https://youtu.be/8OAQ6RuYFGE?feature=shared",
       category: "male-idol",
-=======
-    { id: "kpop", name: "K-POP", description: "한국 대중음악", icon: "🇰🇷", color: "#ff6b6b" },
-    { id: "pop", name: "POP", description: "팝 음악", icon: "🎵", color: "#4ecdc4" },
-    { id: "rock", name: "ROCK", description: "록 음악", icon: "🤘", color: "#45b7d1" },
-    { id: "hiphop", name: "HIP-HOP", description: "힙합 음악", icon: "🎤", color: "#96ceb4" },
-    { id: "jazz", name: "JAZZ", description: "재즈 음악", icon: "🎷", color: "#feca57" },
-    {
-      id: "classical",
-      name: "CLASSICAL",
-      description: "클래식 음악",
-      icon: "🎻",
-      color: "#ff9ff3",
-    },
-    {
-      id: "electronic",
-      name: "ELECTRONIC",
-      description: "일렉트로닉",
-      icon: "🎧",
-      color: "#54a0ff",
-    },
-    { id: "r&b", name: "R&B", description: "리듬 앤 블루스", icon: "🎹", color: "#5f27cd" },
-    { id: "country", name: "COUNTRY", description: "컨트리 음악", icon: "🎸", color: "#00d2d3" },
-    { id: "indie", name: "INDIE", description: "인디 음악", icon: "🎼", color: "#ff6348" },
-  ];
-
-  // 문제 데이터 (각 카테고리별로 난이도별 2개씩 총 10개씩)
-  const questions: Question[] = [
-    // K-POP (10개)
-    {
-      id: "kpop1",
-      title: "손성모",
-      artist: "손성모",
-      file: "https://youtu.be/8OAQ6RuYFGE?feature=shared",
-      category: "kpop",
->>>>>>> origin/master
       difficulty: "very-easy",
       keyword: "일이삼사오륙칠팔",
       hint: "가수 이름과 노래 제목이 같습니다",
     },
     {
-<<<<<<< HEAD
       id: "male-idol7",
       title: "EXO - Growl",
       artist: "EXO",
@@ -206,49 +169,11 @@ const MusicGame: React.FC = () => {
       artist: "BLACKPINK",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "female-idol",
-=======
-      id: "kpop2",
-      title: "하루하루",
-      artist: "빅뱅",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
-      category: "kpop",
-      difficulty: "very-easy",
-      keyword: "빅뱅",
-      hint: "무한도전에서 나온 곡",
-    },
-    {
-      id: "kpop3",
-      title: "Gangnam Style",
-      artist: "PSY",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
-      category: "kpop",
-      difficulty: "easy",
-      keyword: "강남스타일",
-      hint: "전 세계적으로 유명해진 K-POP 곡",
-    },
-    {
-      id: "kpop4",
-      title: "Dynamite",
-      artist: "BTS",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
-      category: "kpop",
-      difficulty: "easy",
-      keyword: "방탄소년단",
-      hint: "세계적인 인기를 얻은 7인조 그룹",
-    },
-    {
-      id: "kpop5",
-      title: "How You Like That",
-      artist: "BLACKPINK",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
-      category: "kpop",
->>>>>>> origin/master
       difficulty: "medium",
       keyword: "블랙핑크",
       hint: "4인조 여성 그룹의 대표곡",
     },
     {
-<<<<<<< HEAD
       id: "female-idol2",
       title: "Lovesick Girls",
       artist: "BLACKPINK",
@@ -274,19 +199,11 @@ const MusicGame: React.FC = () => {
       artist: "TWICE",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "female-idol",
-=======
-      id: "kpop6",
-      title: "Fancy",
-      artist: "TWICE",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
-      category: "kpop",
->>>>>>> origin/master
       difficulty: "medium",
       keyword: "트와이스",
       hint: "9인조 여성 그룹의 히트곡",
     },
     {
-<<<<<<< HEAD
       id: "female-idol5",
       title: "TT",
       artist: "TWICE",
@@ -364,213 +281,90 @@ const MusicGame: React.FC = () => {
       artist: "The Weeknd",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "hiphop",
-=======
-      id: "kpop7",
-      title: "Spring Day",
-      artist: "BTS",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
-      category: "kpop",
-      difficulty: "hard",
-      keyword: "봄날",
-      hint: "방탄소년단의 감성적인 발라드",
-    },
-    {
-      id: "kpop8",
-      title: "Lovesick Girls",
-      artist: "BLACKPINK",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
-      category: "kpop",
-      difficulty: "hard",
-      keyword: "러브씩",
-      hint: "블랙핑크의 팝 펑크 스타일 곡",
-    },
-    {
-      id: "kpop9",
-      title: "Butter",
-      artist: "BTS",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
-      category: "kpop",
-      difficulty: "very-hard",
-      keyword: "버터",
-      hint: "방탄소년단의 영어 싱글",
-    },
-    {
-      id: "kpop10",
-      title: "DDU-DU DDU-DU",
-      artist: "BLACKPINK",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
-      category: "kpop",
-      difficulty: "very-hard",
-      keyword: "뚜두뚜두",
-      hint: "블랙핑크의 대표적인 힙합 곡",
-    },
-    // POP (10개)
-    {
-      id: "pop1",
-      title: "Shape of You",
-      artist: "Ed Sheeran",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
-      category: "pop",
-      difficulty: "very-easy",
-      keyword: "에드시런",
-      hint: "영국의 유명한 싱어송라이터",
-    },
-    {
-      id: "pop2",
-      title: "Blinding Lights",
-      artist: "The Weeknd",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
-      category: "pop",
->>>>>>> origin/master
       difficulty: "very-easy",
       keyword: "위켄드",
       hint: "캐나다의 R&B 가수",
     },
     {
-<<<<<<< HEAD
       id: "hiphop3",
       title: "Bad Guy",
       artist: "Billie Eilish",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "hiphop",
-=======
-      id: "pop3",
-      title: "Bad Guy",
-      artist: "Billie Eilish",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
-      category: "pop",
->>>>>>> origin/master
       difficulty: "easy",
       keyword: "빌리아일리시",
       hint: "미국의 젊은 팝스타",
     },
     {
-<<<<<<< HEAD
       id: "hiphop4",
       title: "Levitating",
       artist: "Dua Lipa",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "hiphop",
-=======
-      id: "pop4",
-      title: "Levitating",
-      artist: "Dua Lipa",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
-      category: "pop",
->>>>>>> origin/master
       difficulty: "easy",
       keyword: "듀아리파",
       hint: "영국의 팝 가수",
     },
     {
-<<<<<<< HEAD
       id: "hiphop5",
       title: "Watermelon Sugar",
       artist: "Harry Styles",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "hiphop",
-=======
-      id: "pop5",
-      title: "Watermelon Sugar",
-      artist: "Harry Styles",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
-      category: "pop",
->>>>>>> origin/master
       difficulty: "medium",
       keyword: "해리스타일즈",
       hint: "원디렉션 출신 솔로 가수",
     },
     {
-<<<<<<< HEAD
       id: "hiphop6",
       title: "Don't Start Now",
       artist: "Dua Lipa",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "hiphop",
-=======
-      id: "pop6",
-      title: "Don't Start Now",
-      artist: "Dua Lipa",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
-      category: "pop",
->>>>>>> origin/master
       difficulty: "medium",
       keyword: "듀아리파",
       hint: "디스코 팝 스타일의 곡",
     },
     {
-<<<<<<< HEAD
       id: "hiphop7",
       title: "Circles",
       artist: "Post Malone",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "hiphop",
-=======
-      id: "pop7",
-      title: "Circles",
-      artist: "Post Malone",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
-      category: "pop",
->>>>>>> origin/master
       difficulty: "hard",
       keyword: "포스트말론",
       hint: "미국의 힙합/팝 가수",
     },
     {
-<<<<<<< HEAD
       id: "hiphop8",
       title: "Adore You",
       artist: "Harry Styles",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "hiphop",
-=======
-      id: "pop8",
-      title: "Adore You",
-      artist: "Harry Styles",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
-      category: "pop",
->>>>>>> origin/master
       difficulty: "hard",
       keyword: "해리스타일즈",
       hint: "해리 스타일즈의 감성적인 곡",
     },
     {
-<<<<<<< HEAD
       id: "hiphop9",
       title: "Therefore I Am",
       artist: "Billie Eilish",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "hiphop",
-=======
-      id: "pop9",
-      title: "Therefore I Am",
-      artist: "Billie Eilish",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
-      category: "pop",
->>>>>>> origin/master
       difficulty: "very-hard",
       keyword: "빌리아일리시",
       hint: "빌리 아일리시의 자신감 넘치는 곡",
     },
     {
-<<<<<<< HEAD
       id: "hiphop10",
       title: "Mood",
       artist: "24kGoldn",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "hiphop",
-=======
-      id: "pop10",
-      title: "Mood",
-      artist: "24kGoldn",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
-      category: "pop",
->>>>>>> origin/master
       difficulty: "very-hard",
       keyword: "24kgoldn",
       hint: "미국의 래퍼이자 가수",
     },
-<<<<<<< HEAD
     // 밴드 (10개)
     {
       id: "band1",
@@ -578,182 +372,100 @@ const MusicGame: React.FC = () => {
       artist: "Queen",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "band",
-=======
-    // ROCK (10개)
-    {
-      id: "rock1",
-      title: "Bohemian Rhapsody",
-      artist: "Queen",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
-      category: "rock",
->>>>>>> origin/master
       difficulty: "very-easy",
       keyword: "퀸",
       hint: "영국의 전설적인 록 밴드",
     },
     {
-<<<<<<< HEAD
       id: "band2",
       title: "Stairway to Heaven",
       artist: "Led Zeppelin",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "band",
-=======
-      id: "rock2",
-      title: "Stairway to Heaven",
-      artist: "Led Zeppelin",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
-      category: "rock",
->>>>>>> origin/master
       difficulty: "very-easy",
       keyword: "레드제플린",
       hint: "클래식 록의 대표곡",
     },
     {
-<<<<<<< HEAD
       id: "band3",
       title: "Sweet Child O' Mine",
       artist: "Guns N' Roses",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "band",
-=======
-      id: "rock3",
-      title: "Sweet Child O' Mine",
-      artist: "Guns N' Roses",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
-      category: "rock",
->>>>>>> origin/master
       difficulty: "easy",
       keyword: "건즈앤로지즈",
       hint: "미국의 하드 록 밴드",
     },
     {
-<<<<<<< HEAD
       id: "band4",
       title: "Hotel California",
       artist: "Eagles",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "band",
-=======
-      id: "rock4",
-      title: "Hotel California",
-      artist: "Eagles",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
-      category: "rock",
->>>>>>> origin/master
       difficulty: "easy",
       keyword: "이글스",
       hint: "미국의 록 밴드",
     },
     {
-<<<<<<< HEAD
       id: "band5",
       title: "Smells Like Teen Spirit",
       artist: "Nirvana",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "band",
-=======
-      id: "rock5",
-      title: "Smells Like Teen Spirit",
-      artist: "Nirvana",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
-      category: "rock",
->>>>>>> origin/master
       difficulty: "medium",
       keyword: "너바나",
       hint: "그런지 록의 대표 밴드",
     },
     {
-<<<<<<< HEAD
       id: "band6",
       title: "Wonderwall",
       artist: "Oasis",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "band",
-=======
-      id: "rock6",
-      title: "Wonderwall",
-      artist: "Oasis",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
-      category: "rock",
->>>>>>> origin/master
       difficulty: "medium",
       keyword: "오아시스",
       hint: "영국의 브릿팝 밴드",
     },
     {
-<<<<<<< HEAD
       id: "band7",
       title: "Creep",
       artist: "Radiohead",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "band",
-=======
-      id: "rock7",
-      title: "Creep",
-      artist: "Radiohead",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
-      category: "rock",
->>>>>>> origin/master
       difficulty: "hard",
       keyword: "라디오헤드",
       hint: "영국의 얼터너티브 록 밴드",
     },
     {
-<<<<<<< HEAD
       id: "band8",
       title: "Zombie",
       artist: "The Cranberries",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "band",
-=======
-      id: "rock8",
-      title: "Zombie",
-      artist: "The Cranberries",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
-      category: "rock",
->>>>>>> origin/master
       difficulty: "hard",
       keyword: "크랜베리스",
       hint: "아일랜드의 록 밴드",
     },
     {
-<<<<<<< HEAD
       id: "band9",
       title: "Paranoid Android",
       artist: "Radiohead",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "band",
-=======
-      id: "rock9",
-      title: "Paranoid Android",
-      artist: "Radiohead",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
-      category: "rock",
->>>>>>> origin/master
       difficulty: "very-hard",
       keyword: "라디오헤드",
       hint: "라디오헤드의 실험적인 곡",
     },
     {
-<<<<<<< HEAD
       id: "band10",
       title: "Karma Police",
       artist: "Radiohead",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "band",
-=======
-      id: "rock10",
-      title: "Karma Police",
-      artist: "Radiohead",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
-      category: "rock",
->>>>>>> origin/master
       difficulty: "very-hard",
       keyword: "라디오헤드",
       hint: "라디오헤드의 대표곡",
     },
-<<<<<<< HEAD
     // 1990년대 (10개)
     {
       id: "1990s1",
@@ -761,182 +473,100 @@ const MusicGame: React.FC = () => {
       artist: "50 Cent",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "1990s",
-=======
-    // HIP-HOP (10개)
-    {
-      id: "hiphop1",
-      title: "In Da Club",
-      artist: "50 Cent",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
-      category: "hiphop",
->>>>>>> origin/master
       difficulty: "very-easy",
       keyword: "50센트",
       hint: "미국의 래퍼",
     },
     {
-<<<<<<< HEAD
       id: "1990s2",
       title: "Lose Yourself",
       artist: "Eminem",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "1990s",
-=======
-      id: "hiphop2",
-      title: "Lose Yourself",
-      artist: "Eminem",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
-      category: "hiphop",
->>>>>>> origin/master
       difficulty: "very-easy",
       keyword: "에미넴",
       hint: "8마일 영화 주제곡",
     },
     {
-<<<<<<< HEAD
       id: "1990s3",
       title: "Stronger",
       artist: "Kanye West",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "1990s",
-=======
-      id: "hiphop3",
-      title: "Stronger",
-      artist: "Kanye West",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
-      category: "hiphop",
->>>>>>> origin/master
       difficulty: "easy",
       keyword: "카니예웨스트",
       hint: "미국의 힙합 아티스트",
     },
     {
-<<<<<<< HEAD
       id: "1990s4",
       title: "Empire State of Mind",
       artist: "Jay-Z",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "1990s",
-=======
-      id: "hiphop4",
-      title: "Empire State of Mind",
-      artist: "Jay-Z",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
-      category: "hiphop",
->>>>>>> origin/master
       difficulty: "easy",
       keyword: "제이지",
       hint: "뉴욕을 노래한 힙합 곡",
     },
     {
-<<<<<<< HEAD
       id: "1990s5",
       title: "God's Plan",
       artist: "Drake",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "1990s",
-=======
-      id: "hiphop5",
-      title: "God's Plan",
-      artist: "Drake",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
-      category: "hiphop",
->>>>>>> origin/master
       difficulty: "medium",
       keyword: "드레이크",
       hint: "캐나다의 래퍼",
     },
     {
-<<<<<<< HEAD
       id: "1990s6",
       title: "Sicko Mode",
       artist: "Travis Scott",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "1990s",
-=======
-      id: "hiphop6",
-      title: "Sicko Mode",
-      artist: "Travis Scott",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
-      category: "hiphop",
->>>>>>> origin/master
       difficulty: "medium",
       keyword: "트래비스스캇",
       hint: "미국의 트랩 아티스트",
     },
     {
-<<<<<<< HEAD
       id: "1990s7",
       title: "Old Town Road",
       artist: "Lil Nas X",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "1990s",
-=======
-      id: "hiphop7",
-      title: "Old Town Road",
-      artist: "Lil Nas X",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
-      category: "hiphop",
->>>>>>> origin/master
       difficulty: "hard",
       keyword: "릴나스엑스",
       hint: "컨트리와 힙합을 결합한 곡",
     },
     {
-<<<<<<< HEAD
       id: "1990s8",
       title: "The Box",
       artist: "Roddy Ricch",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "1990s",
-=======
-      id: "hiphop8",
-      title: "The Box",
-      artist: "Roddy Ricch",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
-      category: "hiphop",
->>>>>>> origin/master
       difficulty: "hard",
       keyword: "로디리치",
       hint: "미국의 래퍼",
     },
     {
-<<<<<<< HEAD
       id: "1990s9",
       title: "Blinding Lights",
       artist: "The Weeknd",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "1990s",
-=======
-      id: "hiphop9",
-      title: "Blinding Lights",
-      artist: "The Weeknd",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
-      category: "hiphop",
->>>>>>> origin/master
       difficulty: "very-hard",
       keyword: "위켄드",
       hint: "R&B와 힙합이 결합된 곡",
     },
     {
-<<<<<<< HEAD
       id: "1990s10",
       title: "Savage",
       artist: "Megan Thee Stallion",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "1990s",
-=======
-      id: "hiphop10",
-      title: "Savage",
-      artist: "Megan Thee Stallion",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
-      category: "hiphop",
->>>>>>> origin/master
       difficulty: "very-hard",
       keyword: "메간더스탤리언",
       hint: "미국의 여성 래퍼",
     },
-<<<<<<< HEAD
     // 2000년대 (10개)
     {
       id: "2000s1",
@@ -944,93 +574,51 @@ const MusicGame: React.FC = () => {
       artist: "Dave Brubeck",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "2000s",
-=======
-    // JAZZ (10개)
-    {
-      id: "jazz1",
-      title: "Take Five",
-      artist: "Dave Brubeck",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
-      category: "jazz",
->>>>>>> origin/master
       difficulty: "very-easy",
       keyword: "데이브브루벡",
       hint: "5/4 박자의 재즈 곡",
     },
     {
-<<<<<<< HEAD
       id: "2000s2",
       title: "So What",
       artist: "Miles Davis",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "2000s",
-=======
-      id: "jazz2",
-      title: "So What",
-      artist: "Miles Davis",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
-      category: "jazz",
->>>>>>> origin/master
       difficulty: "very-easy",
       keyword: "마일스데이비스",
       hint: "재즈의 대가",
     },
     {
-<<<<<<< HEAD
       id: "2000s3",
       title: "Take the A Train",
       artist: "Duke Ellington",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "2000s",
-=======
-      id: "jazz3",
-      title: "Take the A Train",
-      artist: "Duke Ellington",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
-      category: "jazz",
->>>>>>> origin/master
       difficulty: "easy",
       keyword: "듀크엘링턴",
       hint: "스윙 재즈의 대표곡",
     },
     {
-<<<<<<< HEAD
       id: "2000s4",
       title: "What a Wonderful World",
       artist: "Louis Armstrong",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "2000s",
-=======
-      id: "jazz4",
-      title: "What a Wonderful World",
-      artist: "Louis Armstrong",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
-      category: "jazz",
->>>>>>> origin/master
       difficulty: "easy",
       keyword: "루이암스트롱",
       hint: "재즈의 전설적인 트럼펫 연주자",
     },
     {
-<<<<<<< HEAD
       id: "2000s5",
       title: "Giant Steps",
       artist: "John Coltrane",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "2000s",
-=======
-      id: "jazz5",
-      title: "Giant Steps",
-      artist: "John Coltrane",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
-      category: "jazz",
->>>>>>> origin/master
       difficulty: "medium",
       keyword: "존콜트레인",
       hint: "비밥 재즈의 대표곡",
     },
     {
-<<<<<<< HEAD
       id: "2000s6",
       title: "Blue in Green",
       artist: "Miles Davis",
@@ -1046,82 +634,40 @@ const MusicGame: React.FC = () => {
       artist: "John Coltrane",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "2000s",
-=======
-      id: "jazz6",
-      title: "Blue in Green",
-      artist: "Miles Davis",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
-      category: "jazz",
-      difficulty: "medium",
-      keyword: "마일스데이비스",
-      hint: "모달 재즈의 대표곡",
-    },
-    {
-      id: "jazz7",
-      title: "A Love Supreme",
-      artist: "John Coltrane",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
-      category: "jazz",
->>>>>>> origin/master
       difficulty: "hard",
       keyword: "존콜트레인",
       hint: "스피리추얼 재즈의 대표작",
     },
     {
-<<<<<<< HEAD
       id: "2000s8",
       title: "Kind of Blue",
       artist: "Miles Davis",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "2000s",
-=======
-      id: "jazz8",
-      title: "Kind of Blue",
-      artist: "Miles Davis",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
-      category: "jazz",
->>>>>>> origin/master
       difficulty: "hard",
       keyword: "마일스데이비스",
       hint: "모달 재즈의 대표 앨범",
     },
     {
-<<<<<<< HEAD
       id: "2000s9",
       title: "My Favorite Things",
       artist: "John Coltrane",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "2000s",
-=======
-      id: "jazz9",
-      title: "My Favorite Things",
-      artist: "John Coltrane",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
-      category: "jazz",
->>>>>>> origin/master
       difficulty: "very-hard",
       keyword: "존콜트레인",
       hint: "사운드 오브 뮤직의 재즈 버전",
     },
     {
-<<<<<<< HEAD
       id: "2000s10",
       title: "Bitches Brew",
       artist: "Miles Davis",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "2000s",
-=======
-      id: "jazz10",
-      title: "Bitches Brew",
-      artist: "Miles Davis",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
-      category: "jazz",
->>>>>>> origin/master
       difficulty: "very-hard",
       keyword: "마일스데이비스",
       hint: "퓨전 재즈의 대표작",
     },
-<<<<<<< HEAD
     // 2010년대 (10개)
     {
       id: "2010s1",
@@ -1129,182 +675,100 @@ const MusicGame: React.FC = () => {
       artist: "Beethoven",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "2010s",
-=======
-    // CLASSICAL (10개)
-    {
-      id: "classical1",
-      title: "Symphony No. 5",
-      artist: "Beethoven",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
-      category: "classical",
->>>>>>> origin/master
       difficulty: "very-easy",
       keyword: "베토벤",
       hint: "운명 교향곡",
     },
     {
-<<<<<<< HEAD
       id: "2010s2",
       title: "Für Elise",
       artist: "Beethoven",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "2010s",
-=======
-      id: "classical2",
-      title: "Für Elise",
-      artist: "Beethoven",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
-      category: "classical",
->>>>>>> origin/master
       difficulty: "very-easy",
       keyword: "베토벤",
       hint: "피아노 소곡",
     },
     {
-<<<<<<< HEAD
       id: "2010s3",
       title: "Moonlight Sonata",
       artist: "Beethoven",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "2010s",
-=======
-      id: "classical3",
-      title: "Moonlight Sonata",
-      artist: "Beethoven",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
-      category: "classical",
->>>>>>> origin/master
       difficulty: "easy",
       keyword: "베토벤",
       hint: "월광 소나타",
     },
     {
-<<<<<<< HEAD
       id: "2010s4",
       title: "Symphony No. 9",
       artist: "Beethoven",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "2010s",
-=======
-      id: "classical4",
-      title: "Symphony No. 9",
-      artist: "Beethoven",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
-      category: "classical",
->>>>>>> origin/master
       difficulty: "easy",
       keyword: "베토벤",
       hint: "합창 교향곡",
     },
     {
-<<<<<<< HEAD
       id: "2010s5",
       title: "The Four Seasons",
       artist: "Vivaldi",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "2010s",
-=======
-      id: "classical5",
-      title: "The Four Seasons",
-      artist: "Vivaldi",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
-      category: "classical",
->>>>>>> origin/master
       difficulty: "medium",
       keyword: "비발디",
       hint: "사계",
     },
     {
-<<<<<<< HEAD
       id: "2010s6",
       title: "Canon in D",
       artist: "Pachelbel",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "2010s",
-=======
-      id: "classical6",
-      title: "Canon in D",
-      artist: "Pachelbel",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
-      category: "classical",
->>>>>>> origin/master
       difficulty: "medium",
       keyword: "파헬벨",
       hint: "바로크 시대의 대표곡",
     },
     {
-<<<<<<< HEAD
       id: "2010s7",
       title: "Symphony No. 40",
       artist: "Mozart",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "2010s",
-=======
-      id: "classical7",
-      title: "Symphony No. 40",
-      artist: "Mozart",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
-      category: "classical",
->>>>>>> origin/master
       difficulty: "hard",
       keyword: "모차르트",
       hint: "교향곡 40번",
     },
     {
-<<<<<<< HEAD
       id: "2010s8",
       title: "Requiem",
       artist: "Mozart",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "2010s",
-=======
-      id: "classical8",
-      title: "Requiem",
-      artist: "Mozart",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
-      category: "classical",
->>>>>>> origin/master
       difficulty: "hard",
       keyword: "모차르트",
       hint: "모차르트의 마지막 작품",
     },
     {
-<<<<<<< HEAD
       id: "2010s9",
       title: "Toccata and Fugue",
       artist: "Bach",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "2010s",
-=======
-      id: "classical9",
-      title: "Toccata and Fugue",
-      artist: "Bach",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
-      category: "classical",
->>>>>>> origin/master
       difficulty: "very-hard",
       keyword: "바흐",
       hint: "오르간 작품",
     },
     {
-<<<<<<< HEAD
       id: "2010s10",
       title: "Goldberg Variations",
       artist: "Bach",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "2010s",
-=======
-      id: "classical10",
-      title: "Goldberg Variations",
-      artist: "Bach",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
-      category: "classical",
->>>>>>> origin/master
       difficulty: "very-hard",
       keyword: "바흐",
       hint: "피아노 변주곡",
     },
-<<<<<<< HEAD
     // 애니메이션 (10개)
     {
       id: "animation1",
@@ -1514,488 +978,100 @@ const MusicGame: React.FC = () => {
       artist: "Lil Nas X",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "2020s",
-=======
-    // ELECTRONIC (10개)
-    {
-      id: "electronic1",
-      title: "Sandstorm",
-      artist: "Darude",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
-      category: "electronic",
-      difficulty: "very-easy",
-      keyword: "다루드",
-      hint: "트랜스 음악의 대표곡",
-    },
-    {
-      id: "electronic2",
-      title: "Levels",
-      artist: "Avicii",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
-      category: "electronic",
-      difficulty: "very-easy",
-      keyword: "아비치",
-      hint: "EDM의 대표곡",
-    },
-    {
-      id: "electronic3",
-      title: "Wake Me Up",
-      artist: "Avicii",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
-      category: "electronic",
-      difficulty: "easy",
-      keyword: "아비치",
-      hint: "포크와 EDM의 결합",
-    },
-    {
-      id: "electronic4",
-      title: "Titanium",
-      artist: "David Guetta",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
-      category: "electronic",
-      difficulty: "easy",
-      keyword: "데이비드게타",
-      hint: "프랑스의 DJ",
-    },
-    {
-      id: "electronic5",
-      title: "Animals",
-      artist: "Martin Garrix",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
-      category: "electronic",
-      difficulty: "medium",
-      keyword: "마틴가릭스",
-      hint: "네덜란드의 DJ",
-    },
-    {
-      id: "electronic6",
-      title: "Faded",
-      artist: "Alan Walker",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
-      category: "electronic",
-      difficulty: "medium",
-      keyword: "앨런워커",
-      hint: "노르웨이의 DJ",
-    },
-    {
-      id: "electronic7",
-      title: "Clarity",
-      artist: "Zedd",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
-      category: "electronic",
-      difficulty: "hard",
-      keyword: "제드",
-      hint: "독일의 DJ",
-    },
-    {
-      id: "electronic8",
-      title: "Scary Monsters and Nice Sprites",
-      artist: "Skrillex",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
-      category: "electronic",
-      difficulty: "hard",
-      keyword: "스크릴렉스",
-      hint: "덥스텝의 대표 아티스트",
-    },
-    {
-      id: "electronic9",
-      title: "Midnight City",
-      artist: "M83",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
-      category: "electronic",
-      difficulty: "very-hard",
-      keyword: "M83",
-      hint: "프랑스의 일렉트로닉 밴드",
-    },
-    {
-      id: "electronic10",
-      title: "Intro",
-      artist: "The xx",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
-      category: "electronic",
-      difficulty: "very-hard",
-      keyword: "더엑스",
-      hint: "영국의 일렉트로닉 밴드",
-    },
-    // R&B (10개)
-    {
-      id: "r&b1",
-      title: "Blinding Lights",
-      artist: "The Weeknd",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
-      category: "r&b",
-      difficulty: "very-easy",
-      keyword: "위켄드",
-      hint: "캐나다의 R&B 가수",
-    },
-    {
-      id: "r&b2",
-      title: "Uptown Funk",
-      artist: "Mark Ronson",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
-      category: "r&b",
-      difficulty: "very-easy",
-      keyword: "마크론슨",
-      hint: "브루노 마스가 피처링한 곡",
-    },
-    {
-      id: "r&b3",
-      title: "Thinking Out Loud",
-      artist: "Ed Sheeran",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
-      category: "r&b",
-      difficulty: "easy",
-      keyword: "에드시런",
-      hint: "영국의 싱어송라이터",
-    },
-    {
-      id: "r&b4",
-      title: "All of Me",
-      artist: "John Legend",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
-      category: "r&b",
-      difficulty: "easy",
-      keyword: "존레전드",
-      hint: "미국의 R&B 가수",
-    },
-    {
-      id: "r&b5",
-      title: "Stay With Me",
-      artist: "Sam Smith",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
-      category: "r&b",
-      difficulty: "medium",
-      keyword: "샘스미스",
-      hint: "영국의 R&B 가수",
-    },
-    {
-      id: "r&b6",
-      title: "Say You Won't Let Go",
-      artist: "James Arthur",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
-      category: "r&b",
-      difficulty: "medium",
-      keyword: "제임스아서",
-      hint: "영국의 가수",
-    },
-    {
-      id: "r&b7",
-      title: "Perfect",
-      artist: "Ed Sheeran",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
-      category: "r&b",
-      difficulty: "hard",
-      keyword: "에드시런",
-      hint: "에드 시런의 로맨틱한 곡",
-    },
-    {
-      id: "r&b8",
-      title: "Photograph",
-      artist: "Ed Sheeran",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
-      category: "r&b",
-      difficulty: "hard",
-      keyword: "에드시런",
-      hint: "에드 시런의 발라드",
-    },
-    {
-      id: "r&b9",
-      title: "Lay Me Down",
-      artist: "Sam Smith",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
-      category: "r&b",
-      difficulty: "very-hard",
-      keyword: "샘스미스",
-      hint: "샘 스미스의 감성적인 곡",
-    },
-    {
-      id: "r&b10",
-      title: "Writing's on the Wall",
-      artist: "Sam Smith",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
-      category: "r&b",
-      difficulty: "very-hard",
-      keyword: "샘스미스",
-      hint: "007 스펙터 주제곡",
-    },
-    // COUNTRY (10개)
-    {
-      id: "country1",
-      title: "Old Town Road",
-      artist: "Lil Nas X",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
-      category: "country",
->>>>>>> origin/master
       difficulty: "very-easy",
       keyword: "릴나스엑스",
       hint: "컨트리와 힙합의 결합",
     },
     {
-<<<<<<< HEAD
       id: "2020s2",
       title: "The Gambler",
       artist: "Kenny Rogers",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "2020s",
-=======
-      id: "country2",
-      title: "The Gambler",
-      artist: "Kenny Rogers",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
-      category: "country",
->>>>>>> origin/master
       difficulty: "very-easy",
       keyword: "케니로저스",
       hint: "컨트리 음악의 전설",
     },
     {
-<<<<<<< HEAD
       id: "2020s3",
       title: "Jolene",
       artist: "Dolly Parton",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "2020s",
-=======
-      id: "country3",
-      title: "Jolene",
-      artist: "Dolly Parton",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
-      category: "country",
->>>>>>> origin/master
       difficulty: "easy",
       keyword: "돌리파튼",
       hint: "컨트리 음악의 여왕",
     },
     {
-<<<<<<< HEAD
       id: "2020s4",
       title: "Ring of Fire",
       artist: "Johnny Cash",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "2020s",
-=======
-      id: "country4",
-      title: "Ring of Fire",
-      artist: "Johnny Cash",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
-      category: "country",
->>>>>>> origin/master
       difficulty: "easy",
       keyword: "조니캐시",
       hint: "맨 인 블랙",
     },
     {
-<<<<<<< HEAD
       id: "2020s5",
       title: "Friends in Low Places",
       artist: "Garth Brooks",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "2020s",
-=======
-      id: "country5",
-      title: "Friends in Low Places",
-      artist: "Garth Brooks",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
-      category: "country",
->>>>>>> origin/master
       difficulty: "medium",
       keyword: "가스브룩스",
       hint: "미국의 컨트리 가수",
     },
     {
-<<<<<<< HEAD
       id: "2020s6",
       title: "I Walk the Line",
       artist: "Johnny Cash",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "2020s",
-=======
-      id: "country6",
-      title: "I Walk the Line",
-      artist: "Johnny Cash",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
-      category: "country",
->>>>>>> origin/master
       difficulty: "medium",
       keyword: "조니캐시",
       hint: "조니 캐시의 대표곡",
     },
     {
-<<<<<<< HEAD
       id: "2020s7",
       title: "9 to 5",
       artist: "Dolly Parton",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "2020s",
-=======
-      id: "country7",
-      title: "9 to 5",
-      artist: "Dolly Parton",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
-      category: "country",
->>>>>>> origin/master
       difficulty: "hard",
       keyword: "돌리파튼",
       hint: "돌리 파튼의 히트곡",
     },
     {
-<<<<<<< HEAD
       id: "2020s8",
       title: "A Boy Named Sue",
       artist: "Johnny Cash",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "2020s",
-=======
-      id: "country8",
-      title: "A Boy Named Sue",
-      artist: "Johnny Cash",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
-      category: "country",
->>>>>>> origin/master
       difficulty: "hard",
       keyword: "조니캐시",
       hint: "조니 캐시의 스토리텔링 곡",
     },
     {
-<<<<<<< HEAD
       id: "2020s9",
       title: "Coat of Many Colors",
       artist: "Dolly Parton",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "2020s",
-=======
-      id: "country9",
-      title: "Coat of Many Colors",
-      artist: "Dolly Parton",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
-      category: "country",
->>>>>>> origin/master
       difficulty: "very-hard",
       keyword: "돌리파튼",
       hint: "돌리 파튼의 자전적 곡",
     },
     {
-<<<<<<< HEAD
       id: "2020s10",
       title: "Folsom Prison Blues",
       artist: "Johnny Cash",
       file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
       category: "2020s",
-=======
-      id: "country10",
-      title: "Folsom Prison Blues",
-      artist: "Johnny Cash",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
-      category: "country",
->>>>>>> origin/master
       difficulty: "very-hard",
       keyword: "조니캐시",
       hint: "조니 캐시의 감옥 콘서트",
     },
-<<<<<<< HEAD
-
-=======
-    // INDIE (10개)
-    {
-      id: "indie1",
-      title: "Ho Hey",
-      artist: "The Lumineers",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
-      category: "indie",
-      difficulty: "very-easy",
-      keyword: "더루미너스",
-      hint: "미국의 인디 포크 밴드",
-    },
-    {
-      id: "indie2",
-      title: "Pumped Up Kicks",
-      artist: "Foster the People",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
-      category: "indie",
-      difficulty: "very-easy",
-      keyword: "포스터더피플",
-      hint: "미국의 인디 팝 밴드",
-    },
-    {
-      id: "indie3",
-      title: "Somebody That I Used to Know",
-      artist: "Gotye",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
-      category: "indie",
-      difficulty: "easy",
-      keyword: "고티에",
-      hint: "호주의 인디 아티스트",
-    },
-    {
-      id: "indie4",
-      title: "Little Talks",
-      artist: "Of Monsters and Men",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
-      category: "indie",
-      difficulty: "easy",
-      keyword: "오브몬스터스앤멘",
-      hint: "아이슬란드의 인디 밴드",
-    },
-    {
-      id: "indie5",
-      title: "Take Me to Church",
-      artist: "Hozier",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
-      category: "indie",
-      difficulty: "medium",
-      keyword: "호지어",
-      hint: "아일랜드의 인디 가수",
-    },
-    {
-      id: "indie6",
-      title: "Shut Up and Dance",
-      artist: "Walk the Moon",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
-      category: "indie",
-      difficulty: "medium",
-      keyword: "워크더문",
-      hint: "미국의 인디 록 밴드",
-    },
-    {
-      id: "indie7",
-      title: "Budapest",
-      artist: "George Ezra",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
-      category: "indie",
-      difficulty: "hard",
-      keyword: "조지에즈라",
-      hint: "영국의 인디 가수",
-    },
-    {
-      id: "indie8",
-      title: "Riptide",
-      artist: "Vance Joy",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
-      category: "indie",
-      difficulty: "hard",
-      keyword: "밴스조이",
-      hint: "호주의 인디 가수",
-    },
-    {
-      id: "indie9",
-      title: "Arctic Monkeys",
-      artist: "Do I Wanna Know?",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
-      category: "indie",
-      difficulty: "very-hard",
-      keyword: "아틱몽키즈",
-      hint: "영국의 인디 록 밴드",
-    },
-    {
-      id: "indie10",
-      title: "The Strokes",
-      artist: "Last Nite",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
-      category: "indie",
-      difficulty: "very-hard",
-      keyword: "더스트로크스",
-      hint: "미국의 인디 록 밴드",
-    },
->>>>>>> origin/master
   ];
 
   const handleCategorySelect = (categoryId: string) => {

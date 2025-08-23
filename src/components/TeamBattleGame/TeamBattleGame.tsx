@@ -1,40 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-<<<<<<< HEAD
 import GameSettings from "./SimpleGameSettings";
 import GamePlay from "./GamePlay";
 import GameResult from "./GameResult";
 import { useScore } from "../../contexts/ScoreContext";
 import { GameState, Choice } from "../../types/form";
 import "../../css/teamBattleGame.css";
-
-=======
-import GameSettings from "./GameSettings";
-import GamePlay from "./GamePlay";
-import GameResult from "./GameResult";
-import { useScore } from "../../contexts/ScoreContext";
-import "../../css/teamBattleGame.css";
-
-export interface GameState {
-  teamAName: string;
-  teamBName: string;
-  teamAScore: number;
-  teamBScore: number;
-  currentNode: string;
-  teamANode: string; // 팀별 노드 추가
-  teamBNode: string; // 팀별 노드 추가
-  teamAChoice: any | null;
-  teamBChoice: any | null;
-  gameHistory: Array<{
-    node: string;
-    teamAChoice: any | null;
-    teamBChoice: any | null;
-    teamAScore: number;
-    teamBScore: number;
-  }>;
-}
-
->>>>>>> origin/master
 export type GamePhase = "settings" | "playing" | "result";
 
 const TeamBattleGame: React.FC = () => {
@@ -46,10 +17,7 @@ const TeamBattleGame: React.FC = () => {
     teamBName: "",
     teamAScore: 0,
     teamBScore: 0,
-<<<<<<< HEAD
-=======
     currentNode: "start",
->>>>>>> origin/master
     teamANode: "start",
     teamBNode: "start",
     teamAChoice: null,
@@ -74,10 +42,7 @@ const TeamBattleGame: React.FC = () => {
       teamBName,
       teamAScore: 0,
       teamBScore: 0,
-<<<<<<< HEAD
-=======
       currentNode: "start",
->>>>>>> origin/master
       teamANode: "start",
       teamBNode: "start",
       teamAChoice: null,
@@ -92,11 +57,7 @@ const TeamBattleGame: React.FC = () => {
   };
 
   const resetGame = () => {
-<<<<<<< HEAD
     navigate("/main");
-=======
-    navigate("/");
->>>>>>> origin/master
   };
 
   return (

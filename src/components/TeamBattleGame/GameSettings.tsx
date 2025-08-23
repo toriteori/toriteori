@@ -5,11 +5,6 @@ interface GameSettingsProps {
   onStart: (teamAName: string, teamBName: string) => void;
 }
 
-<<<<<<< HEAD
-// 스토리 데이터 정의l q
-=======
-// 스토리 데이터 정의
->>>>>>> origin/master
 export const storyData = {
   start: {
     text: '🏘️ {teamAName} 파티와 {teamBName} 파티는 아를리아 세계의 시작점 \'시간의 마을\'에 도착했습니다!\n\n👴 마을 장로: "어서 오시오, 모험가들이여! 이곳은 시간의 마을이오. 보시다시피 모든 시계가 각각 다른 시간을 가리키고 있지요."\n\n👥 마을 사람들이 각자 다른 시간 속에서 살고 있는 것을 발견했습니다. 어떤 사람은 아침을, 어떤 사람은 저녁을, 또 어떤 사람은 과거나 미래를 살고 있습니다.\n\n👴 마을 장로: "시간의 계단에 대한 전설을 들려드리겠소. 계단의 정상에는 \'시간의 조각\'이 숨겨져 있어서, 그것을 얻으면 시간을 자유롭게 조종할 수 있다고 하오. 하지만 조심하시오! 시간을 바꾸면 세계에 균열이 생기고, 그림자 같은 실체 없는 존재들이 나타날 수 있소."\n\n👴 마을 장로: "7대 종족의 마을들을 방문하여 각 종족의 도움을 받으시오. 각 종족은 고유한 능력과 지혜를 가지고 있어서, 그들의 도움 없이는 시간의 계단에 도달할 수 없소."',
@@ -1363,11 +1358,6 @@ export const storyData = {
       },
     ],
   },
-<<<<<<< HEAD
-  immediately_acquire_fragment_duplicate: {
-=======
-  immediately_acquire_fragment: {
->>>>>>> origin/master
     text: "💎 보물을 즉시 획득하기로 결정했습니다! 하지만 서두른 선택으로 인해 함정에 걸리게 됩니다. 보물을 만지는 순간, 주변에 마법의 함정이 발동되어 시간이 뒤틀리기 시작합니다. 예상보다 큰 위험이 다가오고, 시간의 균형이 깨지기 시작합니다. 서두른 선택이 오히려 더 큰 문제를 야기했습니다...",
     choices: [
       {
@@ -4159,11 +4149,6 @@ export const storyData = {
       },
     ],
   },
-<<<<<<< HEAD
-  collect_time_flowers_duplicate: {
-=======
-  collect_time_flowers: {
->>>>>>> origin/master
     text: "🌲 숲에서 시간의 꽃들을 수집했습니다! 빨간 꽃은 과거, 파란 꽃은 현재, 보라 꽃은 미래를 상징하며, 이 꽃들을 통해 시간의 흐름을 느낄 수 있습니다. 숲의 정령들이 '시간의 꽃을 가진 자는 시간의 비밀을 알 수 있다'고 말합니다...",
     choices: [
       {
@@ -5861,11 +5846,6 @@ export const storyData = {
       },
     ],
   },
-<<<<<<< HEAD
-  veloir_drakar_conflict_duplicate: {
-=======
-  veloir_drakar_conflict: {
->>>>>>> origin/master
     text: "⚔️ 벨로아족과 드라카르족 간의 전투가 시작되었습니다! 드라카르족의 용의 불꽃과 벨로아족의 전투 정신이 충돌하고 있습니다. 이 전투에서 승리하면 두 종족 모두의 힘을 얻을 수 있지만, 패배하면 모든 동맹이 무너질 수 있습니다...",
     choices: [
       {
@@ -7363,80 +7343,10 @@ const GameSettings: React.FC<GameSettingsProps> = ({ onStart }) => {
         <h3>🌍 아를리아 세계관</h3>
         <div className="world-info">
           <p>
-<<<<<<< HEAD
-            <strong>아를리아</strong>: 거울처럼 투명한 하늘과 시간의 계단으로 이루어진 신비로운 세계입니다. 
-            이곳에서는 시간이 물리적 실체로 존재하며, 모든 것이 시간의 흐름에 따라 변화합니다.
-          </p>
-          <p>
-            <strong>시간의 계단</strong>: 오르내릴 때마다 하루, 한 달, 수백 년의 시간이 흘러가는
-            신비로운 계단입니다. 계단의 정상에는 '시간의 조각'이 숨겨져 있어, 이를 얻으면 시간을 자유롭게 조종할 수 있습니다.
-          </p>
-          <p>
-            <strong>시간 지분</strong>: 각자 다른 시간 지분을 가진 두 파티가 같은 공간에서도 서로
-            다른 시간 속에서 존재합니다. 이는 각자의 선택이 서로 다른 시간대에서 일어남을 의미합니다.
-          </p>
-          <p>
-            <strong>7대 종족</strong>: 에테르족, 벨로아족, 누아르족, 실프레드족, 드라카르족,
-            룬마레족, 모라스족이 공존하는 세계입니다. 각 종족은 고유한 문화와 능력을 가지고 있습니다.
-          </p>
-          <p>
-            <strong>종족 특성</strong>: 각 종족마다 고유한 능력과 약점을 가지고 있어 전략적 선택이
-            중요합니다. 어떤 종족과 협력할지는 모험의 성패를 좌우할 수 있습니다.
-          </p>
-          <p>
-            <strong>세계 균열</strong>: 시간이 불안정해지면 그림자 같은 실체 없는 존재들이 나타나며,
-            이는 시간 조작의 위험성을 보여줍니다. 신중한 선택이 필요합니다.
-          </p>
-          <p>
-            <strong>시간의 조각</strong>: 세계 곳곳에 흩어져 있는 신비로운 조각들로, 이를 모으면 
-            시간을 완전히 조종할 수 있는 힘을 얻을 수 있습니다. 하지만 그 힘은 위험할 수도 있습니다.
-          </p>
-          <p>
-            <strong>손성모</strong>: '시간의 기록자'로 알려진 전설적인 존재로, 시간의 모든 비밀을 
-            알고 있습니다. 그를 만나면 특별한 히든 퍼즐을 풀 수 있습니다.
-=======
-            <strong>아를리아</strong>: 거울처럼 투명한 하늘과 시간의 계단으로 이루어진 신비로운 세계
-          </p>
-          <p>
-            <strong>시간의 계단</strong>: 오르내릴 때마다 하루, 한 달, 수백 년의 시간이 흘러가는
-            신비로운 계단
-          </p>
-          <p>
-            <strong>시간 지분</strong>: 각자 다른 시간 지분을 가진 두 파티가 같은 공간에서도 서로
-            다른 시간 속에서 존재
-          </p>
-          <p>
-            <strong>7대 종족</strong>: 에테르족, 벨로아족, 누아르족, 실프레드족, 드라카르족,
-            룬마레족, 모라스족이 공존하는 세계
-          </p>
-          <p>
-            <strong>종족 특성</strong>: 각 종족마다 고유한 능력과 약점을 가지고 있어 전략적 선택이
-            중요
-          </p>
-          <p>
-            <strong>세계 균열</strong>: 시간이 불안정해지면 그림자 같은 실체 없는 존재들이 나타남
->>>>>>> origin/master
           </p>
         </div>
       </div>
 
-<<<<<<< HEAD
-=======
-      <div className="party-info">
-        <h3>👥 참여 파티</h3>
-        <div className="party-list">
-          <div className="party-item">
-            <span className="party-label">A 파티:</span>
-            <span className="party-name">{teams.length >= 1 ? teams[0].name : "로딩 중..."}</span>
-          </div>
-          <div className="party-item">
-            <span className="party-label">B 파티:</span>
-            <span className="party-name">{teams.length >= 2 ? teams[1].name : "로딩 중..."}</span>
-          </div>
-        </div>
-      </div>
-
->>>>>>> origin/master
       <div className="settings-content">
         <button className="start-button" onClick={handleStart} disabled={teams.length < 2}>
           모험 시작하기
@@ -7445,22 +7355,6 @@ const GameSettings: React.FC<GameSettingsProps> = ({ onStart }) => {
 
       <div className="game-description">
         <h3>🎮 게임 설명</h3>
-<<<<<<< HEAD
-        <p>두 파티가 아를리아 세계의 시간의 계단을 오르며 모험을 진행합니다. 각자의 선택에 따라 다른 스토리가 전개되며, 시간의 조각을 찾아 힘을 얻을 수 있습니다.</p>
-        <p>파티별로 선택을 완료해야 다음 단계로 진행되며, 점수를 모아 승리를 다툽니다. 선택의 결과는 즉시 점수로 반영되며, 높은 점수를 얻는 것이 목표입니다.</p>
-        <p><strong>스토리 진행</strong>: 타이핑 효과로 스토리가 진행되며, 중앙 하단의 스킵 버튼으로 빠르게 진행할 수 있습니다.</p>
-        <p><strong>선택지 시스템</strong>: 좌우에 나타나는 선택지에서 각 팀이 독립적으로 선택을 하며, 두 팀 모두 선택을 완료해야 다음 단계로 진행됩니다.</p>
-        <p><strong>히든 요소</strong>: 손성모라는 전설적인 존재를 만나면 특별한 퍼즐을 풀 수 있으며, 이는 게임의 숨겨진 엔딩을 열어줍니다!</p>
-        <p><strong>엔딩</strong>: 모든 모험이 완료되면 "결과 보기" 버튼을 눌러 최종 점수와 승패를 확인할 수 있습니다.</p>
-=======
-        <p>두 파티가 아를리아 세계의 시간의 계단을 오르며 모험을 진행합니다.</p>
-        <p>각자의 선택에 따라 다른 스토리가 전개되며, 시간의 조각을 찾아 힘을 얻을 수 있습니다.</p>
-        <p>파티별로 선택을 완료해야 다음 단계로 진행되며, 점수를 모아 승리를 다툽니다.</p>
-        <p>
-          <strong>히든 요소</strong>: 손성모라는 전설적인 존재를 만나면 특별한 퍼즐을 풀 수
-          있습니다!
-        </p>
->>>>>>> origin/master
       </div>
     </div>
   );
