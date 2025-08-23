@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useScore } from "../../contexts/ScoreContext";
+import QuickMenu from "../QuickMenu/QuickMenu";
+import "../../css/quickMenu.css";
 
 interface Game {
   id: string;
@@ -113,18 +115,7 @@ const MainPage: React.FC = () => {
 
   return (
     <div className="main-page">
-      {/* 우측하단 점수 토글 버튼 */}
-      <div className="floating-buttons">
-        <button onClick={() => setShowScores(!showScores)} className="floating-button score-toggle">
-          {showScores ? "📊 점수 숨기기" : "📊 점수 보기"}
-        </button>
-        <button onClick={handleOpenTeamSettings} className="floating-button team-settings">
-          👥 팀 설정
-        </button>
-        <button onClick={resetScores} className="floating-button">
-          🔄 점수 초기화
-        </button>
-      </div>
+
 
       {/* 우측하단 슬라이드 점수판 */}
       <div className={`floating-scores ${showScores ? "show" : ""}`}>
@@ -290,6 +281,33 @@ const MainPage: React.FC = () => {
           </button>
         </div>
       </div>
+
+      {/* 퀵메뉴 */}
+      <QuickMenu
+        buttons={[
+          {
+            id: "score-toggle",
+            icon: "📊",
+            title: showScores ? "점수 숨기기" : "점수 보기",
+            onClick: () => setShowScores(!showScores),
+            color: "score",
+          },
+          {
+            id: "team-settings",
+            icon: "👥",
+            title: "팀 설정",
+            onClick: handleOpenTeamSettings,
+            color: "team",
+          },
+          {
+            id: "reset-scores",
+            icon: "🔄",
+            title: "점수 초기화",
+            onClick: resetScores,
+            color: "reset",
+          },
+        ]}
+      />
     </div>
   );
 };

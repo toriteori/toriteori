@@ -84,6 +84,135 @@
   }
 }
 
+/* 환경설정 모달 */
+.settings-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  backdrop-filter: blur(10px);
+}
+
+.settings-modal {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 20px;
+  padding: 2rem;
+  max-width: 600px;
+  width: 90%;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  animation: modalSlideIn 0.3s ease-out;
+}
+
+@keyframes modalSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-50px) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.settings-modal h3 {
+  color: #333;
+  text-align: center;
+  margin-bottom: 1.5rem;
+  font-size: 1.8rem;
+}
+
+.settings-content {
+  margin-bottom: 2rem;
+}
+
+.setting-item {
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 10px;
+}
+
+.setting-item h4 {
+  color: #333;
+  margin-bottom: 0.5rem;
+  font-size: 1.2rem;
+}
+
+.setting-item p {
+  color: #666;
+  margin: 0.3rem 0;
+  font-size: 0.9rem;
+}
+
+.quick-settings-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  margin-top: 1rem;
+}
+
+.quick-setting-btn {
+  padding: 0.8rem 1.2rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: linear-gradient(45deg, #007bff, #0056b3);
+  color: white;
+}
+
+.quick-setting-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
+}
+
+.quick-setting-btn.team-settings {
+  background: linear-gradient(45deg, #28a745, #1e7e34);
+}
+
+.quick-setting-btn.team-settings:hover {
+  box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3);
+}
+
+.quick-setting-btn.reset-scores {
+  background: linear-gradient(45deg, #dc3545, #c82333);
+}
+
+.quick-setting-btn.reset-scores:hover {
+  box-shadow: 0 4px 12px rgba(220, 53, 69, 0.3);
+}
+
+.settings-buttons {
+  text-align: center;
+}
+
+.close-btn {
+  padding: 0.8rem 2rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  background: linear-gradient(45deg, #6c757d, #545b62);
+  color: white;
+  transition: all 0.3s ease;
+}
+
+.close-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(108, 117, 125, 0.3);
+}
+
 /* 좌측 점수판 */
 .global-scores {
   position: fixed;
@@ -764,11 +893,11 @@
   box-shadow: 0 12px 35px rgba(255, 152, 0, 0.4);
 }
 
-/* 우측하단 점수판 */
+/* 좌측하단 점수판 */
 .floating-scores {
   position: fixed;
   bottom: 2rem;
-  right: 2rem;
+  left: 2rem;
   width: 320px;
   padding: 2rem;
   background: rgba(255, 255, 255, 0.15);
@@ -778,7 +907,7 @@
   z-index: 1001;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
   transition: all 0.3s ease;
-  transform: translateX(400px);
+  transform: translateX(-400px);
   opacity: 0;
   visibility: hidden;
   margin-bottom: 200px;
