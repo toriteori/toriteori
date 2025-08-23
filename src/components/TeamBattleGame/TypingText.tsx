@@ -47,8 +47,13 @@ const TypingText: React.FC<TypingTextProps> = ({
     }
   }, [currentIndex, isTyping, text, speed, onComplete]);
 
+<<<<<<< HEAD
   // 스킵 함수
   const skipTyping = () => {
+=======
+  // 클릭으로 스킵
+  const handleClick = () => {
+>>>>>>> origin/master
     if (skipable && isTyping) {
       setDisplayedText(text);
       setCurrentIndex(text.length);
@@ -59,6 +64,7 @@ const TypingText: React.FC<TypingTextProps> = ({
     }
   };
 
+<<<<<<< HEAD
   // 전역 스킵 이벤트 리스너
   useEffect(() => {
     const handleGlobalSkip = () => {
@@ -77,6 +83,17 @@ const TypingText: React.FC<TypingTextProps> = ({
     <div className={`typing-text ${className}`}>
       <span style={{ whiteSpace: "pre-line" }}>{displayedText}</span>
       {isTyping && <span className="typing-cursor">|</span>}
+=======
+  return (
+    <div
+      className={`typing-text ${className}`}
+      onClick={handleClick}
+      style={{ cursor: skipable && isTyping ? "pointer" : "default" }}
+    >
+      <span style={{ whiteSpace: "pre-line" }}>{displayedText}</span>
+      {isTyping && <span className="typing-cursor">|</span>}
+      {skipable && isTyping && <div className="skip-hint">클릭하여 스킵</div>}
+>>>>>>> origin/master
     </div>
   );
 };
