@@ -22,7 +22,6 @@ export interface QuestionSectionProps {
   onOptionChange: (value: string) => void;
   name: string;
 }
-<<<<<<< HEAD
 
 // 선택지 게임 타입들
 export interface Choice {
@@ -61,5 +60,3 @@ export interface GameState {
   teamBChoice: Choice | null;
   gameHistory: GameHistoryEntry[];
 }
-=======
->>>>>>> origin/master
