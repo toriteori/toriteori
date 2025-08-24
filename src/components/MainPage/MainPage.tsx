@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useScore } from "../../contexts/ScoreContext";
 import QuickMenu from "../QuickMenu/QuickMenu";
@@ -27,7 +27,9 @@ const MainPage: React.FC = () => {
   const [showPasswordModal, setShowPasswordModal] = useState(false);
   const [password, setPassword] = useState("");
   const [passwordError, setPasswordError] = useState("");
+  const [selectedGameId, setSelectedGameId] = useState<string>("");
   const [showScores, setShowScores] = useState(false);
+  const [showResetConfirmModal, setShowResetConfirmModal] = useState<boolean>(false);
 
   const games: Game[] = [
     {
@@ -40,26 +42,28 @@ const MainPage: React.FC = () => {
     {
       id: "number-game",
       title: "숫자 맞추기",
-      description: "숫자를 기억하고 순서대로 입력하세요!",
+      description: "숫자를 기억하고 순서대로 입력해주세요!",
       status: "available",
     },
     {
-      id: "ladder-game",
-      title: "사다리 게임",
-      description: "사다리를 타고 상품을 찾아보세요!",
+      id: "lotto-game",
+      title: "로또 당첨 게임",
+      description: "번호를 선택하고 당첨을 노려보세요!",
       status: "available",
     },
     {
       id: "team-battle-game",
       title: "유리의 세계와 시간의 계단",
-      description: "팀별로 스토리를 진행하며 점수를 획득하세요!",
+      description: "팀별로 스토리를 진행하며 점수를 획득해주세요!",
       status: "available",
+      requiresPassword: true,
     },
   ];
 
   const handleGameSelect = (gameId: string) => {
     const game = games.find((g) => g.id === gameId);
     if (game?.requiresPassword) {
+      setSelectedGameId(gameId);
       setShowPasswordModal(true);
       setPassword("");
       setPasswordError("");
@@ -71,7 +75,7 @@ const MainPage: React.FC = () => {
   const handlePasswordSubmit = () => {
     if (password === "ssm1029!") {
       setShowPasswordModal(false);
-      navigate("/music-game");
+      navigate(`/${selectedGameId}`);
     } else {
       setPasswordError("비밀번호가 올바르지 않습니다.");
     }
@@ -111,6 +115,19 @@ const MainPage: React.FC = () => {
 
   const handleBackToEntry = () => {
     navigate("/");
+  };
+
+  const handleResetScores = () => {
+    setShowResetConfirmModal(true);
+  };
+
+  const handleConfirmReset = () => {
+    resetScores();
+    setShowResetConfirmModal(false);
+  };
+
+  const handleCancelReset = () => {
+    setShowResetConfirmModal(false);
   };
 
   return (
@@ -175,7 +192,7 @@ const MainPage: React.FC = () => {
       <div className="main-container">
         <div className="main-header">
           <h1 className="main-title">🎮 오락실</h1>
-          <p className="main-subtitle">원하는 게임을 선택하세요!</p>
+          <p className="main-subtitle">원하는 게임을 선택해주세요!</p>
         </div>
 
         {/* 팀 이름 설정 팝업 */}
@@ -190,7 +207,7 @@ const MainPage: React.FC = () => {
                     type="text"
                     value={teamNames.team1}
                     onChange={(e) => handleTeamNameChange("team1", e.target.value)}
-                    placeholder="팀 이름을 입력하세요"
+                    placeholder="팀 이름을 입력해주세요."
                   />
                 </div>
                 <div className="team-input">
@@ -199,7 +216,7 @@ const MainPage: React.FC = () => {
                     type="text"
                     value={teamNames.team2}
                     onChange={(e) => handleTeamNameChange("team2", e.target.value)}
-                    placeholder="팀 이름을 입력하세요"
+                    placeholder="팀 이름을 입력해주세요."
                   />
                 </div>
               </div>
@@ -221,7 +238,7 @@ const MainPage: React.FC = () => {
             <div className="password-modal">
               <h3>🔒 비밀번호 입력</h3>
               <p className="password-description">
-                노래 맞추기 게임에 접근하려면 비밀번호를 입력하세요.
+                {games.find(g => g.id === selectedGameId)?.title} 게임에 접근하려면 비밀번호를 입력해주세요.
               </p>
               <div className="password-input-container">
                 <input
@@ -229,7 +246,7 @@ const MainPage: React.FC = () => {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   onKeyPress={handlePasswordKeyPress}
-                  placeholder="비밀번호를 입력하세요"
+                  placeholder="비밀번호를 입력해주세요."
                   className="password-input"
                   autoFocus
                 />
@@ -240,6 +257,27 @@ const MainPage: React.FC = () => {
                   🔓 접속
                 </button>
                 <button onClick={handlePasswordCancel} className="cancel-btn">
+                  ❌ 취소
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* 점수 초기화 확인 모달 */}
+        {showResetConfirmModal && (
+          <div className="password-overlay">
+            <div className="password-modal">
+              <h3>🗑️ 점수 초기화</h3>
+              <p className="password-description">
+                정말로 모든 팀의 점수를 초기화하시겠습니까?<br />
+                이 작업은 되돌릴 수 없습니다.
+              </p>
+              <div className="password-buttons">
+                <button onClick={handleConfirmReset} className="submit-btn">
+                  ✅ 확인
+                </button>
+                <button onClick={handleCancelReset} className="cancel-btn">
                   ❌ 취소
                 </button>
               </div>
@@ -260,8 +298,8 @@ const MainPage: React.FC = () => {
                     ? "🎵"
                     : game.id === "number-game"
                     ? "🔢"
-                    : game.id === "ladder-game"
-                    ? "🪜"
+                    : game.id === "lotto-game"
+                    ? "🎰"
                     : game.id === "team-battle-game"
                     ? "⚔️"
                     : "🎮"
@@ -301,9 +339,9 @@ const MainPage: React.FC = () => {
           },
           {
             id: "reset-scores",
-            icon: "🔄",
+            icon: "🗑️",
             title: "점수 초기화",
-            onClick: resetScores,
+            onClick: handleResetScores,
             color: "reset",
           },
         ]}

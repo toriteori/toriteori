@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useScore } from "../../contexts/ScoreContext";
 import QuickMenu from "../QuickMenu/QuickMenu";
@@ -43,6 +43,9 @@ const MusicGame: React.FC = () => {
   const [audioRef, setAudioRef] = useState<HTMLAudioElement | null>(null);
   const [currentTime, setCurrentTime] = useState<number>(0);
   const [duration, setDuration] = useState<number>(0);
+  const [questionStartTime, setQuestionStartTime] = useState<number>(0);
+  const [canShowHint, setCanShowHint] = useState<boolean>(false);
+  const [totalPlayTime, setTotalPlayTime] = useState<number>(0);
   const navigate = useNavigate();
   const { teams, updateTeamScore } = useScore();
 
@@ -65,103 +68,103 @@ const MusicGame: React.FC = () => {
     // 남자 아이돌 (10개) - 난이도 순서대로
     {
       id: "male-idol1",
-      title: "",
-      artist: "",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
+      title: "풍선",
+      artist: "동방신기",
+      file: "/music/midol1.mp4",
       category: "male-idol",
       difficulty: "very-easy",
-      keyword: "",
-      hint: "",
+      keyword: "맨땅에헤딩",
+      hint: "벌룬",
     },
     {
       id: "male-idol2",
-      title: "",
-      artist: "",
-      file: "https://youtu.be/8OAQ6RuYFGE?feature=shared",
+      title: "공허해",
+      artist: "위너",
+      file: "/music/midol2.mp4",
       category: "male-idol",
       difficulty: "very-easy",
-      keyword: "",
-      hint: "",
+      keyword: "슈스케",
+      hint: "에베벱",
     },
     {
       id: "male-idol3",
-      title: "",
-      artist: "",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
+      title: "셜록",
+      artist: "샤이니",
+      file: "/music/midol3.mp4",
       category: "male-idol",
       difficulty: "easy",
-      keyword: "",
-      hint: "",
+      keyword: "BBC",
+      hint: "있겠냐",
     },
     {
       id: "male-idol4",
-      title: "",
-      artist: "",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
+      title: "하루하루",
+      artist: "빅뱅",
+      file: "/music/midol4.mp4",
       category: "male-idol",
       difficulty: "easy",
-      keyword: "",
-      hint: "",
+      keyword: "무한도전",
+      hint: "하루이틀",
     },
     {
       id: "male-idol5",
-      title: "",
-      artist: "",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
+      title: "스노우프린스",
+      artist: "더블에스오공일",
+      file: "/music/midol5.mp4",
       category: "male-idol",
       difficulty: "medium",
-      keyword: "",
-      hint: "",
+      keyword: "소방관",
+      hint: "겨울왕자",
     },
     {
       id: "male-idol6",
-      title: "",
-      artist: "",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
+      title: "러브샷",
+      artist: "엑소",
+      file: "/music/midol6.mp4",
       category: "male-idol",
       difficulty: "medium",
-      keyword: "",
-      hint: "",
+      keyword: "엘",
+      hint: "사랑의총알",
     },
     {
       id: "male-idol7",
-      title: "",
-      artist: "",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
+      title: "숨",
+      artist: "비스트",
+      file: "/music/midol7.mp4",
       category: "male-idol",
       difficulty: "hard",
-      keyword: "",
-      hint: "",
+      keyword: "에이제이",
+      hint: "들X날X",
     },
     {
       id: "male-idol8",
-      title: "",
-      artist: "",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
+      title: "빛나리",
+      artist: "펜타곤",
+      file: "/music/midol8.mp4",
       category: "male-idol",
       difficulty: "hard",
-      keyword: "",
-      hint: "",
+      keyword: "찌질이",
+      hint: "대머리",
     },
     {
       id: "male-idol9",
-      title: "",
-      artist: "",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
+      title: "전하지못한진심",
+      artist: "방탄소년단",
+      file: "/music/midol9.mp4",
       category: "male-idol",
       difficulty: "very-hard",
-      keyword: "",
-      hint: "",
+      keyword: "메이플스토리",
+      hint: "XXXXX진심",
     },
     {
       id: "male-idol10",
-      title: "",
-      artist: "",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
+      title: "시오브러브",
+      artist: "플라이투더스카이",
+      file: "/music/midol10.mp4",
       category: "male-idol",
       difficulty: "very-hard",
-      keyword: "",
-      hint: "",
+      keyword: "런닝샤스",
+      hint: "사랑의바다",
     },
 
     // 여자 아이돌 (10개) - 난이도 순서대로
@@ -199,23 +202,23 @@ const MusicGame: React.FC = () => {
     
     {
       id: "female-idol4",
-      title: "How You Like That",
-      artist: "BLACKPINK",
+      title: "미스터",
+      artist: "카라",
       file: "/music/feidol4.mp4",
       category: "female-idol",
       difficulty: "easy",
-      keyword: "블랙핑크",
-      hint: "4인조 여성 그룹의 대표곡",
+      keyword: "엉덩이",
+      hint: "없어요 힌트 있었는데? 없어요",
     },
     {
       id: "female-idol5",
-      title: "Fancy",
-      artist: "TWICE",
+      title: "luv",
+      artist: "에이핑크",
       file: "/music/feidol5.mp4",
       category: "female-idol",
       difficulty: "medium",
-      keyword: "트와이스",
-      hint: "9인조 여성 그룹의 히트곡",
+      keyword: "레깅스",
+      hint: "손나 이쁜 손나은",
     },
     
     {
@@ -230,23 +233,23 @@ const MusicGame: React.FC = () => {
     },
     {
       id: "female-idol7",
-      title: "Lovesick Girls",
-      artist: "BLACKPINK",
+      title: "뱅",
+      artist: "애프터스쿨",
       file: "/music/feidol7.mp4",
       category: "female-idol",
       difficulty: "hard",
-      keyword: "러브씩",
-      hint: "블랙핑크의 팝 펑크 스타일 곡",
+      keyword: "군악대",
+      hint: "방과 후",
     },
     {
       id: "female-idol8",
-      title: "IU - Good Day",
-      artist: "IU",
+      title: "별별별",
+      artist: "엔믹스",
       file: "/music/feidol8.mp4",
       category: "female-idol",
       difficulty: "hard",
-      keyword: "아이유",
-      hint: "솔로 여성 가수의 히트곡",
+      keyword: "밈 장인",
+      hint: "오해원 이쁨!!",
     },
     {
       id: "female-idol9",
@@ -260,218 +263,218 @@ const MusicGame: React.FC = () => {
     },
     {
       id: "female-idol10",
-      title: "DDU-DU DDU-DU",
-      artist: "BLACKPINK",
+      title: "나는아픈건딱질색이니까",
+      artist: "아이들",
       file: "/music/feidol10.mp4",
       category: "female-idol",
       difficulty: "very-hard",
-      keyword: "두두두두",
-      hint: "블랙핑크의 히트곡",
+      keyword: "적십자논란",
+      hint: "XX 아픈 건 X 질색이니까",
     },
     
 
     // 힙합 (10개) - 난이도 순서대로
     {
       id: "hiphop1",
-      title: "",
-      artist: "",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
+      title: "우산",
+      artist: "에픽하이",
+      file: "/music/hip1.mp4",
       category: "hiphop",
       difficulty: "very-easy",
-      keyword: "",
-      hint: "",
+      keyword: "피처링",
+      hint: "없없",
     },
     {
       id: "hiphop2",
-      title: "",
-      artist: "",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
+      title: "죽일놈",
+      artist: "다이나믹듀오",
+      file: "/music/hip2.mp4",
       category: "hiphop",
       difficulty: "easy",
-      keyword: "",
-      hint: "",
+      keyword: "나레이션",
+      hint: "왜그랬어",
     },
     {
       id: "hiphop3",
-      title: "",
-      artist: "",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
+      title: "몸매",
+      artist: "박재점",
+      file: "/music/hip3.mp4",
       category: "hiphop",
       difficulty: "easy",
-      keyword: "",
-      hint: "",
+      keyword: "섹시",
+      hint: "힌트쓰기귀찮",
     },
     {
       id: "hiphop4",
-      title: "",
-      artist: "",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
+      title: "오아시스",
+      artist: "크러쉬",
+      file: "/music/hip4.mp4",
       category: "hiphop",
       difficulty: "easy",
-      keyword: "",
-      hint: "",
+      keyword: "두부",
+      hint: "쉬스마인~",
     },
     {
       id: "hiphop5",
-      title: "",
-      artist: "",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
+      title: "디",
+      artist: "딘",
+      file: "/music/hip5.mp4",
       category: "hiphop",
       difficulty: "medium",
-      keyword: "",
-      hint: "",
+      keyword: "퇴폐미",
+      hint: "에이비씨",
     },
     {
       id: "hiphop6",
-      title: "",
-      artist: "",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
+      title: "충분히예뻐",
+      artist: "버벌진트",
+      file: "/music/hip6.mp4",
       category: "hiphop",
       difficulty: "medium",
-      keyword: "",
-      hint: "",
+      keyword: "버벌리",
+      hint: "쉽자나여",
     },
     {
       id: "hiphop7",
-      title: "",
-      artist: "",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
+      title: "헤픈우연",
+      artist: "헤이즈",
+      file: "/music/hip7.mp4",
       category: "hiphop",
       difficulty: "hard",
-      keyword: "",
-      hint: "",
+      keyword: "장다혜",
+      hint: "X픈X연",
     },
     {
       id: "hiphop8",
-      title: "",
-      artist: "",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
+      title: "스몰걸",
+      artist: "이영지",
+      file: "/music/hip8.mp4",
       category: "hiphop",
       difficulty: "hard",
-      keyword: "",
-      hint: "",
+      keyword: "지락실",
+      hint: "작은소녀",
     },
     {
       id: "hiphop9",
-      title: "",
-      artist: "",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
+      title: "몽환의숲",
+      artist: "키네틱플로우",
+      file: "/music/hip9.mp4",
       category: "hiphop",
       difficulty: "very-hard",
-      keyword: "",
-      hint: "",
+      keyword: "피아노",
+      hint: "XXX플로우",
     },
     {
       id: "hiphop10",
-      title: "",
-      artist: "",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
+      title: "푸스",
+      artist: "지민아이언",
+      file: "/music/hip10.mp4",
       category: "hiphop",
       difficulty: "very-hard",
-      keyword: "",
-      hint: "",
+      keyword: "사무엘잭슨",
+      hint: "철",
     },
 
     // 밴드 (10개) - 난이도 순서대로
     {
       id: "band1",
-      title: "",
-      artist: "",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
+      title: "낭만고양이",
+      artist: "체리필터",
+      file: "/music/band1.mp4",
       category: "band",
       difficulty: "very-easy",
-      keyword: "",
-      hint: "",
+      keyword: "치어리딩",
+      hint: "모르면나가세요",
     },
     {
       id: "band2",
-      title: "",
-      artist: "",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
+      title: "너에게난나에게넌",
+      artist: "자전거탄풍경",
+      file: "/music/band2.mp4",
       category: "band",
       difficulty: "very-easy",
-      keyword: "",
-      hint: "",
+      keyword: "우산",
+      hint: "꺼져",
     },
     {
       id: "band3",
-      title: "",
-      artist: "",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
+      title: "스물다섯스물하나",
+      artist: "자우림",
+      file: "/music/band3.mp4",
       category: "band",
       difficulty: "easy",
-      keyword: "",
-      hint: "",
+      keyword: "남주혁",
+      hint: "지우림",
     },
     {
       id: "band4",
-      title: "",
-      artist: "",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
+      title: "예뻤어",
+      artist: "데이식스",
+      file: "/music/band4.mp4",
       category: "band",
       difficulty: "easy",
-      keyword: "",
-      hint: "",
+      keyword: "역주행",
+      hint: "이걸?",
     },
     {
       id: "band5",
-      title: "",
-      artist: "",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
+      title: "고백",
+      artist: "뜨거운감자",
+      file: "/music/band5.mp4",
       category: "band",
       difficulty: "medium",
-      keyword: "",
-      hint: "",
+      keyword: "1박2일",
+      hint: "쉽죠,,?",
     },
     {
       id: "band6",
-      title: "",
-      artist: "",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
+      title: "바래",
+      artist: "에프티아일랜드",
+      file: "/music/band6.mp4",
       category: "band",
       difficulty: "medium",
-      keyword: "",
-      hint: "",
+      keyword: "꽃미남",
+      hint: "바라~",
     },
     {
       id: "band7",
-      title: "",
-      artist: "",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
+      title: "나는반딧불",
+      artist: "중식이",
+      file: "/music/band7.mp4",
       category: "band",
       difficulty: "hard",
-      keyword: "",
-      hint: "",
+      keyword: "나의인생",
+      hint: "한식양식일식",
     },
     {
       id: "band8",
-      title: "",
-      artist: "",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
+      title: "사랑은은하수다방에서",
+      artist: "십센치",
+      file: "/music/band8.mp4",
       category: "band",
       difficulty: "hard",
-      keyword: "",
-      hint: "",
+      keyword: "커피",
+      hint: "10글자",
     },
     {
       id: "band9",
-      title: "",
-      artist: "",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
+      title: "사랑하긴했었나요",
+      artist: "잔나비",
+      file: "/music/band9.mp4",
       category: "band",
       difficulty: "very-hard",
-      keyword: "",
-      hint: "",
+      keyword: "42자",
+      hint: "가사처음에나오는게정답임,,",
     },
     {
       id: "band10",
-      title: "",
-      artist: "",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
+      title: "애국가",
+      artist: "윤도현밴드",
+      file: "/music/band10.mp4",
       category: "band",
       difficulty: "very-hard",
-      keyword: "",
-      hint: "",
+      keyword: "우리나라",
+      hint: "거저준다",
     },
 
     // 멜론 탑 100 (10개) - 난이도 순서대로
@@ -783,103 +786,103 @@ const MusicGame: React.FC = () => {
     // 애니메이션 (10개) - 난이도 순서대로
     {
       id: "animation1",
-      title: "",
-      artist: "",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
+      title: "코난",
+      artist: "4기",
+      file: "/music/ani1.mp4",
       category: "animation",
       difficulty: "very-easy",
-      keyword: "",
-      hint: "",
+      keyword: "APTX4869",
+      hint: "극장판다봄",
     },
     {
       id: "animation2",
-      title: "",
-      artist: "",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
+      title: "디지몬어드벤처",
+      artist: "1기",
+      file: "/music/ani2.mp4",
       category: "animation",
       difficulty: "very-easy",
-      keyword: "",
-      hint: "",
+      keyword: "이세계",
+      hint: "태일아,,",
     },
     {
       id: "animation3",
-      title: "",
-      artist: "",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
+      title: "귀멸의칼날",
+      artist: "네즈코",
+      file: "/music/ani3.mp4",
       category: "animation",
       difficulty: "easy",
-      keyword: "",
-      hint: "",
+      keyword: "2019년",
+      hint: "무한성",
     },
     {
       id: "animation4",
-      title: "",
-      artist: "",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
+      title: "진격의거인",
+      artist: "조사병단",
+      file: "/music/ani4.mp4",
       category: "animation",
       difficulty: "easy",
-      keyword: "",
-      hint: "",
+      keyword: "마크",
+      hint: "거인",
     },
     {
       id: "animation5",
-      title: "",
-      artist: "",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
+      title: "너의이름은",
+      artist: "젠젠젠세",
+      file: "/music/ani5.mp4",
       category: "animation",
       difficulty: "medium",
-      keyword: "",
-      hint: "",
+      keyword: "계단",
+      hint: "타키미츠하",
     },
     {
       id: "animation6",
-      title: "",
-      artist: "",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
+      title: "주토피아",
+      artist: "한국어버전",
+      file: "/music/ani6.mp4",
       category: "animation",
       difficulty: "medium",
-      keyword: "",
-      hint: "",
+      keyword: "실종",
+      hint: "토끼경찰",
     },
     {
       id: "animation7",
-      title: "",
-      artist: "",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
+      title: "겨울왕국",
+      artist: "태어나서처음으로",
+      file: "/music/ani7.mp4",
       category: "animation",
       difficulty: "hard",
-      keyword: "",
-      hint: "",
+      keyword: "천만",
+      hint: "러브이스오픈더도오오오오",
     },
     {
       id: "animation8",
-      title: "",
-      artist: "",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
+      title: "시간을달리는소녀",
+      artist: "변하지않는것",
+      file: "/music/ani8.mp4",
       category: "animation",
       difficulty: "hard",
-      keyword: "",
-      hint: "",
+      keyword: "기다릴게",
+      hint: "XX을XXX소녀",
     },
     {
       id: "animation9",
-      title: "",
-      artist: "",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
+      title: "환상게임",
+      artist: "날아오르라주작이여",
+      file: "/music/ani9.mp4",
       category: "animation",
       difficulty: "very-hard",
-      keyword: "",
-      hint: "",
+      keyword: "승부조작",
+      hint: "XX게임",
     },
     {
       id: "animation10",
-      title: "",
-      artist: "",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
+      title: "트롤",
+      artist: "캔스탑더필링",
+      file: "/music/ani10.mp4",
       category: "animation",
       difficulty: "very-hard",
-      keyword: "",
-      hint: "",
+      keyword: "요정",
+      hint: "야XX짓하지마",
     },
 
     // OST (10개) - 난이도 순서대로
@@ -1121,6 +1124,9 @@ const MusicGame: React.FC = () => {
     setIsPlaying(false);
     setShowHint(false);
     setCurrentTime(0);
+    setQuestionStartTime(Date.now());
+    setCanShowHint(false);
+    setTotalPlayTime(0);
 
     // 새로운 오디오 객체 생성
     if (audioRef) {
@@ -1144,6 +1150,7 @@ const MusicGame: React.FC = () => {
     newAudio.addEventListener('error', (e) => {
       console.error('오디오 로딩 실패:', e);
       alert('오디오 파일을 로드할 수 없습니다. 파일 경로를 확인해주세요.');
+      setIsPlaying(false);
     });
     
     setAudioRef(newAudio);
@@ -1171,6 +1178,24 @@ const MusicGame: React.FC = () => {
     }
   };
 
+  // 노래 재생 시간 추적하여 힌트 활성화
+  useEffect(() => {
+    if (isPlaying && audioRef) {
+      const interval = setInterval(() => {
+        // 오디오의 실제 currentTime을 기반으로 총 재생 시간 계산
+        const currentPlayTime = audioRef.currentTime;
+        setTotalPlayTime(currentPlayTime);
+        
+        if (currentPlayTime >= 30 && !canShowHint) {
+          setCanShowHint(true);
+        }
+      }, 100); // 0.1초마다 체크
+
+      return () => clearInterval(interval);
+    }
+  }, [isPlaying, audioRef, canShowHint]);
+
+  // 5초 더 듣기 후 자동 정지 처리
   const handlePlay5Seconds = () => {
     if (!audioRef) return;
 
@@ -1191,6 +1216,21 @@ const MusicGame: React.FC = () => {
     audioRef.play()
       .then(() => {
         setIsPlaying(true);
+        // 5초 재생 시작 시점을 기록
+        const startTime = Date.now();
+        
+        // 5초 동안 정확한 시간 추적
+        const playInterval = setInterval(() => {
+          const elapsed = (Date.now() - startTime) / 1000;
+          if (elapsed >= 5) {
+            clearInterval(playInterval);
+          }
+        }, 100);
+        
+        // 5초 후 정리
+        setTimeout(() => {
+          clearInterval(playInterval);
+        }, 5000);
       })
       .catch((error) => {
         console.error("오디오 재생 실패:", error);
@@ -1246,6 +1286,54 @@ const MusicGame: React.FC = () => {
   const handleCheckAnswer = (teamId: string) => {
     if (!currentQuestion) return;
 
+    // 애니메이션이나 OST 카테고리는 title만 맞추면 정답
+    if (currentQuestion.category === "animation" || currentQuestion.category === "ost") {
+      const cleanUserAnswer = userAnswer.toLowerCase().replace(/\s+/g, "");
+      const cleanTitle = currentQuestion.title.toLowerCase().replace(/\s+/g, "");
+      
+      // title만 포함되어 있으면 정답
+      const correct = cleanUserAnswer.includes(cleanTitle);
+      
+      if (correct) {
+        // 난이도별 점수 계산
+        const getScoreByDifficulty = (difficulty: string) => {
+          switch (difficulty) {
+            case "very-easy":
+              return 10;
+            case "easy":
+              return 20;
+            case "medium":
+              return 30;
+            case "hard":
+              return 40;
+            case "very-hard":
+              return 50;
+            default:
+              return 10;
+          }
+        };
+
+        const scoreToAdd = getScoreByDifficulty(currentQuestion.difficulty);
+
+        // 해당 팀의 점수 증가
+        updateTeamScore(teamId, scoreToAdd);
+        // 완료된 문제에 추가
+        setCompletedQuestions((prev) => new Set([...prev, currentQuestion.id]));
+        setIsCorrect(true);
+        setShowAnswer(true);
+      } else {
+        setIsCorrect(false);
+        // 틀렸을 때는 입력값만 초기화하고 계속 도전 가능
+        setUserAnswer("");
+        // 2초 후 틀림 표시 제거
+        setTimeout(() => {
+          setIsCorrect(null);
+        }, 2000);
+      }
+      return;
+    }
+
+    // 기존 로직 (남자아이돌, 여자아이돌, 밴드, 힙합 등)
     // 입력값 정규화 (띄어쓰기 제거)
     const cleanUserAnswer = userAnswer.toLowerCase().replace(/\s+/g, "");
     const cleanTitle = currentQuestion.title.toLowerCase().replace(/\s+/g, "");
@@ -1312,7 +1400,7 @@ const MusicGame: React.FC = () => {
 
 
   const handleShowHint = () => {
-    if (!currentQuestion) return;
+    if (!currentQuestion || !canShowHint) return;
 
     setShowHint(true);
   };
@@ -1443,7 +1531,7 @@ const MusicGame: React.FC = () => {
               })}
             </div>
           </div>
-          <p className="game-description">{currentCategory?.description} 문제를 선택하세요!</p>
+          <p className="game-description">{currentCategory?.description} 문제를 선택해주세요!</p>
         </div>
 
         <div className="questions-grid">
@@ -1544,7 +1632,11 @@ const MusicGame: React.FC = () => {
             type="text"
             value={userAnswer}
             onChange={(e) => setUserAnswer(e.target.value)}
-            placeholder="가수 '이름'과 노래 '제목' 순서대로 말해주세요."
+            placeholder={
+              currentQuestion && (currentQuestion.category === "animation" || currentQuestion.category === "ost")
+                ? "제목을 입력해주세요."
+                : "가수 '이름'과 노래 '제목' 순서대로 말해주세요."
+            }
             className={`answer-input ${isCorrect === false ? "wrong" : ""}`}
             disabled={showAnswer}
           />
@@ -1567,10 +1659,10 @@ const MusicGame: React.FC = () => {
             </button>
             <button
               onClick={handleShowHint}
-              className="btn btn-hint"
-              disabled={showAnswer || showHint}
+              className={`btn btn-hint ${!canShowHint ? 'disabled' : ''}`}
+              disabled={showAnswer || showHint || !canShowHint}
             >
-              💡 힌트 보기
+              {canShowHint ? '💡 힌트 보기' : `💡 힌트 보기 (${Math.max(0, Math.ceil(20 - totalPlayTime))}초 후 공개)`}
             </button>
           </div>
         </div>
@@ -1591,7 +1683,11 @@ const MusicGame: React.FC = () => {
         {showAnswer && currentQuestion && (
           <div className="correct-answer">
             <h4>
-              🎉 정답입니다! {currentQuestion.artist} - {currentQuestion.title}
+              🎉 정답입니다! {
+                currentQuestion.category === "animation" || currentQuestion.category === "ost"
+                  ? currentQuestion.title
+                  : `${currentQuestion.artist} - ${currentQuestion.title}`
+              }
             </h4>
             <p className="score-info">
               {currentQuestion.difficulty === "very-easy"

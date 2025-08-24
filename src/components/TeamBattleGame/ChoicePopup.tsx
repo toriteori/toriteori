@@ -40,7 +40,7 @@ const ChoicePopup: React.FC<ChoicePopupProps> = ({
     <div className="choice-popup-overlay" onClick={onClose}>
       <div className="choice-popup" onClick={(e) => e.stopPropagation()}>
         <div className="popup-header">
-          <h2>선택지를 선택하세요</h2>
+          <h2>선택지를 선택해주세요.</h2>
           <button className="popup-close-btn" onClick={onClose}>
             ✕
           </button>

@@ -42,8 +42,8 @@ export const ScoreProvider: React.FC<ScoreProviderProps> = ({ children }) => {
       }
     }
     return [
-      { id: "team1", name: "팀 정지윤", score: 0, color: "#ff6b6b" },
-      { id: "team2", name: "팀 한지우", score: 0, color: "#4ecdc4" },
+      { id: "team1", name: "", score: 0, color: "#ff6b6b" },
+      { id: "team2", name: "", score: 0, color: "#4ecdc4" },
     ];
   };
 
@@ -61,10 +61,10 @@ export const ScoreProvider: React.FC<ScoreProviderProps> = ({ children }) => {
   };
 
   const resetScores = () => {
+    // 로컬 스토리지에서 완전히 삭제
+    localStorage.removeItem('gameTeams');
     setTeams((prev) => {
       const resetTeams = prev.map((team) => ({ ...team, score: 0 }));
-      // 로컬 스토리지에 저장
-      localStorage.setItem('gameTeams', JSON.stringify(resetTeams));
       return resetTeams;
     });
   };
@@ -89,8 +89,8 @@ export const ScoreProvider: React.FC<ScoreProviderProps> = ({ children }) => {
     // 로컬 스토리지에서 완전히 삭제
     localStorage.removeItem('gameTeams');
     setTeams([
-      { id: "team1", name: "팀 정지윤", score: 0, color: "#ff6b6b" },
-      { id: "team2", name: "팀 한지우", score: 0, color: "#4ecdc4" },
+      { id: "team1", name: "", score: 0, color: "#ff6b6b" },
+      { id: "team2", name: "", score: 0, color: "#4ecdc4" },
     ]);
   };
 

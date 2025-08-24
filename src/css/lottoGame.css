@@ -1,0 +1,1255 @@
+/* 로또게임 공통 스타일 */
+.lotto-game {
+  min-height: 100vh;
+  padding: 20px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+/* 로또 설정 화면 */
+.lotto-settings {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 30px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+}
+
+.settings-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.settings-header h1 {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+  background: linear-gradient(45deg, #ffd700, #ff6b6b);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.game-description {
+  font-size: 1.1rem;
+  opacity: 0.9;
+  line-height: 1.6;
+}
+
+/* 당첨 등급 정보 */
+.prize-info {
+  margin-bottom: 30px;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+}
+
+.prize-info h3 {
+  text-align: center;
+  margin-bottom: 15px;
+  color: #ffd700;
+}
+
+.prize-header {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  align-items: center;
+  padding: 8px 15px;
+  gap: 10px;
+  font-weight: bold;
+  color: #666;
+  font-size: 0.9em;
+  border-bottom: 2px solid #e0e0e0;
+  margin-bottom: 8px;
+}
+
+.prize-table {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.prize-row {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  align-items: center;
+  padding: 10px 15px;
+  border-radius: 8px;
+  font-weight: bold;
+  gap: 10px;
+}
+
+.probability {
+  text-align: right;
+  font-size: 0.95em;
+  font-weight: bold;
+  background: rgba(255, 255, 255, 0.2);
+  padding: 4px 8px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: #fff;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.prize-row.first {
+  background: linear-gradient(135deg, #ffd700, #ffed4e);
+  color: #333;
+}
+
+.prize-row.first .probability {
+  background: rgba(0, 0, 0, 0.15);
+  color: #333;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  text-shadow: none;
+}
+
+.prize-row.second {
+  background: linear-gradient(135deg, #c0c0c0, #e8e8e8);
+  color: #333;
+}
+
+.prize-row.second .probability {
+  background: rgba(0, 0, 0, 0.15);
+  color: #333;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  text-shadow: none;
+}
+
+.prize-row.third {
+  background: linear-gradient(135deg, #cd7f32, #daa520);
+  color: white;
+}
+
+.prize-row.fourth {
+  background: linear-gradient(135deg, #4ecdc4, #44a08d);
+  color: white;
+}
+
+.prize-row.fifth {
+  background: linear-gradient(135deg, #9b59b6, #8e44ad);
+  color: white;
+}
+
+.prize-row.sixth {
+  background: linear-gradient(135deg, #3498db, #2980b9);
+  color: white;
+}
+
+.prize-row.fifth {
+  background: linear-gradient(135deg, #9b59b6, #8e44ad);
+  color: white;
+}
+
+.prize-row.sixth {
+  background: linear-gradient(135deg, #3498db, #2980b9);
+  color: white;
+}
+
+.prize-row.seventh {
+  background: linear-gradient(135deg, #1abc9c, #16a085);
+  color: white;
+}
+
+.prize-row.eighth {
+  background: linear-gradient(135deg, #f39c12, #e67e22);
+  color: white;
+}
+
+/* 팀 설정 */
+.team-setup {
+  margin-bottom: 30px;
+}
+
+.team-tabs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.team-tab {
+  flex: 1;
+  padding: 15px;
+  border: none;
+  border-radius: 10px;
+  font-weight: bold;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: white;
+}
+
+.team-tab.active {
+  transform: scale(1.05);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.member-input {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.member-input input {
+  flex: 1;
+  padding: 12px 15px;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  background: rgba(255, 255, 255, 0.9);
+  color: #333;
+}
+
+.member-input input::placeholder {
+  color: #666;
+  opacity: 1;
+}
+
+.add-btn {
+  padding: 12px 20px;
+  background: linear-gradient(135deg, #4ecdc4, #44a08d);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.add-btn:hover {
+  transform: scale(1.05);
+}
+
+.members-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.member-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 15px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+}
+
+.member-name {
+  font-weight: bold;
+}
+
+.remove-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 5px;
+  transition: background 0.2s ease;
+}
+
+.remove-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* 게임 요약 */
+.game-summary {
+  margin-bottom: 30px;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+}
+
+.game-summary h3 {
+  text-align: center;
+  margin-bottom: 15px;
+  color: #ffd700;
+}
+
+.summary-info {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.summary-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+}
+
+.summary-item.total {
+  border-top: 2px solid rgba(255, 255, 255, 0.3);
+  margin-top: 10px;
+  padding-top: 15px;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.start-section {
+  text-align: center;
+}
+
+.start-game-btn {
+  padding: 15px 40px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+  color: white;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.start-game-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+}
+
+.start-game-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* 로또 플레이 화면 */
+.lotto-play {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 30px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+}
+
+.play-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.play-header h1 {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+  background: linear-gradient(45deg, #ffd700, #ff6b6b);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.player-info {
+  margin-bottom: 20px;
+}
+
+.current-player h2 {
+  font-size: 1.8rem;
+  margin-bottom: 5px;
+  color: #ffd700;
+}
+
+.progress {
+  font-size: 1.1rem;
+  opacity: 0.8;
+}
+
+.number-selection {
+  margin-bottom: 30px;
+}
+
+.selection-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.selection-header h3 {
+  color: #ffd700;
+}
+
+.selected-count {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #4ecdc4;
+}
+
+.selected-numbers {
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.selected-numbers h4 {
+  margin-bottom: 15px;
+  color: #ffd700;
+}
+
+.selected-display {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-bottom: 20px;
+  align-items: center;
+}
+
+.normal-numbers, .bonus-number {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.number-type {
+  font-weight: bold;
+  min-width: 80px;
+  color: #ffd700;
+}
+
+.number-slot {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-size: 1.2rem;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.number-slot.filled {
+  background: linear-gradient(135deg, #ffd700, #ff6b6b);
+  color: white;
+  transform: scale(1.1);
+  box-shadow: 0 5px 15px rgba(255, 215, 0, 0.4);
+}
+
+.number-slot.empty {
+  background: rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 0.5);
+  border: 2px dashed rgba(255, 255, 255, 0.3);
+}
+
+.number-slot.bonus.filled {
+  background: linear-gradient(135deg, #9b59b6, #8e44ad);
+  color: white;
+  transform: scale(1.1);
+  box-shadow: 0 5px 15px rgba(155, 89, 182, 0.4);
+}
+
+.number-grids {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  margin-bottom: 30px;
+}
+
+.normal-grid, .bonus-grid {
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+}
+
+.normal-grid h4, .bonus-grid h4 {
+  margin-bottom: 15px;
+  color: #ffd700;
+  text-align: center;
+}
+
+.number-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 8px;
+}
+
+.number-grid.compact {
+  grid-template-columns: repeat(5, 1fr);
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+
+
+.number-btn {
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 50%;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background: rgba(255, 255, 255, 0.9);
+  color: #333;
+}
+
+.number-btn:hover:not(:disabled) {
+  transform: scale(1.1);
+  background: rgba(255, 255, 255, 1);
+}
+
+.number-btn.selected {
+  background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+  color: white;
+  transform: scale(1.2);
+  box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+}
+
+.number-btn.bonus.selected {
+  background: linear-gradient(135deg, #9b59b6, #8e44ad);
+  color: white;
+  transform: scale(1.2);
+  box-shadow: 0 5px 15px rgba(155, 89, 182, 0.4);
+}
+
+.number-btn.bonus-selected,
+.number-btn.normal-selected {
+  background: rgba(255, 255, 255, 0.5) !important;
+  color: #666 !important;
+  cursor: not-allowed !important;
+}
+
+.number-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.action-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 30px;
+}
+
+.btn {
+  padding: 12px 25px;
+  border: none;
+  border-radius: 25px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 1rem;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #4ecdc4, #44a08d);
+  color: white;
+}
+
+.btn-secondary {
+  background: linear-gradient(135deg, #ffd700, #ffed4e);
+  color: #333;
+}
+
+.btn-tertiary {
+  background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+  color: white;
+}
+
+.btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* 제출된 번호들 */
+.submitted-entries {
+  margin-bottom: 30px;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+}
+
+.submitted-entries h3 {
+  margin-bottom: 15px;
+  color: #ffd700;
+}
+
+.entries-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.entry-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+}
+
+.player-name {
+  font-weight: bold;
+  min-width: 100px;
+}
+
+.entry-numbers {
+  display: flex;
+  gap: 5px;
+}
+
+.entry-number {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.8);
+  color: #333;
+  border-radius: 50%;
+  font-size: 0.9rem;
+  font-weight: bold;
+}
+
+.entry-bonus {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #9b59b6, #8e44ad);
+  color: white;
+  border-radius: 50%;
+  font-size: 0.8rem;
+  font-weight: bold;
+  margin-left: 5px;
+}
+
+/* 게임 설명 */
+.game-instructions {
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+}
+
+.game-instructions h4 {
+  margin-bottom: 15px;
+  color: #ffd700;
+}
+
+.game-instructions ul {
+  list-style: none;
+  padding: 0;
+}
+
+.game-instructions li {
+  margin-bottom: 8px;
+  opacity: 0.9;
+}
+
+/* 로또 결과 화면 */
+.lotto-result {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 30px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+}
+
+.result-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.result-header h1 {
+  font-size: 2.5rem;
+  background: linear-gradient(45deg, #ffd700, #ff6b6b);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* 추첨 진행 화면 */
+.drawing-section {
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.drawing-section h2 {
+  margin-bottom: 30px;
+  color: #ffd700;
+}
+
+.winning-numbers-reveal {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+}
+
+.winning-number {
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-size: 1.5rem;
+  font-weight: bold;
+  transition: all 0.5s ease;
+}
+
+.winning-number.hidden {
+  background: rgba(255, 255, 255, 0.3);
+  color: rgba(255, 255, 255, 0.5);
+  border: 2px dashed rgba(255, 255, 255, 0.3);
+}
+
+.winning-number.revealed {
+  background: linear-gradient(135deg, #ffd700, #ff6b6b);
+  color: white;
+  box-shadow: 0 5px 15px rgba(255, 215, 0, 0.4);
+}
+
+.winning-number.latest {
+  animation: numberReveal 0.5s ease;
+}
+
+@keyframes numberReveal {
+  0% { transform: scale(0) rotate(180deg); opacity: 0; }
+  50% { transform: scale(1.3) rotate(90deg); opacity: 0.8; }
+  100% { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+
+.drawing-status, .drawing-complete {
+  margin-top: 20px;
+}
+
+.drawing-status p, .drawing-complete p {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+}
+
+.loading-dots {
+  display: inline-flex;
+  gap: 5px;
+}
+
+.loading-dots span {
+  animation: bounce 1.4s ease-in-out infinite both;
+  font-size: 1.5rem;
+}
+
+.loading-dots span:nth-child(1) { animation-delay: -0.32s; }
+.loading-dots span:nth-child(2) { animation-delay: -0.16s; }
+
+@keyframes bounce {
+  0%, 80%, 100% { transform: scale(0); }
+  40% { transform: scale(1); }
+}
+
+/* 결과 섹션 */
+.results-section {
+  margin-top: 30px;
+}
+
+.final-winning-numbers {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.final-winning-numbers h3 {
+  margin-bottom: 20px;
+  color: #ffd700;
+}
+
+.winning-numbers-final {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.winning-number.final {
+  background: linear-gradient(135deg, #ffd700, #ff6b6b);
+  color: white;
+  box-shadow: 0 5px 15px rgba(255, 215, 0, 0.4);
+}
+
+.winning-number.bonus {
+  background: linear-gradient(135deg, #9b59b6, #8e44ad) !important;
+  box-shadow: 0 5px 15px rgba(155, 89, 182, 0.4) !important;
+}
+
+.numbers-reveal-container {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  align-items: center;
+}
+
+.normal-numbers-reveal h3,
+.bonus-number-reveal h3 {
+  text-align: center;
+  margin-bottom: 15px;
+  color: #ffd700;
+}
+
+.final-numbers-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+}
+
+.final-normal-numbers,
+.final-bonus-number {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.number-label {
+  font-weight: bold;
+  color: #ffd700;
+  min-width: 80px;
+}
+
+.number.bonus {
+  background: linear-gradient(135deg, #9b59b6, #8e44ad) !important;
+}
+
+.result-row.rank-5 { border-left: 5px solid #9b59b6; }
+.result-row.rank-6 { border-left: 5px solid #3498db; }
+
+/* 당첨자 발표 */
+.winners-announcement {
+  margin-bottom: 40px;
+}
+
+.winners-announcement h3 {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #ffd700;
+  font-size: 1.8rem;
+}
+
+.winner-group {
+  margin-bottom: 25px;
+  padding: 20px;
+  border-radius: 15px;
+}
+
+.winner-group.rank-1 {
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.3), rgba(255, 237, 78, 0.3));
+  border: 2px solid #ffd700;
+}
+
+.winner-group.rank-2 {
+  background: linear-gradient(135deg, rgba(192, 192, 192, 0.3), rgba(232, 232, 232, 0.3));
+  border: 2px solid #c0c0c0;
+}
+
+.winner-group.rank-3 {
+  background: linear-gradient(135deg, rgba(205, 127, 50, 0.3), rgba(218, 165, 32, 0.3));
+  border: 2px solid #cd7f32;
+}
+
+.winner-group.rank-4 {
+  background: linear-gradient(135deg, rgba(78, 205, 196, 0.3), rgba(68, 160, 141, 0.3));
+  border: 2px solid #4ecdc4;
+}
+
+.winner-group h4 {
+  margin-bottom: 15px;
+  font-size: 1.3rem;
+}
+
+.winner-item {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 15px;
+  margin-bottom: 10px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+}
+
+.winner-name {
+  font-weight: bold;
+  font-size: 1.1rem;
+  min-width: 120px;
+}
+
+.winner-numbers {
+  display: flex;
+  gap: 8px;
+}
+
+/* 전체 결과 */
+.all-results {
+  margin-bottom: 40px;
+}
+
+.all-results h3 {
+  text-align: center;
+  margin-bottom: 25px;
+  color: #ffd700;
+  font-size: 1.6rem;
+}
+
+.results-table {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.result-row {
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.result-row.rank-1 { border-left: 5px solid #ffd700; }
+.result-row.rank-2 { border-left: 5px solid #c0c0c0; }
+.result-row.rank-3 { border-left: 5px solid #cd7f32; }
+.result-row.rank-4 { border-left: 5px solid #4ecdc4; }
+.result-row.rank-none { border-left: 5px solid #ff6b6b; }
+
+.player-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.player-name {
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.rank-badge {
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+.player-numbers {
+  flex: 2;
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+}
+
+.number {
+  width: 35px;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-size: 0.9rem;
+  font-weight: bold;
+}
+
+.number.match {
+  background: linear-gradient(135deg, #ffd700, #ff6b6b);
+  color: white;
+  box-shadow: 0 2px 8px rgba(255, 215, 0, 0.4);
+}
+
+.number.no-match {
+  background: rgba(255, 255, 255, 0.3);
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.match-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 5px;
+}
+
+.matches {
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+.score {
+  font-weight: bold;
+  font-size: 1.1rem;
+  color: #4ecdc4;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+.action-buttons .btn {
+  padding: 15px 30px;
+  border: none;
+  border-radius: 25px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 1.1rem;
+  min-width: 150px;
+}
+
+.action-buttons .btn-primary {
+  background: linear-gradient(135deg, #4ecdc4, #44a08d);
+  color: white;
+}
+
+.action-buttons .btn-secondary {
+  background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+  color: white;
+}
+
+.action-buttons .btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+}
+
+/* 추첨 확인 모달 */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.modal-content {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 20px;
+  padding: 30px;
+  max-width: 600px;
+  width: 100%;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  color: white;
+}
+
+.modal-content h2 {
+  text-align: center;
+  margin-bottom: 15px;
+  font-size: 2rem;
+  background: linear-gradient(45deg, #ffd700, #ff6b6b);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.modal-description {
+  text-align: center;
+  font-size: 1.1rem;
+  margin-bottom: 25px;
+  opacity: 0.9;
+  line-height: 1.6;
+}
+
+.modal-summary {
+  margin-bottom: 25px;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+}
+
+.modal-summary h3 {
+  margin-bottom: 15px;
+  color: #ffd700;
+  text-align: center;
+}
+
+.participants-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.participant-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  position: relative;
+}
+
+.participant-name {
+  font-weight: bold;
+  min-width: 100px;
+  color: #ffd700;
+}
+
+.participant-numbers {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+
+.number-display {
+  width: 25px;
+  height: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.8);
+  color: #333;
+  border-radius: 50%;
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+.bonus-display {
+  width: 25px;
+  height: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #9b59b6, #8e44ad);
+  color: white;
+  border-radius: 50%;
+  font-size: 0.7rem;
+  font-weight: bold;
+  margin-left: 5px;
+}
+
+.edit-btn {
+  background: linear-gradient(135deg, #ffd700, #ffed4e);
+  color: #333;
+  border: none;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  margin-left: auto;
+  box-shadow: 0 2px 8px rgba(255, 215, 0, 0.3);
+}
+
+.edit-btn:hover:not(:disabled) {
+  transform: scale(1.1);
+  box-shadow: 0 4px 12px rgba(255, 215, 0, 0.5);
+  background: linear-gradient(135deg, #ffed4e, #ffd700);
+}
+
+.edit-btn.disabled,
+.edit-btn:disabled {
+  background: linear-gradient(135deg, #666, #999);
+  color: #ccc;
+  cursor: not-allowed;
+  opacity: 0.6;
+  transform: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.edit-btn.disabled:hover,
+.edit-btn:disabled:hover {
+  transform: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.modal-buttons {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  margin-top: 25px;
+}
+
+.modal-buttons .btn {
+  padding: 12px 25px;
+  border: none;
+  border-radius: 25px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 1rem;
+  min-width: 140px;
+}
+
+.modal-buttons .btn-primary {
+  background: linear-gradient(135deg, #4ecdc4, #44a08d);
+  color: white;
+}
+
+.modal-buttons .btn-secondary {
+  background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+  color: white;
+}
+
+.modal-buttons .btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+  .lotto-game {
+    padding: 10px;
+  }
+  
+  .lotto-settings,
+  .lotto-play,
+  .lotto-result {
+    padding: 20px;
+    margin: 10px;
+  }
+  
+  .settings-header h1,
+  .play-header h1,
+  .result-header h1 {
+    font-size: 2rem;
+  }
+  
+  .number-grid {
+    grid-template-columns: repeat(6, 1fr);
+    gap: 6px;
+  }
+  
+  .winning-numbers-reveal,
+  .winning-numbers-final {
+    gap: 10px;
+  }
+  
+  .winning-number {
+    width: 50px;
+    height: 50px;
+    font-size: 1.2rem;
+  }
+  
+  .result-row {
+    flex-direction: column;
+    gap: 15px;
+    text-align: center;
+  }
+  
+  .player-info,
+  .player-numbers,
+  .match-info {
+    flex: none;
+  }
+  
+  .winner-item {
+    flex-direction: column;
+    gap: 10px;
+    text-align: center;
+  }
+}
