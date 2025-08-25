@@ -1,9 +1,615 @@
-/* 새로운 StoryGame 스타일 */
+/* 모드 선택 화면 */
+.mode-selection {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 20px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.mode-header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.mode-header h1 {
+  font-size: 3rem;
+  margin-bottom: 20px;
+  text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradientShift 3s ease infinite;
+}
+
+.mode-header p {
+  font-size: 1.2rem;
+  opacity: 0.9;
+}
+
+.mode-options {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 40px;
+  max-width: 800px;
+  width: 100%;
+  margin-bottom: 40px;
+}
+
+.mode-card {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  padding: 40px 30px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  position: relative;
+  overflow: hidden;
+}
+
+.mode-card:hover {
+  transform: translateY(-10px);
+  border-color: rgba(255, 255, 255, 0.4);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+}
+
+.mode-card:nth-child(1):hover {
+  box-shadow: 0 20px 40px rgba(78, 205, 196, 0.3);
+  border-color: #4ecdc4;
+}
+
+.mode-card:nth-child(2):hover {
+  box-shadow: 0 20px 40px rgba(255, 107, 107, 0.3);
+  border-color: #ff6b6b;
+}
+
+.mode-icon {
+  font-size: 4rem;
+  margin-bottom: 20px;
+}
+
+.mode-card h3 {
+  font-size: 1.8rem;
+  margin-bottom: 15px;
+  color: #ffffff;
+}
+
+.mode-card p {
+  font-size: 1rem;
+  margin-bottom: 25px;
+  opacity: 0.9;
+  line-height: 1.6;
+}
+
+.mode-features {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.mode-features span {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 8px 15px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.back-button {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.1));
+  color: white;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  padding: 15px 30px;
+  border-radius: 25px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.back-button:hover {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.2));
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+@keyframes gradientShift {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+/* 단순화된 StoryGame 스타일 */
 .story-game {
+  position: relative;
   min-height: 100vh;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
   padding: 20px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+/* 게임 소개 페이지 */
+.game-intro {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.intro-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.intro-header h1 {
+  font-size: 2.8rem;
+  margin-bottom: 15px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  background: linear-gradient(45deg, #ffd700, #ffed4a);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.intro-subtitle {
+  font-size: 1.3rem;
+  opacity: 0.9;
+  margin-bottom: 0;
+}
+
+.intro-content {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.world-info {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 25px;
+  border-radius: 20px;
+  backdrop-filter: blur(10px);
+  text-align: center;
+}
+
+.world-info h2 {
+  color: #ffd700;
+  margin-bottom: 15px;
+  font-size: 1.8rem;
+}
+
+.world-info p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.game-features {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 25px;
+  border-radius: 20px;
+  backdrop-filter: blur(10px);
+}
+
+.game-features h3 {
+  color: #ffd700;
+  text-align: center;
+  margin-bottom: 25px;
+  font-size: 1.6rem;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.feature {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 20px;
+  border-radius: 15px;
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.feature:hover {
+  transform: translateY(-5px);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.feature-icon {
+  font-size: 2rem;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.feature h4 {
+  color: #ffd700;
+  margin-bottom: 10px;
+  font-size: 1.1rem;
+}
+
+.feature p {
+  font-size: 0.9rem;
+  opacity: 0.8;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.game-tips {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 25px;
+  border-radius: 20px;
+  backdrop-filter: blur(10px);
+}
+
+.game-tips h3 {
+  color: #ffd700;
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 1.6rem;
+}
+
+.game-tips ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.game-tips li {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 12px 15px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  border-left: 4px solid #ffd700;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.game-tips li:last-child {
+  margin-bottom: 0;
+}
+
+.start-button-container {
+  text-align: center;
+  margin-top: 40px;
+}
+
+.start-game-button {
+  background: linear-gradient(135deg, #4caf50, #45a049);
+  border: none;
+  color: white;
+  padding: 18px 40px;
+  font-size: 1.3rem;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-right: 20px;
+  box-shadow: 0 6px 20px rgba(76, 175, 80, 0.3);
+}
+
+.start-game-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(76, 175, 80, 0.4);
+  background: linear-gradient(135deg, #45a049, #4caf50);
+}
+
+.back-button {
+  background: rgba(255, 255, 255, 0.2);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  color: white;
+  padding: 15px 30px;
+  font-size: 1.1rem;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.back-button:hover {
+  background: rgba(255, 255, 255, 0.3);
+  border-color: #ffd700;
+  transform: translateY(-2px);
+}
+
+/* 모바일 반응형 */
+@media (max-width: 768px) {
+  .intro-header h1 {
+    font-size: 2.2rem;
+  }
+
+  .intro-subtitle {
+    font-size: 1.1rem;
+  }
+
+  .features-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .start-game-button {
+    display: block;
+    margin: 0 auto 20px auto;
+    font-size: 1.2rem;
+    padding: 16px 35px;
+  }
+
+  .back-button {
+    display: block;
+    margin: 0 auto;
+    font-size: 1rem;
+    padding: 12px 25px;
+  }
+}
+
+.game-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.game-header h1 {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.score-display {
+  font-size: 1.2rem;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 10px 20px;
+  border-radius: 20px;
+  display: inline-block;
+}
+
+.story-content {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 30px;
+  border-radius: 20px;
+  backdrop-filter: blur(10px);
+  margin-bottom: 20px;
+}
+
+.story-text {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  margin-bottom: 30px;
+  cursor: pointer;
+  min-height: 200px;
+}
+
+.story-paragraph {
+  margin-bottom: 1.5rem;
+  text-align: justify;
+}
+
+.story-paragraph:last-child {
+  margin-bottom: 0;
+}
+
+.typing-cursor {
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  0%,
+  50% {
+    opacity: 1;
+  }
+  51%,
+  100% {
+    opacity: 0;
+  }
+}
+
+/* 선택지 팝업 스타일 */
+.choice-popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  z-index: 2000;
+  animation: popupFadeIn 0.3s ease-out;
+  padding-bottom: 20px;
+  pointer-events: none;
+}
+
+.choice-popup {
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.95) 0%, rgba(118, 75, 162, 0.95) 100%);
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  border-radius: 15px;
+  padding: 20px;
+  max-width: 400px;
+  width: 80%;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+  animation: popupSlideUp 0.4s ease-out;
+  pointer-events: auto;
+}
+
+.choice-popup h3 {
+  text-align: center;
+  margin-bottom: 15px;
+  font-size: 1.1rem;
+  color: #ffffff;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.choice-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.choice-popup-button {
+  background: linear-gradient(135deg, #4caf50, #45a049);
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+  border: 2px solid transparent;
+}
+
+.choice-popup-button:hover {
+  background: linear-gradient(135deg, #45a049, #4caf50);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(76, 175, 80, 0.4);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.choice-popup-button:active {
+  transform: translateY(-1px);
+}
+
+@keyframes popupFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes popupSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.score-preview {
+  background: #ffd700;
+  color: #333;
+  padding: 5px 10px;
+  border-radius: 10px;
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+
+.ending-container {
+  text-align: center;
+  padding: 30px;
+}
+
+.ending-container h2 {
+  color: #ffd700;
+  margin-bottom: 20px;
+}
+
+.ending-buttons {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+.restart-button,
+.exit-button {
+  background: rgba(255, 255, 255, 0.2);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  color: white;
+  padding: 15px 30px;
+  border-radius: 15px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.restart-button:hover {
+  background: #4caf50;
+  border-color: #4caf50;
+}
+
+.exit-button:hover {
+  background: #f44336;
+  border-color: #f44336;
+}
+
+.progress-info {
+  text-align: center;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 15px;
+  border-radius: 15px;
+  font-size: 0.9rem;
+}
+
+/* 점수 변화 플로팅 버튼 */
+.score-floating-button {
+  position: absolute;
+  bottom: 30px;
+  left: 30px;
+  z-index: 1000;
+  pointer-events: auto; /* Changed to allow clicks */
+  animation: floatingButtonAppear 0.5s ease-out;
+  cursor: pointer; /* Added cursor pointer */
+}
+
+.score-indicator {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  animation: scorePulse 1.5s ease-out;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.score-indicator.positive {
+  background: linear-gradient(135deg, #4caf50, #66bb6a);
+  box-shadow: 0 4px 20px rgba(76, 175, 80, 0.6);
+}
+
+.score-indicator.negative {
+  background: linear-gradient(135deg, #f44336, #ef5350);
+  box-shadow: 0 4px 20px rgba(244, 67, 54, 0.6);
+}
+
+.score-indicator.neutral {
+  background: linear-gradient(135deg, #9e9e9e, #bdbdbd);
+  box-shadow: 0 4px 20px rgba(158, 158, 158, 0.6);
+}
+
+@keyframes floatingButtonAppear {
+  from {
+    opacity: 0;
+    transform: scale(0.5) translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes scorePulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1.3);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
 }
 
 /* 게임 설정 화면 */
@@ -104,7 +710,10 @@
   gap: 20px;
 }
 
-.start-btn, .back-btn, .restart-btn, .main-btn {
+.start-btn,
+.back-btn,
+.restart-btn,
+.main-btn {
   background: linear-gradient(135deg, #4ecdc4, #44a08d);
   border: none;
   padding: 15px 30px;
@@ -116,7 +725,10 @@
   font-weight: bold;
 }
 
-.start-btn:hover, .back-btn:hover, .restart-btn:hover, .main-btn:hover {
+.start-btn:hover,
+.back-btn:hover,
+.restart-btn:hover,
+.main-btn:hover {
   transform: translateY(-2px);
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
 }
@@ -128,7 +740,8 @@
   box-shadow: none;
 }
 
-.back-btn, .main-btn {
+.back-btn,
+.main-btn {
   background: linear-gradient(135deg, #95a5a6, #7f8c8d);
 }
 
@@ -529,8 +1142,12 @@
 }
 
 @keyframes bounce {
-  from { transform: translateY(0px); }
-  to { transform: translateY(-10px); }
+  from {
+    transform: translateY(0px);
+  }
+  to {
+    transform: translateY(-10px);
+  }
 }
 
 /* 타이핑 효과 */
@@ -542,8 +1159,14 @@
 }
 
 @keyframes blink {
-  0%, 50% { opacity: 1; }
-  51%, 100% { opacity: 0; }
+  0%,
+  50% {
+    opacity: 1;
+  }
+  51%,
+  100% {
+    opacity: 0;
+  }
 }
 
 .story-text.typing {
@@ -808,8 +1431,12 @@
 }
 
 @keyframes glow-red {
-  from { box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4); }
-  to { box-shadow: 0 6px 20px rgba(255, 107, 107, 0.8); }
+  from {
+    box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
+  }
+  to {
+    box-shadow: 0 6px 20px rgba(255, 107, 107, 0.8);
+  }
 }
 
 /* 개별 진행 모드 스타일 */
@@ -969,8 +1596,13 @@
 }
 
 @keyframes pulse {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.1); }
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
 }
 
 .split-mode-continue {
@@ -999,8 +1631,12 @@
 }
 
 @keyframes glow {
-  from { box-shadow: 0 6px 20px rgba(255, 215, 0, 0.4); }
-  to { box-shadow: 0 6px 20px rgba(255, 215, 0, 0.8); }
+  from {
+    box-shadow: 0 6px 20px rgba(255, 215, 0, 0.4);
+  }
+  to {
+    box-shadow: 0 6px 20px rgba(255, 215, 0, 0.8);
+  }
 }
 
 /* 다이나믹 스토리 텍스트 */
@@ -1333,221 +1969,228 @@
   .story-game {
     padding: 10px;
   }
-  
-  .game-setup h1, .game-finished h1 {
+
+  .game-setup h1,
+  .game-finished h1 {
     font-size: 2rem;
   }
-  
-  .teams, .score-display, .score-summary {
+
+  .teams,
+  .score-display,
+  .score-summary {
     flex-direction: column;
     gap: 20px;
   }
-  
+
   .world-elements {
     gap: 15px;
   }
-  
+
   .story-text {
     padding: 20px;
     font-size: 1rem;
   }
-  
+
   .choice-btn {
     padding: 15px;
   }
-  
-  .game-controls, .final-controls {
+
+  .game-controls,
+  .final-controls {
     flex-direction: column;
     gap: 15px;
   }
-  
-  .start-btn, .back-btn, .restart-btn, .main-btn {
+
+  .start-btn,
+  .back-btn,
+  .restart-btn,
+  .main-btn {
     padding: 12px 20px;
     font-size: 1rem;
   }
-  
+
   /* 팀별 선택 모바일 스타일 */
   .team-choice-status {
     flex-direction: column;
     gap: 15px;
     padding: 15px;
   }
-  
+
   .team-choices-section {
     padding: 15px;
     margin-bottom: 20px;
   }
-  
+
   .team-choices-section h4 {
     font-size: 1.1rem;
   }
-  
+
   .choice-comparison {
     flex-direction: column;
     gap: 15px;
   }
-  
+
   .team-choice {
     min-width: auto;
     padding: 12px 15px;
   }
-  
+
   .conflict-notice {
     font-size: 1rem;
     padding: 8px;
   }
-  
+
   /* 간소화된 헤더 모바일 스타일 */
   .game-subtitle {
     font-size: 1rem;
   }
-  
+
   /* 최종 결과 모바일 스타일 */
   .game-finished {
     max-width: 95%;
     padding: 15px;
   }
-  
+
   .game-finished h1 {
     font-size: 1.8rem;
     margin-bottom: 20px;
   }
-  
+
   .final-scores {
     padding: 25px;
     margin-bottom: 20px;
   }
-  
+
   .final-scores h3 {
     font-size: 1.4rem;
     margin-bottom: 20px;
   }
-  
+
   .dramatic-reveal {
     padding: 20px;
     margin-bottom: 20px;
   }
-  
+
   .dramatic-reveal h2 {
     font-size: 1.4rem;
   }
-  
+
   .dramatic-reveal p {
     font-size: 0.95rem;
   }
-  
+
   .score-reveal {
     flex-direction: column;
     gap: 20px;
   }
-  
+
   .team-final {
     max-width: none;
     min-width: auto;
     padding: 25px;
     margin: 0 auto;
   }
-  
+
   .team-final .team-name {
     font-size: 1.4rem;
     margin-bottom: 15px;
   }
-  
+
   .score-breakdown {
     min-height: auto;
     gap: 10px;
   }
-  
+
   .story-score {
     font-size: 1rem;
   }
-  
+
   .previous-score {
     font-size: 0.9rem;
   }
-  
+
   .total-score {
     font-size: 1.2rem;
     padding: 12px;
     margin-top: 12px;
   }
-  
+
   .vs-final {
     font-size: 1.5rem;
     margin: 10px 0;
   }
-  
+
   .winner-announcement {
     margin: 25px 0;
     padding: 15px;
   }
-  
+
   .winner-text {
     font-size: 1.6rem;
   }
-  
+
   .tie-text {
     font-size: 1.4rem;
   }
-  
+
   .stat {
     padding: 12px;
     font-size: 1rem;
   }
-  
+
   .stat-icon {
     font-size: 1.3rem;
   }
-  
+
   /* 다이나믹 텍스트 모바일 */
   .dynamic-story-text {
     padding: 15px;
     margin-top: 15px;
   }
-  
+
   .dynamic-line {
     font-size: 0.95rem;
   }
-  
+
   /* 팀 선택 버튼 모바일 */
   .team-choice-buttons {
     flex-direction: column;
     gap: 15px;
   }
-  
+
   .open-modal-btn {
     min-width: auto;
     padding: 12px 20px;
     font-size: 1rem;
   }
-  
+
   /* 모달 모바일 */
   .choice-modal {
     max-width: 95%;
     margin: 20px;
   }
-  
+
   .modal-header {
     padding: 15px;
   }
-  
+
   .modal-header h3 {
     font-size: 1.2rem;
   }
-  
+
   .modal-content {
     padding: 15px;
   }
-  
+
   .modal-content p {
     font-size: 1rem;
   }
-  
+
   .modal-choice-btn {
     padding: 12px 15px;
     font-size: 0.95rem;
   }
-  
+
   /* 플로팅 패널 모바일 */
   .choices-panels {
     flex-direction: column;
@@ -1555,18 +2198,18 @@
     gap: 20px;
     padding: 20px;
   }
-  
+
   .choice-panel {
     width: 100%;
     max-width: 350px;
     align-self: center;
   }
-  
+
   .slide-in-left,
   .slide-in-right {
     animation-name: slideInUp;
   }
-  
+
   @keyframes slideInUp {
     from {
       transform: translateY(50px);
@@ -1577,58 +2220,58 @@
       opacity: 1;
     }
   }
-  
+
   .panel-header {
     padding: 15px;
   }
-  
+
   .panel-header h3 {
     font-size: 1.1rem;
   }
-  
+
   .status-indicator {
     font-size: 1.3rem;
   }
-  
+
   .panel-content {
     padding: 15px;
     gap: 10px;
   }
-  
+
   .panel-choice-btn {
     padding: 12px 15px;
     font-size: 0.95rem;
   }
-  
+
   /* 분할 스토리 레이아웃 모바일 */
   .split-story-layout {
     flex-direction: column;
     gap: 15px;
     min-height: auto;
   }
-  
+
   .team-story-panel {
     min-height: 200px;
   }
-  
+
   .story-divider {
     width: 100%;
     height: 40px;
     flex-direction: row;
     justify-content: center;
   }
-  
+
   .divider-line {
     width: 80px;
     height: 3px;
     background: linear-gradient(to right, transparent, #ffd700, transparent);
     margin: 0 10px;
   }
-  
+
   .team-story-header h3 {
     font-size: 1.1rem;
   }
-  
+
   .team-story-content {
     padding: 20px;
     font-size: 0.95rem;

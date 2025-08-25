@@ -73,7 +73,7 @@ const MainPage: React.FC = () => {
   };
 
   const handlePasswordSubmit = () => {
-    if (password === "ssm1029!") {
+    if (password === "1234") {
       setShowPasswordModal(false);
       navigate(`/${selectedGameId}`);
     } else {
@@ -132,8 +132,6 @@ const MainPage: React.FC = () => {
 
   return (
     <div className="main-page">
-
-
       {/* 우측하단 슬라이드 점수판 */}
       <div className={`floating-scores ${showScores ? "show" : ""}`}>
         <div className="score-header">
@@ -238,7 +236,8 @@ const MainPage: React.FC = () => {
             <div className="password-modal">
               <h3>🔒 비밀번호 입력</h3>
               <p className="password-description">
-                {games.find(g => g.id === selectedGameId)?.title} 게임에 접근하려면 비밀번호를 입력해주세요.
+                {games.find((g) => g.id === selectedGameId)?.title} 게임에 접근하려면 비밀번호를
+                입력해주세요.
               </p>
               <div className="password-input-container">
                 <input
@@ -270,8 +269,8 @@ const MainPage: React.FC = () => {
             <div className="password-modal">
               <h3>🗑️ 점수 초기화</h3>
               <p className="password-description">
-                정말로 모든 팀의 점수를 초기화하시겠습니까?<br />
-                이 작업은 되돌릴 수 없습니다.
+                정말로 모든 팀의 점수를 초기화하시겠습니까?
+                <br />이 작업은 되돌릴 수 없습니다.
               </p>
               <div className="password-buttons">
                 <button onClick={handleConfirmReset} className="submit-btn">
