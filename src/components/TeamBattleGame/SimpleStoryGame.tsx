@@ -6,7 +6,7 @@ interface GameProgress {
   currentNodeId: string;
   score: number;
   visitedNodes: string[];
-  hiddenFlags: number; // 손성모 히든 플래그
+  hiddenFlags: number; // 손성모 히든 플래그 (0=없음, 1+=있음)
   trustLevel: number; // 동료 신뢰도
   alliances: string[]; // 맺은 동맹 목록
 }
@@ -18,7 +18,7 @@ const SimpleStoryGame: React.FC = () => {
     currentNodeId: "start",
     score: 0,
     visitedNodes: [],
-    hiddenFlags: 0,
+    hiddenFlags: 0, // 0=손성모 없음, 1+=손성모 있음
     trustLevel: 0,
     alliances: [],
   });
@@ -168,6 +168,8 @@ const SimpleStoryGame: React.FC = () => {
     const newAlliances = choice.alliance
       ? [...progress.alliances, progress.currentNodeId]
       : progress.alliances;
+
+    // hiddenFlags로 손성모 동행 여부 자동 추적됨 (0=없음, 1+=있음)
 
     // 점수 변화 표시
     setScoreChange(choice.score);

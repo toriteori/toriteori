@@ -73,7 +73,7 @@ const MainPage: React.FC = () => {
   };
 
   const handlePasswordSubmit = () => {
-    if (password === "1234") {
+    if (password === "ssm1029!") {
       setShowPasswordModal(false);
       navigate(`/${selectedGameId}`);
     } else {
