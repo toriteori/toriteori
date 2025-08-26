@@ -1514,7 +1514,7 @@ const MusicGame: React.FC = () => {
           {categories.map((category) => (
             <div
               key={category.id}
-              className="category-card"
+              className={`category-card ${category.id === "2010s" ? "category-2010s" : ""}`}
               onClick={() => handleCategorySelect(category.id)}
               style={{ borderColor: category.color }}
             >

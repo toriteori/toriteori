@@ -10,6 +10,7 @@ interface Game {
   description: string;
   status: "available" | "coming-soon" | "locked";
   requiresPassword?: boolean;
+  password?: string;
 }
 
 interface Team {
@@ -38,6 +39,7 @@ const MainPage: React.FC = () => {
       description: "음악을 듣고 제목을 맞춰보세요!",
       status: "available",
       requiresPassword: true,
+      password: "ssm1029!",
     },
     {
       id: "number-game",
@@ -55,8 +57,9 @@ const MainPage: React.FC = () => {
       id: "team-battle-game",
       title: "유리의 세계와 시간의 계단",
       description: "팀별로 스토리를 진행하며 점수를 획득해주세요!",
-      status: "coming-soon", // ← 이 부분을 "coming-soon or available"으로 변경
-      requiresPassword: false,
+      status: "available",
+      requiresPassword: true,
+      password: "1234",
     },
   ];
 
@@ -76,7 +79,8 @@ const MainPage: React.FC = () => {
   };
 
   const handlePasswordSubmit = () => {
-    if (password === "1234") {
+    const game = games.find((g) => g.id === selectedGameId);
+    if (game && game.password && password === game.password) {
       setShowPasswordModal(false);
       navigate(`/${selectedGameId}`);
     } else {
