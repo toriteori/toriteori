@@ -51,13 +51,37 @@ const MusicGame: React.FC = () => {
 
   // 카테고리 데이터
   const categories: Category[] = [
-    { id: "male-idol", name: "남자 아이돌", description: "남성 아이돌 그룹/솔로", icon: "👨‍🎤", color: "#ff6b6b" },
-    { id: "female-idol", name: "여자 아이돌", description: "여성 아이돌 그룹/솔로", icon: "👩‍🎤", color: "#ff8e8e" },
+    {
+      id: "male-idol",
+      name: "남자 아이돌",
+      description: "남성 아이돌 그룹/솔로",
+      icon: "👨‍🎤",
+      color: "#ff6b6b",
+    },
+    {
+      id: "female-idol",
+      name: "여자 아이돌",
+      description: "여성 아이돌 그룹/솔로",
+      icon: "👩‍🎤",
+      color: "#ff8e8e",
+    },
     { id: "band", name: "밴드", description: "록/밴드 음악", icon: "🤘", color: "#45b7d1" },
     { id: "hiphop", name: "힙합", description: "힙합/랩 음악", icon: "🎤", color: "#96ceb4" },
-    { id: "animation", name: "애니메이션", description: "애니메이션 OST", icon: "🎬", color: "#ff9ff3" },
+    {
+      id: "animation",
+      name: "애니메이션",
+      description: "애니메이션 OST",
+      icon: "🎬",
+      color: "#ff9ff3",
+    },
     { id: "ost", name: "OST", description: "드라마/영화 OST", icon: "🎭", color: "#feca57" },
-    { id: "melon", name: "멜론 탑 100", description: "멜론 차트 인기곡", icon: "🍈", color: "#54a0ff" },
+    {
+      id: "melon",
+      name: "멜론 탑 100",
+      description: "멜론 차트 인기곡",
+      icon: "🍈",
+      color: "#54a0ff",
+    },
     { id: "2000s", name: "2000년대", description: "2000년대 음악", icon: "💿", color: "#5f27cd" },
     { id: "2010s", name: "2010년대", description: "2010년대 음악", icon: "📱", color: "#00d2d3" },
     { id: "2020s", name: "2020년대", description: "2020년대 음악", icon: "🎧", color: "#ff6348" },
@@ -178,7 +202,7 @@ const MusicGame: React.FC = () => {
       keyword: "엠버서더",
       hint: "이걸 힌트봐?",
     },
-    
+
     {
       id: "female-idol2",
       title: "언더워터",
@@ -199,7 +223,7 @@ const MusicGame: React.FC = () => {
       keyword: "4세대 걸그룹",
       hint: "박남정 딸",
     },
-    
+
     {
       id: "female-idol4",
       title: "미스터",
@@ -220,7 +244,7 @@ const MusicGame: React.FC = () => {
       keyword: "레깅스",
       hint: "손나 이쁜 손나은",
     },
-    
+
     {
       id: "female-idol6",
       title: "사뿐사뿐",
@@ -271,7 +295,6 @@ const MusicGame: React.FC = () => {
       keyword: "적십자논란",
       hint: "XX 아픈 건 X 질색이니까",
     },
-    
 
     // 힙합 (10개) - 난이도 순서대로
     {
@@ -290,7 +313,7 @@ const MusicGame: React.FC = () => {
       artist: "다이나믹듀오",
       file: "/music/hip2.mp4",
       category: "hiphop",
-      difficulty: "easy",
+      difficulty: "very-easy",
       keyword: "나레이션",
       hint: "왜그랬어",
     },
@@ -639,7 +662,7 @@ const MusicGame: React.FC = () => {
       difficulty: "medium",
       keyword: "",
       hint: "",
-    },  
+    },
     {
       id: "2000s7",
       title: "",
@@ -1136,23 +1159,23 @@ const MusicGame: React.FC = () => {
 
     const newAudio = new Audio(question.file);
     newAudio.volume = 0.7; // 볼륨 설정
-    
+
     // 오디오 로딩 이벤트 추가
-    newAudio.addEventListener('loadeddata', () => {
-      console.log('오디오 로딩 완료:', question.file);
+    newAudio.addEventListener("loadeddata", () => {
+      console.log("오디오 로딩 완료:", question.file);
     });
-    
+
     // 시간 업데이트 이벤트 추가
-    newAudio.addEventListener('timeupdate', () => {
+    newAudio.addEventListener("timeupdate", () => {
       setCurrentTime(newAudio.currentTime);
     });
-    
-    newAudio.addEventListener('error', (e) => {
-      console.error('오디오 로딩 실패:', e);
-      alert('오디오 파일을 로드할 수 없습니다. 파일 경로를 확인해주세요.');
+
+    newAudio.addEventListener("error", (e) => {
+      console.error("오디오 로딩 실패:", e);
+      alert("오디오 파일을 로드할 수 없습니다. 파일 경로를 확인해주세요.");
       setIsPlaying(false);
     });
-    
+
     setAudioRef(newAudio);
 
     // 히스토리에 상태 추가
@@ -1166,7 +1189,8 @@ const MusicGame: React.FC = () => {
       audioRef.pause();
       setIsPlaying(false);
     } else {
-      audioRef.play()
+      audioRef
+        .play()
         .then(() => {
           setIsPlaying(true);
         })
@@ -1185,7 +1209,7 @@ const MusicGame: React.FC = () => {
         // 오디오의 실제 currentTime을 기반으로 총 재생 시간 계산
         const currentPlayTime = audioRef.currentTime;
         setTotalPlayTime(currentPlayTime);
-        
+
         if (currentPlayTime >= 30 && !canShowHint) {
           setCanShowHint(true);
         }
@@ -1212,13 +1236,14 @@ const MusicGame: React.FC = () => {
         setIsPlaying(false);
       }
     }, 5000);
-    
-    audioRef.play()
+
+    audioRef
+      .play()
       .then(() => {
         setIsPlaying(true);
         // 5초 재생 시작 시점을 기록
         const startTime = Date.now();
-        
+
         // 5초 동안 정확한 시간 추적
         const playInterval = setInterval(() => {
           const elapsed = (Date.now() - startTime) / 1000;
@@ -1226,7 +1251,7 @@ const MusicGame: React.FC = () => {
             clearInterval(playInterval);
           }
         }, 100);
-        
+
         // 5초 후 정리
         setTimeout(() => {
           clearInterval(playInterval);
@@ -1290,10 +1315,10 @@ const MusicGame: React.FC = () => {
     if (currentQuestion.category === "animation" || currentQuestion.category === "ost") {
       const cleanUserAnswer = userAnswer.toLowerCase().replace(/\s+/g, "");
       const cleanTitle = currentQuestion.title.toLowerCase().replace(/\s+/g, "");
-      
+
       // title만 포함되어 있으면 정답
       const correct = cleanUserAnswer.includes(cleanTitle);
-      
+
       if (correct) {
         // 난이도별 점수 계산
         const getScoreByDifficulty = (difficulty: string) => {
@@ -1397,15 +1422,11 @@ const MusicGame: React.FC = () => {
     }
   };
 
-
-
   const handleShowHint = () => {
     if (!currentQuestion || !canShowHint) return;
 
     setShowHint(true);
   };
-
-
 
   const getCategoryQuestions = (categoryId: string) => {
     return questions.filter((q) => q.category === categoryId);
@@ -1415,8 +1436,6 @@ const MusicGame: React.FC = () => {
     return categories.find((c) => c.id === selectedCategory);
   };
 
-
-
   const getTotalScore = () => {
     return teams.reduce((total, team) => total + team.score, 0);
   };
@@ -1424,13 +1443,13 @@ const MusicGame: React.FC = () => {
   // 이기는 팀을 판단하는 함수
   const getWinningTeam = () => {
     if (teams.length === 0) return null;
-    
-    const maxScore = Math.max(...teams.map(team => team.score));
-    const winningTeams = teams.filter(team => team.score === maxScore);
-    
+
+    const maxScore = Math.max(...teams.map((team) => team.score));
+    const winningTeams = teams.filter((team) => team.score === maxScore);
+
     // 동점인 경우 null 반환 (무승부)
     if (winningTeams.length > 1) return null;
-    
+
     return winningTeams[0];
   };
 
@@ -1442,7 +1461,7 @@ const MusicGame: React.FC = () => {
   const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60);
     const secs = Math.floor(seconds % 60);
-    return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+    return `${mins.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`;
   };
 
   // 카테고리 선택 화면
@@ -1459,7 +1478,7 @@ const MusicGame: React.FC = () => {
               {teams.map((team) => {
                 const winningTeam = getWinningTeam();
                 const isWinning = winningTeam && winningTeam.id === team.id;
-                
+
                 return (
                   <div
                     key={team.id}
@@ -1493,7 +1512,6 @@ const MusicGame: React.FC = () => {
             </div>
           ))}
         </div>
-
       </div>
     );
   }
@@ -1517,7 +1535,7 @@ const MusicGame: React.FC = () => {
               {teams.map((team) => {
                 const winningTeam = getWinningTeam();
                 const isWinning = winningTeam && winningTeam.id === team.id;
-                
+
                 return (
                   <div
                     key={team.id}
@@ -1564,7 +1582,6 @@ const MusicGame: React.FC = () => {
             </div>
           ))}
         </div>
-
       </div>
     );
   }
@@ -1582,7 +1599,7 @@ const MusicGame: React.FC = () => {
             {teams.map((team) => {
               const winningTeam = getWinningTeam();
               const isWinning = winningTeam && winningTeam.id === team.id;
-              
+
               return (
                 <div
                   key={team.id}
@@ -1596,7 +1613,6 @@ const MusicGame: React.FC = () => {
             })}
           </div>
         </div>
-
       </div>
 
       <div className="game-area">
@@ -1633,7 +1649,8 @@ const MusicGame: React.FC = () => {
             value={userAnswer}
             onChange={(e) => setUserAnswer(e.target.value)}
             placeholder={
-              currentQuestion && (currentQuestion.category === "animation" || currentQuestion.category === "ost")
+              currentQuestion &&
+              (currentQuestion.category === "animation" || currentQuestion.category === "ost")
                 ? "제목을 입력해주세요."
                 : "가수 '이름'과 노래 '제목' 순서대로 말해주세요."
             }
@@ -1645,24 +1662,26 @@ const MusicGame: React.FC = () => {
               onClick={() => handleCheckAnswer("team1")}
               className="btn btn-check-team1"
               disabled={showAnswer || !userAnswer.trim()}
-              style={{ backgroundColor: teams.find(t => t.id === "team1")?.color }}
+              style={{ backgroundColor: teams.find((t) => t.id === "team1")?.color }}
             >
-              {teams.find(t => t.id === "team1")?.name}
+              {teams.find((t) => t.id === "team1")?.name}
             </button>
             <button
               onClick={() => handleCheckAnswer("team2")}
               className="btn btn-check-team2"
               disabled={showAnswer || !userAnswer.trim()}
-              style={{ backgroundColor: teams.find(t => t.id === "team2")?.color }}
+              style={{ backgroundColor: teams.find((t) => t.id === "team2")?.color }}
             >
-              {teams.find(t => t.id === "team2")?.name}
+              {teams.find((t) => t.id === "team2")?.name}
             </button>
             <button
               onClick={handleShowHint}
-              className={`btn btn-hint ${!canShowHint ? 'disabled' : ''}`}
+              className={`btn btn-hint ${!canShowHint ? "disabled" : ""}`}
               disabled={showAnswer || showHint || !canShowHint}
             >
-              {canShowHint ? '💡 힌트 보기' : `💡 힌트 보기 (${Math.max(0, Math.ceil(20 - totalPlayTime))}초 후 공개)`}
+              {canShowHint
+                ? "💡 힌트 보기"
+                : `💡 힌트 보기 (${Math.max(0, Math.ceil(20 - totalPlayTime))}초 후 공개)`}
             </button>
           </div>
         </div>
@@ -1683,11 +1702,10 @@ const MusicGame: React.FC = () => {
         {showAnswer && currentQuestion && (
           <div className="correct-answer">
             <h4>
-              🎉 정답입니다! {
-                currentQuestion.category === "animation" || currentQuestion.category === "ost"
-                  ? currentQuestion.title
-                  : `${currentQuestion.artist} - ${currentQuestion.title}`
-              }
+              🎉 정답입니다!{" "}
+              {currentQuestion.category === "animation" || currentQuestion.category === "ost"
+                ? currentQuestion.title
+                : `${currentQuestion.artist} - ${currentQuestion.title}`}
             </h4>
             <p className="score-info">
               {currentQuestion.difficulty === "very-easy"
@@ -1707,7 +1725,6 @@ const MusicGame: React.FC = () => {
           </div>
         )}
       </div>
-
     </div>
   );
 };
