@@ -10,6 +10,7 @@ interface Category {
   description: string;
   icon: string;
   color: string;
+  contributor?: string;
 }
 
 interface Question {
@@ -74,7 +75,14 @@ const MusicGame: React.FC = () => {
       icon: "🎬",
       color: "#ff9ff3",
     },
-    { id: "ost", name: "OST", description: "드라마/영화 OST", icon: "🎭", color: "#feca57" },
+    {
+      id: "ost",
+      name: "OST",
+      description: "드라마/영화 OST",
+      icon: "🎭",
+      color: "#feca57",
+      contributor: "강효진",
+    },
     {
       id: "melon",
       name: "멜론 탑 100",
@@ -1508,6 +1516,11 @@ const MusicGame: React.FC = () => {
               </div>
               <h3 className="category-name">{category.name}</h3>
               <p className="category-description">{category.description}</p>
+              {category.contributor && (
+                <div className="contributor-badge">
+                  🏷️ {category.contributor}님이 작성해 주셨습니다.
+                </div>
+              )}
               <div className="question-count">{getCategoryQuestions(category.id).length}문제</div>
             </div>
           ))}

@@ -101,7 +101,8 @@
 }
 
 @keyframes winning-pulse {
-  0%, 100% {
+  0%,
+  100% {
     box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);
   }
   50% {
@@ -324,6 +325,29 @@
   margin-bottom: 1rem;
 }
 
+.contributor-badge {
+  background: linear-gradient(45deg, #4facfe, #00f2fe);
+  color: white;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(79, 172, 254, 0.4);
+  animation: contributor-pulse 2s ease-in-out infinite;
+}
+
+@keyframes contributor-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
 .question-count {
   background: rgba(255, 255, 255, 0.2);
   padding: 0.5rem 1rem;
@@ -543,7 +567,7 @@
   color: #333;
   font-size: var(--tv-font-size-large);
   font-weight: bold;
-  font-family: 'Courier New', monospace;
+  font-family: "Courier New", monospace;
   letter-spacing: 2px;
 }
 
