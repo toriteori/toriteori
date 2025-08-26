@@ -14,14 +14,27 @@ interface GameProgress {
 const SimpleStoryGame: React.FC = () => {
   const navigate = useNavigate();
 
-  const [progress, setProgress] = useState<GameProgress>({
-    currentNodeId: "start",
-    score: 0,
-    visitedNodes: [],
-    hiddenFlags: 0, // 0=손성모 없음, 1+=손성모 있음
-    trustLevel: 0,
-    alliances: [],
-  });
+  // 로컬 스토리지에서 게임 진행 상황 불러오기
+  const getInitialProgress = (): GameProgress => {
+    const savedProgress = localStorage.getItem("storyGameProgress");
+    if (savedProgress) {
+      try {
+        return JSON.parse(savedProgress);
+      } catch (error) {
+        console.error("저장된 게임 진행 상황 파싱 실패:", error);
+      }
+    }
+    return {
+      currentNodeId: "start",
+      score: 0,
+      visitedNodes: [],
+      hiddenFlags: 0, // 0=손성모 없음, 1+=손성모 있음
+      trustLevel: 0,
+      alliances: [],
+    };
+  };
+
+  const [progress, setProgress] = useState<GameProgress>(getInitialProgress);
 
   const [currentNode, setCurrentNode] = useState<StoryNode | null>(null);
   const [displayedText, setDisplayedText] = useState("");
@@ -48,6 +61,11 @@ const SimpleStoryGame: React.FC = () => {
       }
     }
   }, [progress.currentNodeId, gameStarted]);
+
+  // 게임 진행 상황을 로컬 스토리지에 저장
+  const saveProgress = (newProgress: GameProgress) => {
+    localStorage.setItem("storyGameProgress", JSON.stringify(newProgress));
+  };
 
   // 컴포넌트 언마운트 시 인터벌 정리
   useEffect(() => {
@@ -187,14 +205,17 @@ const SimpleStoryGame: React.FC = () => {
     // 점수 변화 애니메이션 후 다음 노드로 이동
     const timeout = setTimeout(() => {
       setShowScoreChange(false);
-      setProgress({
+      const newProgress = {
         currentNodeId: choice.next,
         score: newScore,
         visitedNodes: newVisitedNodes,
         hiddenFlags: newHiddenFlags,
         trustLevel: newTrustLevel,
         alliances: newAlliances,
-      });
+      };
+
+      setProgress(newProgress);
+      saveProgress(newProgress); // 로컬 스토리지에 저장
 
       // 임시 저장된 데이터 정리
       sessionStorage.removeItem("nextNodeId");
@@ -221,14 +242,16 @@ const SimpleStoryGame: React.FC = () => {
 
   // 게임 재시작
   const restartGame = () => {
-    setProgress({
+    const resetProgress = {
       currentNodeId: "start",
       score: 0,
       visitedNodes: [],
       hiddenFlags: 0,
       trustLevel: 0,
       alliances: [],
-    });
+    };
+    setProgress(resetProgress);
+    saveProgress(resetProgress); // 로컬 스토리지에 저장
     setGameStarted(true);
   };
 
@@ -247,6 +270,29 @@ const SimpleStoryGame: React.FC = () => {
               <h2>🌍 {worldInfo.world.name} 대륙</h2>
               <p>{worldInfo.world.description}</p>
             </div>
+
+            {progress.currentNodeId !== "start" && (
+              <div className="saved-game-info">
+                <h3>💾 저장된 게임 정보</h3>
+                <div className="progress-info">
+                  <p>
+                    <strong>현재 위치:</strong> {progress.currentNodeId}
+                  </p>
+                  <p>
+                    <strong>획득 점수:</strong> {progress.score}
+                  </p>
+                  <p>
+                    <strong>방문한 노드:</strong> {progress.visitedNodes.length}개
+                  </p>
+                  <p>
+                    <strong>손성모 신뢰도:</strong> {progress.hiddenFlags}
+                  </p>
+                  <p>
+                    <strong>동료 신뢰도:</strong> {progress.trustLevel}
+                  </p>
+                </div>
+              </div>
+            )}
 
             <div className="game-features">
               <h3>🎮 게임 특징</h3>
@@ -285,12 +331,22 @@ const SimpleStoryGame: React.FC = () => {
             </div>
 
             <div className="start-button-container">
+              {progress.currentNodeId !== "start" && (
+                <button className="continue-game-button" onClick={startGame}>
+                  🎮 저장된 게임 계속하기
+                </button>
+              )}
               <button className="start-game-button" onClick={startGame}>
                 🚀 모험 시작하기
               </button>
               <button className="back-button" onClick={endGame}>
                 🏠 메인으로 돌아가기
               </button>
+              {progress.currentNodeId !== "start" && (
+                <button className="restart-game-button" onClick={restartGame}>
+                  🔄 처음부터 다시 시작
+                </button>
+              )}
             </div>
           </div>
         </div>

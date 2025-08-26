@@ -55,13 +55,16 @@ const MainPage: React.FC = () => {
       id: "team-battle-game",
       title: "유리의 세계와 시간의 계단",
       description: "팀별로 스토리를 진행하며 점수를 획득해주세요!",
-      status: "available",
-      requiresPassword: true,
+      status: "coming-soon",
+      requiresPassword: false,
     },
   ];
 
   const handleGameSelect = (gameId: string) => {
     const game = games.find((g) => g.id === gameId);
+    if (game?.status === "coming-soon") {
+      return; // 준비중인 게임은 클릭해도 아무것도 하지 않음
+    }
     if (game?.requiresPassword) {
       setSelectedGameId(gameId);
       setShowPasswordModal(true);
@@ -290,6 +293,7 @@ const MainPage: React.FC = () => {
               key={game.id}
               className={`game-card ${game.status}`}
               onClick={() => handleGameSelect(game.id)}
+              style={{ cursor: game.status === "coming-soon" ? "not-allowed" : "pointer" }}
             >
               <div className="game-icon">
                 {game.status === "available"
@@ -302,12 +306,16 @@ const MainPage: React.FC = () => {
                     : game.id === "team-battle-game"
                     ? "⚔️"
                     : "🎮"
+                  : game.status === "coming-soon"
+                  ? "🔒"
                   : "🔒"}
               </div>
               <h3 className="game-title">{game.title}</h3>
-              <p className="game-description">{game.description}</p>
+              <p className="game-description">
+                {game.status === "coming-soon" ? "🚧 개발중입니다" : game.description}
+              </p>
               {game.requiresPassword && <div className="password-badge">🔒 비밀번호 필요</div>}
-              {game.status === "coming-soon" && <div className="coming-soon-badge">준비중</div>}
+              {game.status === "coming-soon" && <div className="coming-soon-badge">🚧 개발중</div>}
             </div>
           ))}
         </div>

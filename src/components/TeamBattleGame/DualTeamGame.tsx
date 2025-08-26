@@ -29,16 +29,29 @@ const DualTeamGame: React.FC = () => {
   const navigate = useNavigate();
   const { teams, updateTeamScore, getTotalScore } = useScore();
 
-  // 팀 1 상태
-  const [team1, setTeam1] = useState<TeamState>({
-    progress: {
+  // 로컬 스토리지에서 팀별 게임 진행 상황 불러오기
+  const getInitialTeamProgress = (teamId: string): GameProgress => {
+    const savedProgress = localStorage.getItem(`dualTeamGameProgress_${teamId}`);
+    if (savedProgress) {
+      try {
+        return JSON.parse(savedProgress);
+      } catch (error) {
+        console.error(`팀 ${teamId} 저장된 게임 진행 상황 파싱 실패:`, error);
+      }
+    }
+    return {
       currentNodeId: "start",
       score: 0,
       visitedNodes: [],
       hiddenFlags: 0,
       trustLevel: 0,
       alliances: [],
-    },
+    };
+  };
+
+  // 팀 1 상태
+  const [team1, setTeam1] = useState<TeamState>({
+    progress: getInitialTeamProgress("team1"),
     currentNode: null,
     displayedText: "",
     isTyping: false,
@@ -52,14 +65,7 @@ const DualTeamGame: React.FC = () => {
 
   // 팀 2 상태
   const [team2, setTeam2] = useState<TeamState>({
-    progress: {
-      currentNodeId: "start",
-      score: 0,
-      visitedNodes: [],
-      hiddenFlags: 0,
-      trustLevel: 0,
-      alliances: [],
-    },
+    progress: getInitialTeamProgress("team2"),
     currentNode: null,
     displayedText: "",
     isTyping: false,
@@ -74,6 +80,11 @@ const DualTeamGame: React.FC = () => {
   const [bothGamesStarted, setBothGamesStarted] = useState(false);
   const [showScores, setShowScores] = useState(false); // 점수 표시 제어 (기본값: 숨김)
   const [waitingForBothTeams, setWaitingForBothTeams] = useState(false); // 두 팀 모두 선택할 때까지 대기
+
+  // 팀별 게임 진행 상황을 로컬 스토리지에 저장
+  const saveTeamProgress = (teamId: string, progress: GameProgress) => {
+    localStorage.setItem(`dualTeamGameProgress_${teamId}`, JSON.stringify(progress));
+  };
 
   // 팀별 노드 업데이트
   const updateTeamNode = (teamNumber: 1 | 2) => {
@@ -211,19 +222,24 @@ const DualTeamGame: React.FC = () => {
 
     // 점수 변화 애니메이션 후 다음 노드로 이동
     const timeout = setTimeout(() => {
+      const newProgress = {
+        currentNodeId: choice.next,
+        score: newScore,
+        visitedNodes: newVisitedNodes,
+        hiddenFlags: newHiddenFlags,
+        trustLevel: newTrustLevel,
+        alliances: newAlliances,
+      };
+
       setTeam((prev) => ({
         ...prev,
         showScoreChange: false,
-        progress: {
-          currentNodeId: choice.next,
-          score: newScore,
-          visitedNodes: newVisitedNodes,
-          hiddenFlags: newHiddenFlags,
-          trustLevel: newTrustLevel,
-          alliances: newAlliances,
-        },
+        progress: newProgress,
         scoreTimeout: null,
       }));
+
+      // 팀별 진행 상황을 로컬 스토리지에 저장
+      saveTeamProgress(teamId, newProgress);
     }, 800);
 
     setTeam((prev) => ({
@@ -275,6 +291,10 @@ const DualTeamGame: React.FC = () => {
       showScoreChange: false,
     }));
 
+    // 팀별 진행 상황을 로컬 스토리지에 저장
+    saveTeamProgress("team1", initialProgress);
+    saveTeamProgress("team2", initialProgress);
+
     setBothGamesStarted(true);
   };
 
@@ -316,11 +336,53 @@ const DualTeamGame: React.FC = () => {
                 <li>👁️ 점수 숨기기로 공정한 경쟁</li>
               </ul>
             </div>
-          </div>
 
-          <button className="start-button" onClick={startBothGames}>
-            ⚔️ 팀 대전 시작! ⚔️
-          </button>
+            {/* 저장된 게임 정보 표시 */}
+            {(team1.progress.currentNodeId !== "start" ||
+              team2.progress.currentNodeId !== "start") && (
+              <div className="saved-game-info">
+                <h2>💾 저장된 게임 정보</h2>
+                <div className="team-progress-info">
+                  <div className="team-1-info">
+                    <h3>👥 팀 1</h3>
+                    <p>
+                      <strong>현재 위치:</strong> {team1.progress.currentNodeId}
+                    </p>
+                    <p>
+                      <strong>획득 점수:</strong> {team1.progress.score}
+                    </p>
+                    <p>
+                      <strong>방문한 노드:</strong> {team1.progress.visitedNodes.length}개
+                    </p>
+                  </div>
+                  <div className="team-2-info">
+                    <h3>👥 팀 2</h3>
+                    <p>
+                      <strong>현재 위치:</strong> {team2.progress.currentNodeId}
+                    </p>
+                    <p>
+                      <strong>획득 점수:</strong> {team2.progress.score}
+                    </p>
+                    <p>
+                      <strong>방문한 노드:</strong> {team2.progress.visitedNodes.length}개
+                    </p>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            <div className="button-container">
+              <button className="start-button" onClick={startBothGames}>
+                ⚔️ 팀 대전 시작! ⚔️
+              </button>
+              {(team1.progress.currentNodeId !== "start" ||
+                team2.progress.currentNodeId !== "start") && (
+                <button className="restart-button" onClick={restartGames}>
+                  🔄 처음부터 다시 시작
+                </button>
+              )}
+            </div>
+          </div>
         </div>
       </div>
     );
