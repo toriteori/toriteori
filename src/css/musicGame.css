@@ -338,6 +338,12 @@
   animation: contributor-pulse 2s ease-in-out infinite;
 }
 
+/* 2010년대 카테고리 contributor 뱃지 색상 */
+.category-card[onclick*="2010s"] .contributor-badge {
+  background: linear-gradient(45deg, #ff8c42, #ff6b35);
+  box-shadow: 0 2px 8px rgba(255, 140, 66, 0.4);
+}
+
 @keyframes contributor-pulse {
   0%,
   100% {

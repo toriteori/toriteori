@@ -91,7 +91,14 @@ const MusicGame: React.FC = () => {
       color: "#54a0ff",
     },
     { id: "2000s", name: "2000년대", description: "2000년대 음악", icon: "💿", color: "#5f27cd" },
-    { id: "2010s", name: "2010년대", description: "2010년대 음악", icon: "📱", color: "#00d2d3" },
+    {
+      id: "2010s",
+      name: "2010년대",
+      description: "2010년대 음악",
+      icon: "📱",
+      color: "#00d2d3",
+      contributor: "안재우",
+    },
     { id: "2020s", name: "2020년대", description: "2020년대 음악", icon: "🎧", color: "#ff6348" },
   ];
 

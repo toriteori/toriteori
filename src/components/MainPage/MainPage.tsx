@@ -55,8 +55,8 @@ const MainPage: React.FC = () => {
       id: "team-battle-game",
       title: "유리의 세계와 시간의 계단",
       description: "팀별로 스토리를 진행하며 점수를 획득해주세요!",
-      status: "coming-soon",
-      requiresPassword: false,
+      status: "available",
+      requiresPassword: true,
     },
   ];
 
@@ -76,7 +76,7 @@ const MainPage: React.FC = () => {
   };
 
   const handlePasswordSubmit = () => {
-    if (password === "ssm1029!") {
+    if (password === "1234") {
       setShowPasswordModal(false);
       navigate(`/${selectedGameId}`);
     } else {
