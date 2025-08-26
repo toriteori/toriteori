@@ -55,8 +55,8 @@ const MainPage: React.FC = () => {
       id: "team-battle-game",
       title: "유리의 세계와 시간의 계단",
       description: "팀별로 스토리를 진행하며 점수를 획득해주세요!",
-      status: "available",
-      requiresPassword: true,
+      status: "coming-soon", // ← 이 부분을 "coming-soon or available"으로 변경
+      requiresPassword: false,
     },
   ];
 
