@@ -382,6 +382,7 @@
   border: 2px solid rgba(255, 255, 255, 0.2);
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 1rem;
   width: 100%;
   box-sizing: border-box;
@@ -449,15 +450,17 @@
   flex: 1;
   min-width: 8ch;
   margin-right: 1rem;
+  text-align: center;
 }
 
 .question-info h3 {
   font-size: var(--tv-font-size-medium);
-  margin-bottom: 0.3rem;
+  margin: 0;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   min-width: 8ch;
+  text-align: center;
 }
 
 .question-info p {
@@ -515,7 +518,7 @@
 
 .question-info h3 {
   color: #ffd700;
-  margin-bottom: 0.5rem;
+  margin: 0;
   text-align: center;
   font-size: var(--tv-font-size-large);
 }
