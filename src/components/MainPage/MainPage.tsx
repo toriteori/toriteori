@@ -22,7 +22,7 @@ interface Team {
 
 const MainPage: React.FC = () => {
   const navigate = useNavigate();
-  const { teams, resetScores, updateTeamName } = useScore();
+  const { teams, resetScores, updateTeamName, addTeamScore } = useScore();
   const [showTeamSettings, setShowTeamSettings] = useState(false);
   const [teamNames, setTeamNames] = useState({ team1: "", team2: "" });
   const [showPasswordModal, setShowPasswordModal] = useState(false);
@@ -31,6 +31,8 @@ const MainPage: React.FC = () => {
   const [selectedGameId, setSelectedGameId] = useState<string>("");
   const [showScores, setShowScores] = useState(false);
   const [showResetConfirmModal, setShowResetConfirmModal] = useState<boolean>(false);
+  const [showScoreInputModal, setShowScoreInputModal] = useState<boolean>(false);
+  const [scoreInputs, setScoreInputs] = useState({ team1: "", team2: "" });
 
   const games: Game[] = [
     {
@@ -135,6 +137,34 @@ const MainPage: React.FC = () => {
 
   const handleCancelReset = () => {
     setShowResetConfirmModal(false);
+  };
+
+  const handleOpenScoreInput = () => {
+    setScoreInputs({
+      team1: "0",
+      team2: "0",
+    });
+    setShowScoreInputModal(true);
+  };
+
+  const handleScoreInputChange = (teamId: string, value: string) => {
+    // 숫자만 입력 가능하도록
+    const numericValue = value.replace(/[^0-9]/g, "");
+    setScoreInputs((prev) => ({ ...prev, [teamId]: numericValue }));
+  };
+
+  const handleSaveScores = () => {
+    const team1Score = parseInt(scoreInputs.team1) || 0;
+    const team2Score = parseInt(scoreInputs.team2) || 0;
+
+    addTeamScore("team1", team1Score);
+    addTeamScore("team2", team2Score);
+
+    setShowScoreInputModal(false);
+  };
+
+  const handleCancelScoreInput = () => {
+    setShowScoreInputModal(false);
   };
 
   return (
@@ -291,6 +321,48 @@ const MainPage: React.FC = () => {
           </div>
         )}
 
+        {/* 점수 입력 모달 */}
+        {showScoreInputModal && (
+          <div className="password-overlay">
+            <div className="password-modal">
+              <h3>📊 점수 추가</h3>
+              <p className="password-description">
+                각 팀에 추가할 점수를 입력해주세요. (기존 점수에 더해집니다)
+              </p>
+              <div className="score-input-container">
+                <div className="score-input">
+                  <label>{teams[0].name || "팀 1"}:</label>
+                  <input
+                    type="text"
+                    value={scoreInputs.team1}
+                    onChange={(e) => handleScoreInputChange("team1", e.target.value)}
+                    placeholder="추가할 점수"
+                    className="score-input-field"
+                  />
+                </div>
+                <div className="score-input">
+                  <label>{teams[1].name || "팀 2"}:</label>
+                  <input
+                    type="text"
+                    value={scoreInputs.team2}
+                    onChange={(e) => handleScoreInputChange("team2", e.target.value)}
+                    placeholder="추가할 점수"
+                    className="score-input-field"
+                  />
+                </div>
+              </div>
+              <div className="password-buttons">
+                <button onClick={handleSaveScores} className="submit-btn">
+                  ➕ 추가
+                </button>
+                <button onClick={handleCancelScoreInput} className="cancel-btn">
+                  ❌ 취소
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
         <div className="games-grid">
           {games.map((game) => (
             <div
@@ -340,6 +412,13 @@ const MainPage: React.FC = () => {
             title: showScores ? "점수 숨기기" : "점수 보기",
             onClick: () => setShowScores(!showScores),
             color: "score",
+          },
+          {
+            id: "score-input",
+            icon: "✏️",
+            title: "점수 추가",
+            onClick: handleOpenScoreInput,
+            color: "input",
           },
           {
             id: "team-settings",

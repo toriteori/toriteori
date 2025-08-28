@@ -10,6 +10,7 @@ interface Team {
 interface ScoreContextType {
   teams: Team[];
   updateTeamScore: (teamId: string, points: number) => void;
+  addTeamScore: (teamId: string, points: number) => void;
   resetScores: () => void;
   getTotalScore: (teamId: string) => number;
   updateTeamName: (teamId: string, name: string) => void;
@@ -60,6 +61,17 @@ export const ScoreProvider: React.FC<ScoreProviderProps> = ({ children }) => {
     });
   };
 
+  const addTeamScore = (teamId: string, points: number) => {
+    setTeams((prev) => {
+      const updatedTeams = prev.map((team) => 
+        team.id === teamId ? { ...team, score: team.score + points } : team
+      );
+      // 로컬 스토리지에 저장
+      localStorage.setItem('gameTeams', JSON.stringify(updatedTeams));
+      return updatedTeams;
+    });
+  };
+
   const resetScores = () => {
     // 로컬 스토리지에서 완전히 삭제
     localStorage.removeItem('gameTeams');
@@ -96,7 +108,7 @@ export const ScoreProvider: React.FC<ScoreProviderProps> = ({ children }) => {
 
   return (
     <ScoreContext.Provider
-      value={{ teams, updateTeamScore, resetScores, getTotalScore, updateTeamName, clearAllScores }}
+      value={{ teams, updateTeamScore, addTeamScore, resetScores, getTotalScore, updateTeamName, clearAllScores }}
     >
       {children}
     </ScoreContext.Provider>

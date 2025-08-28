@@ -251,6 +251,52 @@
   border-radius: 6px;
 }
 
+/* 턴 타이머 스타일 */
+.turn-timer {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 12px;
+  padding: 0.8rem 1.2rem;
+  margin: 1rem 0;
+  text-align: center;
+  font-weight: bold;
+  font-size: var(--tv-font-size-medium);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  }
+  50% {
+    box-shadow: 0 4px 20px rgba(255, 255, 255, 0.3);
+  }
+  100% {
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  }
+}
+
+/* 턴 타이머 경고 상태 (5초 이하일 때) */
+.turn-timer.warning {
+  background: rgba(255, 193, 7, 0.2);
+  border-color: #ffc107;
+  animation: warning-pulse 1s infinite;
+}
+
+@keyframes warning-pulse {
+  0% {
+    box-shadow: 0 4px 15px rgba(255, 193, 7, 0.3);
+  }
+  50% {
+    box-shadow: 0 4px 20px rgba(255, 193, 7, 0.5);
+  }
+  100% {
+    box-shadow: 0 4px 15px rgba(255, 193, 7, 0.3);
+  }
+}
+
 /* 게임 결과 */
 .game-result {
   background: rgba(255, 255, 255, 0.1);

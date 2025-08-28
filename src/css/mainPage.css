@@ -975,3 +975,56 @@
     transform: scale(1.1);
   }
 }
+
+/* 점수 입력 모달 스타일 */
+.score-input-container {
+  margin: 1.5rem 0;
+}
+
+.score-input {
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.score-input label {
+  font-weight: bold;
+  min-width: 80px;
+  color: #00ff88;
+}
+
+.score-input-field {
+  flex: 1;
+  padding: 0.8rem;
+  border: 2px solid #00ff88;
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.3);
+  color: white;
+  font-size: 1.1rem;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.score-input-field:focus {
+  outline: none;
+  border-color: #00ffff;
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.score-input-field::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/* 점수 입력 버튼 스타일 */
+.quick-menu-button[data-color="input"] {
+  background: linear-gradient(45deg, #ff6b6b, #ff8e8e);
+  border-color: #ff6b6b;
+}
+
+.quick-menu-button[data-color="input"]:hover {
+  background: linear-gradient(45deg, #ff5252, #ff7676);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(255, 107, 107, 0.4);
+}

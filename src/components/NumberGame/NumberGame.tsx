@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useScore } from "../../contexts/ScoreContext";
 import QuickMenu from "../QuickMenu/QuickMenu";
@@ -23,7 +23,9 @@ interface NumberCard {
 const NumberGame: React.FC = () => {
   const { teams, updateTeamScore } = useScore();
   const [currentTeam, setCurrentTeam] = useState<string>("team1");
-  const [gameState, setGameState] = useState<"dice" | "start" | "preview" | "playing" | "finished">("dice");
+  const [gameState, setGameState] = useState<"dice" | "start" | "preview" | "playing" | "finished">(
+    "dice",
+  );
   const [timeLeft, setTimeLeft] = useState<number>(15);
   const [numberCards, setNumberCards] = useState<NumberCard[]>([]);
   const [selectedCards, setSelectedCards] = useState<number[]>([]);
@@ -32,10 +34,50 @@ const NumberGame: React.FC = () => {
     team2: 0,
   });
   const [maxNumber, setMaxNumber] = useState<number>(25);
-  const [diceResults, setDiceResults] = useState<{ team1: number; team2: number }>({ team1: 0, team2: 0 });
+  const [diceResults, setDiceResults] = useState<{ team1: number; team2: number }>({
+    team1: 0,
+    team2: 0,
+  });
   const [diceRolling, setDiceRolling] = useState<boolean>(false);
   const [diceWinner, setDiceWinner] = useState<string | null>(null);
+
+  // 10초 턴 타이머 관련 상태 추가
+  const [turnTimeLeft, setTurnTimeLeft] = useState<number>(10);
+  const turnTimerRef = useRef<number | null>(null);
+
   const navigate = useNavigate();
+
+  // 턴 타이머 시작 함수
+  const startTurnTimer = () => {
+    // 기존 타이머가 있다면 정리
+    if (turnTimerRef.current) {
+      clearTimeout(turnTimerRef.current);
+    }
+
+    setTurnTimeLeft(10);
+
+    // 10초 타이머 시작
+    turnTimerRef.current = window.setTimeout(() => {
+      // 시간이 다 되면 자동으로 턴 변경
+      setCurrentTeam(currentTeam === "team1" ? "team2" : "team1");
+      setTurnTimeLeft(10); // 새로운 턴의 타이머 시작
+      startTurnTimer(); // 새로운 턴의 타이머 시작
+    }, 10000);
+  };
+
+  // 턴 타이머 정리 함수
+  const clearTurnTimer = () => {
+    if (turnTimerRef.current) {
+      clearTimeout(turnTimerRef.current);
+      turnTimerRef.current = null;
+    }
+  };
+
+  // 턴 타이머 초기화 함수 (맞췄을 때 호출)
+  const resetTurnTimer = () => {
+    clearTurnTimer();
+    startTurnTimer();
+  };
 
   // 화면 크기 감지 및 숫자 개수 조정
   useEffect(() => {
@@ -58,6 +100,29 @@ const NumberGame: React.FC = () => {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
+
+  // 컴포넌트 언마운트 시 타이머 정리
+  useEffect(() => {
+    return () => {
+      clearTurnTimer();
+    };
+  }, []);
+
+  // 턴 타이머 실시간 업데이트
+  useEffect(() => {
+    if (gameState === "playing" && turnTimeLeft > 0) {
+      const interval = setInterval(() => {
+        setTurnTimeLeft((prev) => {
+          if (prev <= 1) {
+            return 10; // 0이 되면 10으로 리셋 (startTurnTimer에서 처리됨)
+          }
+          return prev - 1;
+        });
+      }, 1000);
+
+      return () => clearInterval(interval);
+    }
+  }, [gameState, turnTimeLeft]);
 
   // 게임 초기화
   useEffect(() => {
@@ -110,6 +175,9 @@ const NumberGame: React.FC = () => {
     // 모든 카드를 뒤집기
     setNumberCards((prev) => prev.map((card) => ({ ...card, isFlipped: true })));
     setGameState("playing");
+
+    // 게임 시작 시 턴 타이머 시작
+    startTurnTimer();
   };
 
   const handleCardClick = (cardId: number) => {
@@ -161,6 +229,8 @@ const NumberGame: React.FC = () => {
       updateTeamScore(currentTeam, 20);
 
       // 턴 유지 (맞췄으므로)
+      // 턴 타이머 초기화
+      resetTurnTimer();
     } else {
       // 매칭 실패 - 턴 변경 (카드를 다시 뒤집기)
       setNumberCards((prev) =>
@@ -171,6 +241,9 @@ const NumberGame: React.FC = () => {
 
       // 턴 변경
       setCurrentTeam(currentTeam === "team1" ? "team2" : "team1");
+
+      // 턴 변경 시 타이머 초기화
+      resetTurnTimer();
     }
 
     setSelectedCards([]);
@@ -189,6 +262,9 @@ const NumberGame: React.FC = () => {
   const endGame = () => {
     setGameState("finished");
 
+    // 게임 종료 시 턴 타이머 정리
+    clearTurnTimer();
+
     // 승자 결정 및 점수 부여
     const team1Score = correctMatches.team1;
     const team2Score = correctMatches.team2;
@@ -205,6 +281,9 @@ const NumberGame: React.FC = () => {
 
   const handleTeamSwitch = () => {
     setCurrentTeam(currentTeam === "team1" ? "team2" : "team1");
+
+    // 턴 변경 시 타이머 초기화
+    resetTurnTimer();
   };
 
   const handleResetScores = () => {
@@ -226,14 +305,14 @@ const NumberGame: React.FC = () => {
 
   const rollDice = () => {
     setDiceRolling(true);
-    
+
     // 주사위 굴리기 애니메이션을 위한 타이머
     setTimeout(() => {
       const team1Result = Math.floor(Math.random() * 6) + 1;
       const team2Result = Math.floor(Math.random() * 6) + 1;
-      
+
       setDiceResults({ team1: team1Result, team2: team2Result });
-      
+
       // 승자 결정
       if (team1Result > team2Result) {
         setDiceWinner("team1");
@@ -244,7 +323,7 @@ const NumberGame: React.FC = () => {
       } else {
         setDiceWinner("tie");
       }
-      
+
       setDiceRolling(false);
     }, 2000); // 2초 후 결과 표시
   };
@@ -256,8 +335,9 @@ const NumberGame: React.FC = () => {
       setDiceWinner(null);
       return;
     }
-    
+
     // 게임 초기화 후 시작
+    clearTurnTimer(); // 기존 타이머 정리
     initializeGame();
     setGameState("start");
   };
@@ -294,7 +374,7 @@ const NumberGame: React.FC = () => {
     <div className="number-game">
       {/* 디버깅용 팀 정보 확인 */}
       {teams.length === 0 && (
-        <div style={{ color: 'red', padding: '20px', textAlign: 'center' }}>
+        <div style={{ color: "red", padding: "20px", textAlign: "center" }}>
           팀 정보를 불러오는 중... {JSON.stringify(teams)}
         </div>
       )}
@@ -307,7 +387,7 @@ const NumberGame: React.FC = () => {
             <p className="dice-description">
               주사위를 굴려서 높은 숫자가 나온 팀이 먼저 시작합니다!
             </p>
-            
+
             <div className="dice-container">
               <div className="dice-section">
                 <h3>{teams[0].name || "팀 1"}</h3>
@@ -315,7 +395,7 @@ const NumberGame: React.FC = () => {
                   {diceRolling ? "🎲" : diceResults.team1 || "?"}
                 </div>
               </div>
-              
+
               <div className="dice-section">
                 <h3>{teams[1].name || "팀 2"}</h3>
                 <div className={`dice ${diceRolling ? "rolling" : ""}`}>
@@ -323,24 +403,29 @@ const NumberGame: React.FC = () => {
                 </div>
               </div>
             </div>
-            
+
             {!diceResults.team1 && !diceResults.team2 && (
               <button onClick={rollDice} className="dice-btn" disabled={diceRolling}>
                 🎲 주사위 굴리기!
               </button>
             )}
-            
+
             {diceWinner && diceWinner !== "tie" && (
               <div className="dice-result">
                 <p className="winner-announcement">
-                  🎉 <strong>{teams.find(t => t.id === diceWinner)?.name || `팀 ${diceWinner === "team1" ? "1" : "2"}`}</strong>가 먼저 시작합니다!
+                  🎉{" "}
+                  <strong>
+                    {teams.find((t) => t.id === diceWinner)?.name ||
+                      `팀 ${diceWinner === "team1" ? "1" : "2"}`}
+                  </strong>
+                  가 먼저 시작합니다!
                 </p>
                 <button onClick={startGameAfterDice} className="start-game-btn">
                   🎮 게임 시작!
                 </button>
               </div>
             )}
-            
+
             {diceWinner === "tie" && (
               <div className="dice-result">
                 <p className="tie-announcement">🤝 동점입니다! 다시 굴려주세요.</p>
@@ -355,160 +440,169 @@ const NumberGame: React.FC = () => {
 
       {/* 기존 시작 화면 */}
       {gameState === "start" && (
-          <div className="start-screen">
-            <div className="start-content">
-              <h2>🔢 같은 숫자 맞추기</h2>
-              <div className="game-rules">
-                <p>• 두 팀이 번갈아가며 카드를 선택합니다</p>
-                <p>• 같은 숫자가 적힌 카드를 찾아주세요</p>
-                <p>• 짝을 맞출 때마다 20점을 획득합니다</p>
-                <p>• 더 많이 맞춘 팀이 승리하고 700점을 추가로 획득합니다</p>
-                <p>• 현재 턴: <strong style={{ color: getCurrentTeam()?.color }}>{getCurrentTeam()?.name}</strong></p>
-              </div>
-              <button onClick={startPreview} className="start-btn">
-                🎯 게임 시작!
-              </button>
-            </div>
-          </div>
-        )}
-
-        {/* 게임 헤더 */}
-        {gameState !== "start" && gameState !== "dice" && (
-          <div className="game-header">
-            <div className="header-top">
-              <button onClick={handleBackToMain} className="back-to-main-btn">
-                ← 메인으로
-              </button>
-              <h1>🔢 같은 숫자 맞추기</h1>
-              <div className="team-scores">
-                {teams.map((team) => (
-                  <div
-                    key={team.id}
-                    className={`team-score ${team.id === currentTeam ? "active" : ""}`}
-                    style={{ borderColor: team.color }}
-                  >
-                    <span className="team-name">{team.name}</span>
-                    <span className="team-points">{team.score}점</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* 플로팅 게임 정보 */}
-        {gameState !== "start" && (
-          <div className="floating-game-info">
-            <div className="current-team-display">
-              현재 턴:{" "}
-              <span style={{ color: getCurrentTeam()?.color }}>{getCurrentTeam()?.name}</span>
-            </div>
-
-            {gameState === "preview" && (
-              <div className="preview-info">
-                <p className="game-description">
-                  1~{maxNumber} 숫자를 {maxNumber === 10 ? 15 : 20}초 동안 기억하세요! (<strong>{timeLeft}</strong>초
-                  남음)
-                </p>
-              </div>
-            )}
-
-            {gameState === "playing" && (
-              <div className="game-info">
-                <p className="game-description">
-                  같은 숫자를 찾아보세요! A1~{gridLayout.maxRowLabel}
-                  {gridLayout.columns} 위치로 말할 수 있습니다!
-                </p>
-                <div className="match-scores">
-                  <div className="match-score">
-                    <span style={{ color: teams[0].color }}>
-                      {teams[0].name}: {correctMatches.team1}개
-                    </span>
-                  </div>
-                  <div className="match-score">
-                    <span style={{ color: teams[1].color }}>
-                      {teams[1].name}: {correctMatches.team2}개
-                    </span>
-                  </div>
-                </div>
-              </div>
-            )}
-          </div>
-        )}
-
-        {gameState === "finished" && (
-          <div className="game-result">
-            <h2>게임 종료!</h2>
-            <div className="final-scores">
+        <div className="start-screen">
+          <div className="start-content">
+            <h2>🔢 같은 숫자 맞추기</h2>
+            <div className="game-rules">
+              <p>• 두 팀이 번갈아가며 카드를 선택합니다</p>
+              <p>• 같은 숫자가 적힌 카드를 찾아주세요</p>
+              <p>• 짝을 맞출 때마다 20점을 획득합니다</p>
+              <p>• 더 많이 맞춘 팀이 승리하고 700점을 추가로 획득합니다</p>
               <p>
-                {teams[0].name}: {correctMatches.team1}개
-              </p>
-              <p>
-                {teams[1].name}: {correctMatches.team2}개
+                • 현재 턴:{" "}
+                <strong style={{ color: getCurrentTeam()?.color }}>{getCurrentTeam()?.name}</strong>
               </p>
             </div>
-            {correctMatches.team1 > correctMatches.team2 ? (
-              <p className="winner">🎉 {teams[0].name} 승리! 700점 획득!</p>
-            ) : correctMatches.team2 > correctMatches.team1 ? (
-              <p className="winner">🎉 {teams[1].name} 승리! 700점 획득!</p>
-            ) : (
-              <p className="draw">무승부!</p>
-            )}
-            <div className="game-result-buttons">
-              <button onClick={handleRestartGame} className="btn btn-restart">
-                🎮 다시 시작
-              </button>
-              <button onClick={handleBackToMain} className="btn btn-secondary">
-                🏠 메인으로
-              </button>
-            </div>
+            <button onClick={startPreview} className="start-btn">
+              🎯 게임 시작!
+            </button>
           </div>
-        )}
+        </div>
+      )}
 
-        {/* 숫자 그리드 컨테이너 */}
-        {gameState !== "start" && gameState !== "finished" && gameState !== "dice" && (
-          <div className="number-grid-container">
-            {/* 열 헤더 */}
-            <div className="grid-header">
-              <div className="corner-cell"></div>
-              {Array.from({ length: gridLayout.columns }, (_, i) => (
-                <div key={i} className="column-header">
-                  {i + 1}
+      {/* 게임 헤더 */}
+      {gameState !== "start" && gameState !== "dice" && (
+        <div className="game-header">
+          <div className="header-top">
+            <button onClick={handleBackToMain} className="back-to-main-btn">
+              ← 메인으로
+            </button>
+            <h1>🔢 같은 숫자 맞추기</h1>
+            <div className="team-scores">
+              {teams.map((team) => (
+                <div
+                  key={team.id}
+                  className={`team-score ${team.id === currentTeam ? "active" : ""}`}
+                  style={{ borderColor: team.color }}
+                >
+                  <span className="team-name">{team.name}</span>
+                  <span className="team-points">{team.score}점</span>
                 </div>
               ))}
             </div>
+          </div>
+        </div>
+      )}
 
-            {/* 행과 그리드 */}
-            <div className="grid-content">
-              {Array.from({ length: gridLayout.rows }, (_, rowIndex) => (
-                <div key={rowIndex} className="grid-row">
-                  {/* 행 헤더 */}
-                  <div className="row-header">{String.fromCharCode(65 + rowIndex)}</div>
+      {/* 플로팅 게임 정보 */}
+      {gameState !== "start" && (
+        <div className="floating-game-info">
+          <div className="current-team-display">
+            현재 턴:{" "}
+            <span style={{ color: getCurrentTeam()?.color }}>{getCurrentTeam()?.name}</span>
+          </div>
 
-                  {/* 카드들 */}
-                  {numberCards
-                    .slice(rowIndex * gridLayout.columns, (rowIndex + 1) * gridLayout.columns)
-                    .map((card) => (
-                      <div
-                        key={card.id}
-                        className={`number-card ${card.isFlipped ? "flipped" : ""} ${
-                          card.isMatched ? "matched" : ""
-                        } ${card.isSelected ? "selected" : ""}`}
-                        onClick={() => handleCardClick(card.id)}
-                      >
-                        <div className="card-front">
-                          <div className="card-value">{card.value}</div>
-                        </div>
-                        <div className="card-back">
-                          <div className="card-position">{getCardPosition(card.id)}</div>
-                        </div>
+          {gameState === "preview" && (
+            <div className="preview-info">
+              <p className="game-description">
+                1~{maxNumber} 숫자를 {maxNumber === 10 ? 15 : 20}초 동안 기억하세요! (
+                <strong>{timeLeft}</strong>초 남음)
+              </p>
+            </div>
+          )}
+
+          {gameState === "playing" && (
+            <div className="game-info">
+              <p className="game-description">
+                같은 숫자를 찾아보세요! A1~{gridLayout.maxRowLabel}
+                {gridLayout.columns} 위치로 말할 수 있습니다!
+              </p>
+              <div className="match-scores">
+                <div className="match-score">
+                  <span style={{ color: teams[0].color }}>
+                    {teams[0].name}: {correctMatches.team1}개
+                  </span>
+                </div>
+                <div className="match-score">
+                  <span style={{ color: teams[1].color }}>
+                    {teams[1].name}: {correctMatches.team2}개
+                  </span>
+                </div>
+              </div>
+              {/* 턴 타이머 표시 */}
+              <div className={`turn-timer ${turnTimeLeft <= 5 ? "warning" : ""}`}>
+                <span style={{ color: getCurrentTeam()?.color }}>
+                  {getCurrentTeam()?.name} 턴: {turnTimeLeft}초 남음
+                </span>
+              </div>
+            </div>
+          )}
+        </div>
+      )}
+
+      {gameState === "finished" && (
+        <div className="game-result">
+          <h2>게임 종료!</h2>
+          <div className="final-scores">
+            <p>
+              {teams[0].name}: {correctMatches.team1}개
+            </p>
+            <p>
+              {teams[1].name}: {correctMatches.team2}개
+            </p>
+          </div>
+          {correctMatches.team1 > correctMatches.team2 ? (
+            <p className="winner">🎉 {teams[0].name} 승리! 700점 획득!</p>
+          ) : correctMatches.team2 > correctMatches.team1 ? (
+            <p className="winner">🎉 {teams[1].name} 승리! 700점 획득!</p>
+          ) : (
+            <p className="draw">무승부!</p>
+          )}
+          <div className="game-result-buttons">
+            <button onClick={handleRestartGame} className="btn btn-restart">
+              🎮 다시 시작
+            </button>
+            <button onClick={handleBackToMain} className="btn btn-secondary">
+              🏠 메인으로
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* 숫자 그리드 컨테이너 */}
+      {gameState !== "start" && gameState !== "finished" && gameState !== "dice" && (
+        <div className="number-grid-container">
+          {/* 열 헤더 */}
+          <div className="grid-header">
+            <div className="corner-cell"></div>
+            {Array.from({ length: gridLayout.columns }, (_, i) => (
+              <div key={i} className="column-header">
+                {i + 1}
+              </div>
+            ))}
+          </div>
+
+          {/* 행과 그리드 */}
+          <div className="grid-content">
+            {Array.from({ length: gridLayout.rows }, (_, rowIndex) => (
+              <div key={rowIndex} className="grid-row">
+                {/* 행 헤더 */}
+                <div className="row-header">{String.fromCharCode(65 + rowIndex)}</div>
+
+                {/* 카드들 */}
+                {numberCards
+                  .slice(rowIndex * gridLayout.columns, (rowIndex + 1) * gridLayout.columns)
+                  .map((card) => (
+                    <div
+                      key={card.id}
+                      className={`number-card ${card.isFlipped ? "flipped" : ""} ${
+                        card.isMatched ? "matched" : ""
+                      } ${card.isSelected ? "selected" : ""}`}
+                      onClick={() => handleCardClick(card.id)}
+                    >
+                      <div className="card-front">
+                        <div className="card-value">{card.value}</div>
                       </div>
-                    ))}
-                </div>
-              ))}
-            </div>
+                      <div className="card-back">
+                        <div className="card-position">{getCardPosition(card.id)}</div>
+                      </div>
+                    </div>
+                  ))}
+              </div>
+            ))}
           </div>
-        )}
+        </div>
+      )}
 
       {/* 퀵메뉴 */}
       <QuickMenu

@@ -620,103 +620,103 @@ const MusicGame: React.FC = () => {
     // 2000년대 (10개) - 난이도 순서대로
     {
       id: "2000s1",
-      title: "",
-      artist: "",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
+      title: "쏘리쏘리",
+      artist: "슈퍼주니어",
+      file: "/music/ss1.mp4",
       category: "2000s",
       difficulty: "very-easy",
-      keyword: "",
-      hint: "",
+      keyword: "20주년",
+      hint: "없없",
     },
     {
       id: "2000s2",
-      title: "",
-      artist: "",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
+      title: "아브라카다브라",
+      artist: "브라운아이드걸스",
+      file: "/music/ss2.mp4",
       category: "2000s",
       difficulty: "very-easy",
-      keyword: "",
-      hint: "",
+      keyword: "육룡이",
+      hint: "없없",
     },
     {
       id: "2000s3",
-      title: "",
-      artist: "",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
+      title: "벌써일년",
+      artist: "브라운아이즈",
+      file: "/music/ss3.mp4",
       category: "2000s",
       difficulty: "easy",
-      keyword: "",
-      hint: "",
+      keyword: "한혜진",
+      hint: "없없",
     },
     {
       id: "2000s4",
-      title: "",
-      artist: "",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
+      title: "촛불하나",
+      artist: "지오디",
+      file: "/music/ss4.mp4",
       category: "2000s",
       difficulty: "easy",
-      keyword: "",
-      hint: "",
+      keyword: "집회",
+      hint: "없없",
     },
     {
       id: "2000s5",
-      title: "",
-      artist: "",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
+      title: "퍼팩트맨",
+      artist: "신화",
+      file: "/music/ss5.mp4",
       category: "2000s",
       difficulty: "medium",
-      keyword: "",
-      hint: "",
+      keyword: "그리스로마",
+      hint: "완벽한남자",
     },
     {
       id: "2000s6",
-      title: "",
-      artist: "",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
+      title: "투디프런티얼스",
+      artist: "원더걸스",
+      file: "/music/ss6.mp4",
       category: "2000s",
       difficulty: "medium",
-      keyword: "",
-      hint: "",
+      keyword: "어머나",
+      hint: "두개의다른눈물",
     },
     {
       id: "2000s7",
-      title: "",
-      artist: "",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
+      title: "유어마이걸",
+      artist: "김조한",
+      file: "/music/ss7.mp4",
       category: "2000s",
       difficulty: "hard",
-      keyword: "",
-      hint: "",
+      keyword: "하이킥",
+      hint: "ㅇㅇㅁㅇㄱ",
     },
     {
       id: "2000s8",
-      title: "",
-      artist: "",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
+      title: "우연",
+      artist: "베이비복스",
+      file: "/music/ss8.mp4",
       category: "2000s",
       difficulty: "hard",
-      keyword: "",
-      hint: "",
+      keyword: "X맨",
+      hint: "ㅇㅇ",
     },
     {
       id: "2000s9",
-      title: "",
-      artist: "",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
+      title: "그댄행복에살텐데",
+      artist: "리즈",
+      file: "/music/ss9.mp4",
       category: "2000s",
       difficulty: "very-hard",
-      keyword: "",
-      hint: "",
+      keyword: "전성기",
+      hint: "ㄱㄷㅎㅂㅇㅅㅌㄷ",
     },
     {
       id: "2000s10",
-      title: "",
-      artist: "",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
+      title: "미워도사랑하니까",
+      artist: "다비치",
+      file: "/music/ss10.mp4",
       category: "2000s",
       difficulty: "very-hard",
-      keyword: "",
-      hint: "",
+      keyword: "안경",
+      hint: "ㅁㅇㄷㅅㄹㅎㄴㄲ",
     },
 
     // 2010년대 (10개) - 난이도 순서대로
@@ -797,7 +797,7 @@ const MusicGame: React.FC = () => {
       file: "/music/s8.mp4",
       category: "2010s",
       difficulty: "hard",
-      keyword: "최초천만장",
+      keyword: "뮤지컬남배우1위",
       hint: "XX은XX처럼",
     },
     {
@@ -1028,103 +1028,103 @@ const MusicGame: React.FC = () => {
     // 2020년대 (10개) - 난이도 순서대로
     {
       id: "2020s1",
-      title: "",
-      artist: "",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
+      title: "러브다이브",
+      artist: "아이브",
+      file: "/music/sss1.mp4",
       category: "2020s",
       difficulty: "very-easy",
-      keyword: "",
-      hint: "",
+      keyword: "딸기",
+      hint: "없없",
     },
     {
       id: "2020s2",
-      title: "",
-      artist: "",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
+      title: "하입보이",
+      artist: "뉴진스",
+      file: "/music/sss2.mp4",
       category: "2020s",
       difficulty: "very-easy",
-      keyword: "",
-      hint: "",
+      keyword: "고점퇴장",
+      hint: "없없",
     },
     {
       id: "2020s3",
-      title: "",
-      artist: "",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
+      title: "캔디",
+      artist: "엔시티드림",
+      file: "/music/sss3.mp4",
       category: "2020s",
       difficulty: "easy",
-      keyword: "",
-      hint: "",
+      keyword: "꿈",
+      hint: "없없",
     },
     {
       id: "2020s4",
-      title: "",
-      artist: "",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
+      title: "살짝설렜어",
+      artist: "오마이걸",
+      file: "/music/sss4.mp4",
       category: "2020s",
       difficulty: "easy",
-      keyword: "",
-      hint: "",
+      keyword: "또루뀨막또",
+      hint: "없없",
     },
     {
       id: "2020s5",
-      title: "",
-      artist: "",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
+      title: "스파이시",
+      artist: "에스파",
+      file: "/music/sss5.mp4",
       category: "2020s",
       difficulty: "medium",
-      keyword: "",
-      hint: "",
+      keyword: "밀라노",
+      hint: "매워요",
     },
     {
       id: "2020s6",
-      title: "",
-      artist: "",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
+      title: "개화",
+      artist: "루시",
+      file: "/music/sss6.mp4",
       category: "2020s",
       difficulty: "medium",
-      keyword: "",
-      hint: "",
+      keyword: "슈퍼밴드",
+      hint: "꽃이핀다",
     },
     {
       id: "2020s7",
-      title: "",
-      artist: "",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
+      title: "아이두미",
+      artist: "키키",
+      file: "/music/sss7.mp4",
       category: "2020s",
       difficulty: "hard",
-      keyword: "",
-      hint: "",
+      keyword: "마녀배달부",
+      hint: "이걸해야돼",
     },
     {
       id: "2020s8",
-      title: "",
-      artist: "",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
+      title: "다시만나",
+      artist: "더윈드",
+      file: "/music/sss8.mp4",
       category: "2020s",
       difficulty: "hard",
-      keyword: "",
-      hint: "",
+      keyword: "노래방",
+      hint: "바람",
     },
     {
       id: "2020s9",
-      title: "",
-      artist: "",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
+      title: "17",
+      artist: "핑크스웨츠",
+      file: "/music/sss9.mp4",
       category: "2020s",
       difficulty: "very-hard",
-      keyword: "",
-      hint: "",
+      keyword: "조지아",
+      hint: "분홍땀",
     },
     {
       id: "2020s10",
-      title: "",
-      artist: "",
-      file: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
+      title: "사막에서꽃을피우듯",
+      artist: "우디",
+      file: "/music/sss10.mp4",
       category: "2020s",
       difficulty: "very-hard",
-      keyword: "",
-      hint: "",
+      keyword: "KT김상수동생",
+      hint: "ㅅㅁㅇㅅㄲㅊㅍㅇㄷ",
     },
   ];
 
@@ -1178,6 +1178,17 @@ const MusicGame: React.FC = () => {
     // 오디오 로딩 이벤트 추가
     newAudio.addEventListener("loadeddata", () => {
       console.log("오디오 로딩 완료:", question.file);
+      // duration 설정
+      if (newAudio.duration && isFinite(newAudio.duration)) {
+        setDuration(newAudio.duration);
+      }
+    });
+
+    // 메타데이터 로드 이벤트 추가 (duration을 위해)
+    newAudio.addEventListener("loadedmetadata", () => {
+      if (newAudio.duration && isFinite(newAudio.duration)) {
+        setDuration(newAudio.duration);
+      }
     });
 
     // 시간 업데이트 이벤트 추가
@@ -1660,9 +1671,42 @@ const MusicGame: React.FC = () => {
             >
               ⏱️ 5초 더 듣기
             </button>
+            <button
+              onClick={() => {
+                if (audioRef) {
+                  audioRef.currentTime = 0;
+                  setCurrentTime(0);
+                }
+              }}
+              className="btn btn-restart"
+              disabled={!currentQuestion}
+            >
+              🔄 처음부터 듣기
+            </button>
           </div>
           <div className="timer-display">
-            <span className="timer-text">⏱️ {formatTime(currentTime)}</span>
+            <div className="progress-container">
+              <input
+                type="range"
+                min="0"
+                max={duration || 0}
+                value={currentTime}
+                onChange={(e) => {
+                  const newTime = parseFloat(e.target.value);
+                  setCurrentTime(newTime);
+                  if (audioRef) {
+                    audioRef.currentTime = newTime;
+                  }
+                }}
+                className="progress-bar"
+                disabled={!currentQuestion}
+                style={
+                  {
+                    "--progress-percent": duration ? `${(currentTime / duration) * 100}%` : "0%",
+                  } as React.CSSProperties
+                }
+              />
+            </div>
           </div>
         </div>
 
