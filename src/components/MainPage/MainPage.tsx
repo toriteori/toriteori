@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useScore } from "../../contexts/ScoreContext";
 import QuickMenu from "../QuickMenu/QuickMenu";
 import "../../css/quickMenu.css";
+import "./MainPage.css";
 
 interface Game {
   id: string;
@@ -35,6 +36,12 @@ const MainPage: React.FC = () => {
   const [scoreInputs, setScoreInputs] = useState({ team1: "", team2: "" });
 
   const games: Game[] = [
+    {
+      id: "ox-game",
+      title: "OX 게임",
+      description: "O와 X로 정답을 맞춰보세요!",
+      status: "available",
+    },
     {
       id: "music-game",
       title: "노래 맞추기",
@@ -106,20 +113,20 @@ const MainPage: React.FC = () => {
     setTeamNames((prev) => ({ ...prev, [teamId]: name }));
   };
 
-  const handleSaveTeamNames = () => {
-    Object.entries(teamNames).forEach(([teamId, name]) => {
-      updateTeamName(teamId, name);
-    });
-    setShowTeamSettings(false);
-  };
-
   const handleOpenTeamSettings = () => {
     setTeamNames({
-      team1: teams[0].name,
-      team2: teams[1].name,
+      team1: teams[0]?.name || "",
+      team2: teams[1]?.name || "",
     });
     setShowTeamSettings(true);
-    // setShowScores(false); // 점수판 닫기 제거
+  };
+
+  const handleSaveTeamNames = () => {
+    if (teamNames.team1.trim() && teamNames.team2.trim()) {
+      updateTeamName("team1", teamNames.team1.trim());
+      updateTeamName("team2", teamNames.team2.trim());
+      setShowTeamSettings(false);
+    }
   };
 
   const handleBackToEntry = () => {
@@ -141,8 +148,8 @@ const MainPage: React.FC = () => {
 
   const handleOpenScoreInput = () => {
     setScoreInputs({
-      team1: "0",
-      team2: "0",
+      team1: teams[0]?.score.toString() || "0",
+      team2: teams[1]?.score.toString() || "0",
     });
     setShowScoreInputModal(true);
   };
@@ -157,15 +164,19 @@ const MainPage: React.FC = () => {
     const team1Score = parseInt(scoreInputs.team1) || 0;
     const team2Score = parseInt(scoreInputs.team2) || 0;
 
+    // 현재 점수를 0으로 리셋하고 새로운 점수 설정
+    resetScores();
     addTeamScore("team1", team1Score);
     addTeamScore("team2", team2Score);
-
     setShowScoreInputModal(false);
   };
 
   const handleCancelScoreInput = () => {
     setShowScoreInputModal(false);
   };
+
+  // 팀 이름이 설정되지 않은 경우 안내 메시지 표시
+  const showTeamNameWarning = !teams[0]?.name || !teams[1]?.name;
 
   return (
     <div className="main-page">
@@ -228,6 +239,23 @@ const MainPage: React.FC = () => {
         <div className="main-header">
           <h1 className="main-title">🎮 오락실</h1>
           <p className="main-subtitle">원하는 게임을 선택해주세요!</p>
+
+          {/* 팀 이름 설정 안내 */}
+          {showTeamNameWarning && (
+            <div className="team-name-warning">
+              <div className="warning-icon">⚠️</div>
+              <div className="warning-content">
+                <p className="warning-title">팀 이름을 먼저 설정해주세요!</p>
+                <p className="warning-description">
+                  게임을 시작하기 전에 팀 이름을 설정하면 모든 게임에서 동일한 팀 이름을 사용할 수
+                  있습니다.
+                </p>
+                <button onClick={handleOpenTeamSettings} className="setup-team-btn">
+                  👥 팀 이름 설정하기
+                </button>
+              </div>
+            </div>
+          )}
         </div>
 
         {/* 팀 이름 설정 팝업 */}
@@ -331,7 +359,7 @@ const MainPage: React.FC = () => {
               </p>
               <div className="score-input-container">
                 <div className="score-input">
-                  <label>{teams[0].name || "팀 1"}:</label>
+                  <label>{teams[0]?.name || "팀 1"}:</label>
                   <input
                     type="text"
                     value={scoreInputs.team1}
@@ -341,7 +369,7 @@ const MainPage: React.FC = () => {
                   />
                 </div>
                 <div className="score-input">
-                  <label>{teams[1].name || "팀 2"}:</label>
+                  <label>{teams[1]?.name || "팀 2"}:</label>
                   <input
                     type="text"
                     value={scoreInputs.team2}
@@ -373,7 +401,9 @@ const MainPage: React.FC = () => {
             >
               <div className="game-icon">
                 {game.status === "available"
-                  ? game.id === "music-game"
+                  ? game.id === "ox-game"
+                    ? "⭕❌"
+                    : game.id === "music-game"
                     ? "🎵"
                     : game.id === "number-game"
                     ? "🔢"

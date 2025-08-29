@@ -2,6 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import EntryPage from "./components/EntryPage/EntryPage";
 import MainPage from "./components/MainPage/MainPage";
+import OXGame from "./components/OXGame/OXGame";
 import MusicGame from "./components/MusicGame/MusicGame";
 import NumberGame from "./components/NumberGame/NumberGame";
 import LottoGame from "./components/LadderGame/LottoGame";
@@ -16,6 +17,7 @@ const App: React.FC = () => {
           <Routes>
             <Route path="/" element={<EntryPage />} />
             <Route path="/main" element={<MainPage />} />
+            <Route path="/ox-game" element={<OXGame />} />
             <Route path="/music-game" element={<MusicGame />} />
             <Route path="/number-game" element={<NumberGame />} />
             <Route path="/lotto-game" element={<LottoGame />} />

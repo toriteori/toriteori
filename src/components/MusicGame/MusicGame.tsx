@@ -90,7 +90,14 @@ const MusicGame: React.FC = () => {
       icon: "🍈",
       color: "#54a0ff",
     },
-    { id: "2000s", name: "2000년대", description: "2000년대 음악", icon: "💿", color: "#5f27cd" },
+    {
+      id: "2000s",
+      name: "2000년대",
+      description: "2000년대 음악",
+      icon: "💿",
+      color: "#5f27cd",
+      contributor: "강효진",
+    },
     {
       id: "2010s",
       name: "2010년대",
@@ -99,7 +106,14 @@ const MusicGame: React.FC = () => {
       color: "#00d2d3",
       contributor: "안재우",
     },
-    { id: "2020s", name: "2020년대", description: "2020년대 음악", icon: "🎧", color: "#ff6348" },
+    {
+      id: "2020s",
+      name: "2020년대",
+      description: "2020년대 음악",
+      icon: "🎧",
+      color: "#ff6348",
+      contributor: "강효진",
+    },
   ];
 
   // 문제 데이터 (각 카테고리별로 10개씩, 난이도 순서대로 정렬)
@@ -1068,13 +1082,13 @@ const MusicGame: React.FC = () => {
     },
     {
       id: "2020s5",
-      title: "스파이시",
+      title: "리브마이라이프",
       artist: "에스파",
       file: "/music/sss5.mp4",
       category: "2020s",
       difficulty: "medium",
       keyword: "밀라노",
-      hint: "매워요",
+      hint: "나만의인생을살다",
     },
     {
       id: "2020s6",
@@ -1539,6 +1553,9 @@ const MusicGame: React.FC = () => {
                   🏷️{" "}
                   {category.contributor === "안재우"
                     ? "안재우님은 조금 참여해 주셨습니다"
+                    : category.contributor === "강효진" &&
+                      (category.id === "2000s" || category.id === "2020s")
+                    ? "강효진님은 조금 참여해 주셨습니다"
                     : `${category.contributor}님이 참여해 주셨습니다`}
                 </div>
               )}
