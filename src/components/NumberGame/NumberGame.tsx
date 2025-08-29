@@ -124,6 +124,14 @@ const NumberGame: React.FC = () => {
     }
   }, [gameState, turnTimeLeft]);
 
+  // numberCards 상태 변경 시 게임 종료 체크
+  useEffect(() => {
+    if (gameState === "playing") {
+      console.log("🔄 numberCards 상태 변경 감지, 게임 종료 체크 실행");
+      checkGameEnd();
+    }
+  }, [numberCards, gameState]);
+
   // 게임 초기화
   useEffect(() => {
     initializeGame();
@@ -210,14 +218,18 @@ const NumberGame: React.FC = () => {
     const [card1, card2] = selectedCardIds.map((id) => numberCards.find((c) => c.id === id)!);
 
     if (card1.value === card2.value) {
+      console.log("🎯 매칭 성공!", card1.value, "=", card2.value);
+      
       // 매칭 성공
-      setNumberCards((prev) =>
-        prev.map((c) =>
+      setNumberCards((prev) => {
+        const newCards = prev.map((c) =>
           selectedCardIds.includes(c.id)
             ? { ...c, isMatched: true, isSelected: false, isFlipped: false }
             : c,
-        ),
-      );
+        );
+        console.log("매칭 후 카드 상태:", newCards.map(c => ({ id: c.id, value: c.value, isMatched: c.isMatched })));
+        return newCards;
+      });
 
       // 현재 팀 점수 증가
       setCorrectMatches((prev) => ({
@@ -231,7 +243,12 @@ const NumberGame: React.FC = () => {
       // 턴 유지 (맞췄으므로)
       // 턴 타이머 초기화
       resetTurnTimer();
+
+      // 매칭 성공 후 게임 종료 체크는 useEffect에서 자동으로 실행됨
+      console.log("매칭 성공 완료, 상태 업데이트 대기 중...");
     } else {
+      console.log("❌ 매칭 실패!", card1.value, "≠", card2.value);
+      
       // 매칭 실패 - 턴 변경 (카드를 다시 뒤집기)
       setNumberCards((prev) =>
         prev.map((c) =>
@@ -247,12 +264,15 @@ const NumberGame: React.FC = () => {
     }
 
     setSelectedCards([]);
-
-    // 게임 종료 체크
-    checkGameEnd();
   };
 
   const checkGameEnd = () => {
+    // 게임이 이미 종료된 상태라면 체크하지 않음
+    if (gameState === "finished") {
+      console.log("게임이 이미 종료된 상태입니다.");
+      return;
+    }
+
     const matchedCards = numberCards.filter((card) => card.isMatched);
     const unmatchedCards = numberCards.filter((card) => !card.isMatched);
 
@@ -261,60 +281,40 @@ const NumberGame: React.FC = () => {
     // 전체 쌍의 개수 계산 (전체 카드 개수 / 2)
     const totalPairs = numberCards.length / 2;
 
-    console.log(
-      `게임 종료 체크: 매칭된 카드 ${matchedCards.length}개 (${matchedPairs}쌍), 전체 카드 ${numberCards.length}개 (${totalPairs}쌍)`,
-    );
-    console.log(
-      `아직 매칭되지 않은 카드:`,
-      unmatchedCards.map((card) => ({
-        id: card.id,
-        value: card.value,
-        isFlipped: card.isFlipped,
-        isSelected: card.isSelected,
-      })),
-    );
+    console.log("=== 게임 종료 체크 시작 ===");
+    console.log(`매칭된 카드: ${matchedCards.length}개`);
+    console.log(`매칭되지 않은 카드: ${unmatchedCards.length}개`);
+    console.log(`매칭된 쌍: ${matchedPairs}쌍`);
+    console.log(`전체 쌍: ${totalPairs}쌍`);
+    console.log(`전체 카드: ${numberCards.length}개`);
 
-    // 매칭된 쌍의 개수가 전체 쌍의 개수와 같으면 게임 종료
-    if (matchedPairs === totalPairs) {
-      console.log("게임 종료 조건 충족! endGame() 호출");
+    // 더 정확한 게임 종료 조건 체크
+    if (matchedCards.length === numberCards.length) {
+      console.log("🎉 모든 카드가 매칭됨! 게임 종료!");
       endGame();
-    } else {
-      console.log(
-        `게임 계속 진행 중... ${totalPairs - matchedPairs}쌍 (${
-          numberCards.length - matchedCards.length
-        }개 카드) 남음`,
-      );
+      return;
     }
 
-    // 디버깅을 위한 추가 로그
-    console.log("=== 디버깅 정보 ===");
-    console.log(
-      "전체 카드 상태:",
-      numberCards.map((card) => ({
-        id: card.id,
-        value: card.value,
-        isMatched: card.isMatched,
-        isFlipped: card.isFlipped,
-        isSelected: card.isSelected,
-      })),
-    );
-    console.log("matchedPairs:", matchedPairs);
-    console.log("totalPairs:", totalPairs);
-    console.log("matchedPairs === totalPairs:", matchedPairs === totalPairs);
+    if (unmatchedCards.length === 0) {
+      console.log("🎉 매칭되지 않은 카드가 없음! 게임 종료!");
+      endGame();
+      return;
+    }
 
-    // 매칭되지 않은 카드들의 상세 정보
-    console.log("=== 매칭되지 않은 카드 상세 정보 ===");
-    unmatchedCards.forEach((card, index) => {
-      console.log(`미매칭 카드 ${index + 1}:`, {
-        id: card.id,
-        value: card.value,
-        isMatched: card.isMatched,
-        isFlipped: card.isFlipped,
-        isSelected: card.isSelected,
-        position: getCardPosition(card.id),
-      });
-    });
-    console.log("==================");
+    // 매칭된 쌍의 개수가 전체 쌍의 개수와 같으면 게임 종료
+    if (matchedPairs >= totalPairs) {
+      console.log("🎉 매칭된 쌍이 전체 쌍과 같거나 많음! 게임 종료!");
+      endGame();
+      return;
+    }
+
+    console.log(`게임 계속 진행 중... ${totalPairs - matchedPairs}쌍 남음`);
+
+    // 디버깅을 위한 상세 정보
+    console.log("=== 상세 디버깅 정보 ===");
+    console.log("매칭된 카드들:", matchedCards.map(card => ({ id: card.id, value: card.value, position: getCardPosition(card.id) })));
+    console.log("매칭되지 않은 카드들:", unmatchedCards.map(card => ({ id: card.id, value: card.value, position: getCardPosition(card.id), isMatched: card.isMatched, isFlipped: card.isFlipped, isSelected: card.isSelected })));
+    console.log("=== 게임 종료 체크 완료 ===");
   };
 
   const endGame = () => {

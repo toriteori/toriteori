@@ -235,6 +235,16 @@
   border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
+/* 버튼 그룹 */
+.button-group {
+  display: flex;
+  gap: 15px;
+  margin-top: 30px;
+  width: 100%;
+  max-width: 300px;
+  flex-direction: column;
+}
+
 .back-button {
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.1));
   color: white;
@@ -251,6 +261,25 @@
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.2));
   transform: translateY(-2px);
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+/* 메인으로 버튼 */
+.main-button {
+  background: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%);
+  color: white;
+  border: none;
+  padding: 15px 30px;
+  border-radius: 25px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 20px rgba(255, 107, 107, 0.3);
+}
+
+.main-button:hover {
+  background: linear-gradient(135deg, #ff8e8e 0%, #ff6b6b 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 25px rgba(255, 107, 107, 0.4);
 }
 
 @keyframes gradientShift {

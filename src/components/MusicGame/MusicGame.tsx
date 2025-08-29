@@ -383,7 +383,7 @@ const MusicGame: React.FC = () => {
       file: "/music/hip6.mp4",
       category: "hiphop",
       difficulty: "medium",
-      keyword: "버벌리",
+      keyword: "버버리",
       hint: "쉽자나여",
     },
     {
@@ -1156,12 +1156,45 @@ const MusicGame: React.FC = () => {
     navigate("/main");
   };
 
+  const handleBackToQuestions = () => {
+    // 오디오 정리
+    if (audioRef) {
+      audioRef.pause();
+      audioRef.currentTime = 0;
+      setAudioRef(null);
+    }
+    
+    // 문제만 초기화하고 카테고리는 유지
+    setCurrentQuestion(null);
+    setUserAnswer("");
+    setShowAnswer(false);
+    setIsPlaying(false);
+    setShowHint(false);
+    setCurrentTime(0);
+    setDuration(0);
+    setTotalPlayTime(0);
+    setCanShowHint(false);
+  };
+
   const handleBackToCategories = () => {
+    // 오디오 정리
+    if (audioRef) {
+      audioRef.pause();
+      audioRef.currentTime = 0;
+      setAudioRef(null);
+    }
+    
     setSelectedCategory(null);
     setCurrentQuestion(null);
     setUserAnswer("");
     setShowAnswer(false);
     setIsPlaying(false);
+    setShowHint(false);
+    setCurrentTime(0);
+    setDuration(0);
+    setTotalPlayTime(0);
+    setCanShowHint(false);
+    
     // 히스토리에서 뒤로가기
     window.history.back();
   };
@@ -1250,7 +1283,7 @@ const MusicGame: React.FC = () => {
         const currentPlayTime = audioRef.currentTime;
         setTotalPlayTime(currentPlayTime);
 
-        if (currentPlayTime >= 30 && !canShowHint) {
+        if (currentPlayTime >= 20 && !canShowHint) {
           setCanShowHint(true);
         }
       }, 100); // 0.1초마다 체크
@@ -1326,18 +1359,41 @@ const MusicGame: React.FC = () => {
       // 현재 상태에 따라 순서대로 뒤로가기
       if (currentQuestion) {
         // 게임 플레이 화면 → 문제 선택 화면
+        // 오디오 정리
+        if (audioRef) {
+          audioRef.pause();
+          audioRef.currentTime = 0;
+          setAudioRef(null);
+        }
+        
         setCurrentQuestion(null);
         setUserAnswer("");
         setShowAnswer(false);
         setIsPlaying(false);
         setShowHint(false);
+        setCurrentTime(0);
+        setDuration(0);
+        setTotalPlayTime(0);
+        setCanShowHint(false);
       } else if (selectedCategory) {
         // 문제 선택 화면 → 카테고리 선택 화면
+        // 오디오 정리
+        if (audioRef) {
+          audioRef.pause();
+          audioRef.currentTime = 0;
+          setAudioRef(null);
+        }
+        
         setSelectedCategory(null);
         setCurrentQuestion(null);
         setUserAnswer("");
         setShowAnswer(false);
         setIsPlaying(false);
+        setShowHint(false);
+        setCurrentTime(0);
+        setDuration(0);
+        setTotalPlayTime(0);
+        setCanShowHint(false);
       }
       // 카테고리 선택 화면 → 메인으로 (기본 동작)
     };
@@ -1536,32 +1592,97 @@ const MusicGame: React.FC = () => {
         </div>
 
         <div className="categories-grid">
-          {categories.map((category) => (
-            <div
-              key={category.id}
-              className={`category-card ${category.id === "2010s" ? "category-2010s" : ""}`}
-              onClick={() => handleCategorySelect(category.id)}
-              style={{ borderColor: category.color }}
-            >
-              <div className="category-icon" style={{ color: category.color }}>
-                {category.icon}
-              </div>
-              <h3 className="category-name">{category.name}</h3>
-              <p className="category-description">{category.description}</p>
-              {category.contributor && (
-                <div className="contributor-badge">
-                  🏷️{" "}
-                  {category.contributor === "안재우"
-                    ? "안재우님은 조금 참여해 주셨습니다"
-                    : category.contributor === "강효진" &&
-                      (category.id === "2000s" || category.id === "2020s")
-                    ? "강효진님은 조금 참여해 주셨습니다"
-                    : `${category.contributor}님이 참여해 주셨습니다`}
+          {categories.map((category) => {
+            const categoryQuestions = getCategoryQuestions(category.id);
+            const completedCount = categoryQuestions.filter(q => completedQuestions.has(q.id)).length;
+            const isCompleted = completedCount === categoryQuestions.length;
+            
+            return (
+              <div
+                key={category.id}
+                className={`category-card ${category.id === "2010s" ? "category-2010s" : ""} ${
+                  isCompleted ? "completed" : ""
+                }`}
+                onClick={() => !isCompleted && handleCategorySelect(category.id)}
+                style={{ borderColor: category.color }}
+              >
+                <div className="category-icon" style={{ color: category.color }}>
+                  {category.icon}
                 </div>
-              )}
-              <div className="question-count">{getCategoryQuestions(category.id).length}문제</div>
+                <h3 className="category-name">{category.name}</h3>
+                <p className="category-description">{category.description}</p>
+                {category.contributor && (
+                  <div className="contributor-badge">
+                    🏷️{" "}
+                    {category.contributor === "안재우"
+                      ? "안재우님은 조금 참여해 주셨습니다"
+                      : category.contributor === "강효진" &&
+                        (category.id === "2000s" || category.id === "2020s")
+                      ? "강효진님은 조금 참여해 주셨습니다"
+                      : `${category.contributor}님이 참여해 주셨습니다`}
+                  </div>
+                )}
+                <div className="question-count">
+                  {completedCount}/{categoryQuestions.length}문제
+                </div>
+                {isCompleted && (
+                  <div className="category-completed-badge">🎉 완료!</div>
+                )}
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    );
+  }
+
+  // 모든 카테고리 완료 확인
+  const allCategoriesCompleted = categories.every(category => {
+    const categoryQuestions = getCategoryQuestions(category.id);
+    return categoryQuestions.every(q => completedQuestions.has(q.id));
+  });
+
+  // 완료화면
+  if (allCategoriesCompleted) {
+    return (
+      <div className="music-game">
+        <div className="completion-screen">
+          <div className="completion-header">
+            <h1>🎉 축하합니다!</h1>
+            <h2>모든 음악 문제를 완료했습니다!</h2>
+            <p className="completion-description">
+              팀원들과 함께한 음악 퀴즈의 여정이 끝났습니다.
+              <br />
+              각 팀이 획득한 점수를 확인해보세요!
+            </p>
+          </div>
+
+          <div className="final-scores">
+            <h3>🏆 최종 점수</h3>
+            <div className="team-final-scores">
+              {teams.map((team) => (
+                <div
+                  key={team.id}
+                  className="team-final-score"
+                  style={{ borderColor: team.color }}
+                >
+                  <div className="team-final-info">
+                    <span className="team-final-name">{team.name}</span>
+                    <span className="team-final-points">{team.score}점</span>
+                  </div>
+                  <div className="team-final-details">
+                    <p>음악게임에서 획득한 점수입니다</p>
+                  </div>
+                </div>
+              ))}
             </div>
-          ))}
+          </div>
+
+          <div className="completion-actions">
+            <button onClick={() => navigate("/main")} className="btn btn-main">
+              🏠 메인으로
+            </button>
+          </div>
         </div>
       </div>
     );
@@ -1642,8 +1763,8 @@ const MusicGame: React.FC = () => {
     <div className="music-game">
       <div className="game-header">
         <div className="header-top">
-          <button onClick={handleBackToCategories} className="back-to-main-btn">
-            ← 카테고리로
+          <button onClick={handleBackToQuestions} className="back-to-main-btn">
+            ← 문제보기
           </button>
           <h1>🎵 음악 맞추기</h1>
           <div className="team-scores">
@@ -1803,7 +1924,24 @@ const MusicGame: React.FC = () => {
                 : "50점"}{" "}
               획득!
             </p>
-            <button onClick={() => setCurrentQuestion(null)} className="btn btn-primary">
+            <button onClick={() => {
+              // 오디오 정리
+              if (audioRef) {
+                audioRef.pause();
+                audioRef.currentTime = 0;
+                setAudioRef(null);
+              }
+              
+              setCurrentQuestion(null);
+              setUserAnswer("");
+              setShowAnswer(false);
+              setIsPlaying(false);
+              setShowHint(false);
+              setCurrentTime(0);
+              setDuration(0);
+              setTotalPlayTime(0);
+              setCanShowHint(false);
+            }} className="btn btn-primary">
               문제 보기
             </button>
           </div>

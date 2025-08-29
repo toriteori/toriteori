@@ -307,6 +307,32 @@
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
 }
 
+/* 완료된 카테고리 스타일 */
+.category-card.completed {
+  opacity: 0.6;
+  background: rgba(76, 175, 80, 0.1);
+  border: 2px solid #4caf50;
+  cursor: not-allowed;
+  position: relative;
+}
+
+.category-card.completed:hover {
+  transform: none;
+  box-shadow: none;
+}
+
+.category-completed-badge {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  background: #4caf50;
+  color: white;
+  padding: 0.3rem 0.8rem;
+  border-radius: 8px;
+  font-size: var(--tv-font-size-small);
+  font-weight: bold;
+}
+
 .category-icon {
   font-size: 3rem;
   margin-bottom: 1rem;
@@ -501,6 +527,115 @@
 .difficulty-badge.very-hard {
   background: rgba(156, 39, 176, 0.3);
   color: #9c27b0;
+}
+
+/* 완료화면 스타일 */
+.completion-screen {
+  text-align: center;
+  padding: 3rem 2rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.completion-header h1 {
+  font-size: 3.5rem;
+  margin-bottom: 1rem;
+  background: linear-gradient(45deg, #ffd700, #ffed4a);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: none;
+}
+
+.completion-header h2 {
+  font-size: 2.2rem;
+  margin-bottom: 1.5rem;
+  color: #4caf50;
+}
+
+.completion-description {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  opacity: 0.9;
+  margin-bottom: 3rem;
+}
+
+.final-scores {
+  margin-bottom: 3rem;
+}
+
+.final-scores h3 {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  color: #ffd700;
+}
+
+.team-final-scores {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.team-final-score {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 3px solid;
+  border-radius: 20px;
+  padding: 2rem;
+  transition: all 0.3s ease;
+}
+
+.team-final-score:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.team-final-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.team-final-name {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.team-final-points {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #ffd700;
+}
+
+.team-final-details p {
+  margin: 0;
+  opacity: 0.8;
+  font-size: 1rem;
+}
+
+.completion-actions {
+  margin-top: 2rem;
+}
+
+.btn-main {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 18px 36px;
+  border-radius: 25px;
+  font-size: 1.3rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+}
+
+.btn-main:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 25px rgba(102, 126, 234, 0.4);
 }
 
 /* 게임 플레이 영역 */

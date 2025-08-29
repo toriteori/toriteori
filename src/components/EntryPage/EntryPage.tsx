@@ -47,15 +47,7 @@ const EntryPage: React.FC = () => {
           <p className="loading-text">게임 시스템 초기화 중...</p>
         </div>
 
-        {/* 강효진님 2020년대 참여 배지 */}
-        <div className={`participation-badge ${isVisible ? "visible" : ""}`}>
-          <div className="badge-icon">🎖️</div>
-          <div className="badge-content">
-            <div className="badge-title">2020년대 참여자</div>
-            <div className="badge-name">강효진님</div>
-            <div className="badge-description">오락실의 영원한 친구</div>
-          </div>
-        </div>
+
 
         <div className={`enter-button-container ${isReady ? "ready" : ""}`}>
           <button
