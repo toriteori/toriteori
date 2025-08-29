@@ -7,11 +7,7 @@ interface LottoSettingsProps {
   onStartGame: (settings: LottoSettings) => void;
 }
 
-const LottoSettingsComponent: React.FC<LottoSettingsProps> = ({
-  teams,
-  settings,
-  onStartGame,
-}) => {
+const LottoSettingsComponent: React.FC<LottoSettingsProps> = ({ teams, settings, onStartGame }) => {
   const [team1Members, setTeam1Members] = useState<TeamMember[]>(settings.team1Members);
   const [team2Members, setTeam2Members] = useState<TeamMember[]>(settings.team2Members);
   const [newMemberName, setNewMemberName] = useState("");
@@ -72,8 +68,10 @@ const LottoSettingsComponent: React.FC<LottoSettingsProps> = ({
       <div className="settings-header">
         <h1>🎰 로또 당첨 게임</h1>
         <p className="game-description">
-          각 플레이어가 일반번호 1~10 중 6개 + 보너스 1~10 중 1개를 선택하세요!<br />
-          실제 로또처럼 겹쳐도 됩니다. 맞춘 개수에 따라 점수를 획득합니다.<br />
+          각 플레이어가 일반번호 1~11 중 6개 + 보너스 1~11 중 1개를 선택하세요!
+          <br />
+          실제 로또처럼 보너스번호는 일반번호와 겹치지 않습니다. 맞춘 개수에 따라 점수를 획득합니다.
+          <br />
           <strong>⚠️ 번호 수정 시 50점 차감, 1인당 1회만 가능!</strong>
         </p>
       </div>
@@ -85,48 +83,48 @@ const LottoSettingsComponent: React.FC<LottoSettingsProps> = ({
           <span>점수</span>
           <span>확률</span>
         </div>
-                    <div className="prize-table">
-              <div className="prize-row first">
-                <span className="rank">🥇 1등 (6개 맞춤)</span>
-                <span className="points">1000점</span>
-                <span className="probability">0.48%</span>
-              </div>
-              <div className="prize-row second">
-                <span className="rank">🥈 2등 (5개 + 보너스)</span>
-                <span className="points">500점</span>
-                <span className="probability">2.86%</span>
-              </div>
-              <div className="prize-row third">
-                <span className="rank">🥉 3등 (5개 맞춤)</span>
-                <span className="points">300점</span>
-                <span className="probability">25.71%</span>
-              </div>
-              <div className="prize-row fourth">
-                <span className="rank">🏆 4등 (4개 맞춤)</span>
-                <span className="points">150점</span>
-                <span className="probability">35.71%</span>
-              </div>
-              <div className="prize-row fifth">
-                <span className="rank">🎖️ 5등 (3개 맞춤)</span>
-                <span className="points">100점</span>
-                <span className="probability">23.81%</span>
-              </div>
-              <div className="prize-row sixth">
-                <span className="rank">🎗️ 6등 (2개 맞춤)</span>
-                <span className="points">70점</span>
-                <span className="probability">8.57%</span>
-              </div>
-              <div className="prize-row seventh">
-                <span className="rank">🏅 7등 (1개 맞춤)</span>
-                <span className="points">50점</span>
-                <span className="probability">2.38%</span>
-              </div>
-              <div className="prize-row eighth">
-                <span className="rank">🎁 8등 (0개 맞춤)</span>
-                <span className="points">30점</span>
-                <span className="probability">0.48%</span>
-              </div>
-            </div>
+        <div className="prize-table">
+          <div className="prize-row first">
+            <span className="rank">🥇 1등 (6개 맞춤)</span>
+            <span className="points">1000점</span>
+            <span className="probability">0.22%</span>
+          </div>
+          <div className="prize-row second">
+            <span className="rank">🥈 2등 (5개 + 보너스)</span>
+            <span className="points">500점</span>
+            <span className="probability">6.49%</span>
+          </div>
+          <div className="prize-row third">
+            <span className="rank">🥉 3등 (5개 맞춤)</span>
+            <span className="points">300점</span>
+            <span className="probability">6.49%</span>
+          </div>
+          <div className="prize-row fourth">
+            <span className="rank">🏆 4등 (4개 맞춤)</span>
+            <span className="points">150점</span>
+            <span className="probability">19.48%</span>
+          </div>
+          <div className="prize-row fifth">
+            <span className="rank">🎖️ 5등 (3개 맞춤)</span>
+            <span className="points">100점</span>
+            <span className="probability">25.97%</span>
+          </div>
+          <div className="prize-row sixth">
+            <span className="rank">🎗️ 6등 (2개 맞춤)</span>
+            <span className="points">70점</span>
+            <span className="probability">19.48%</span>
+          </div>
+          <div className="prize-row seventh">
+            <span className="rank">🏅 7등 (1개 맞춤)</span>
+            <span className="points">50점</span>
+            <span className="probability">7.79%</span>
+          </div>
+          <div className="prize-row eighth">
+            <span className="rank">🎁 8등 (0개 맞춤)</span>
+            <span className="points">30점</span>
+            <span className="probability">0.22%</span>
+          </div>
+        </div>
       </div>
 
       <div className="team-setup">
@@ -168,10 +166,7 @@ const LottoSettingsComponent: React.FC<LottoSettingsProps> = ({
             team1Members.map((member) => (
               <div key={member.id} className="member-item">
                 <span className="member-name">{member.name}</span>
-                <button
-                  onClick={() => removeMember(member.id, 1)}
-                  className="remove-btn"
-                >
+                <button onClick={() => removeMember(member.id, 1)} className="remove-btn">
                   ✖️
                 </button>
               </div>
@@ -180,10 +175,7 @@ const LottoSettingsComponent: React.FC<LottoSettingsProps> = ({
             team2Members.map((member) => (
               <div key={member.id} className="member-item">
                 <span className="member-name">{member.name}</span>
-                <button
-                  onClick={() => removeMember(member.id, 2)}
-                  className="remove-btn"
-                >
+                <button onClick={() => removeMember(member.id, 2)} className="remove-btn">
                   ✖️
                 </button>
               </div>

@@ -30,7 +30,7 @@ const LottoResult: React.FC<LottoResultProps> = ({
 
   useEffect(() => {
     if (shuffledNumbers.length === 0) return; // 아직 섞인 번호가 준비되지 않음
-    
+
     if (currentNumberIndex < shuffledNumbers.length) {
       const timer = setTimeout(() => {
         setCurrentNumberIndex(currentNumberIndex + 1);
@@ -79,14 +79,14 @@ const LottoResult: React.FC<LottoResultProps> = ({
 
   const getWinners = () => {
     const winners = {
-      rank1: entries.filter(e => e.matches === 6),
-      rank2: entries.filter(e => e.matches === 5 && e.bonusMatch),
-      rank3: entries.filter(e => e.matches === 5 && !e.bonusMatch),
-      rank4: entries.filter(e => e.matches === 4),
-      rank5: entries.filter(e => e.matches === 3),
-      rank6: entries.filter(e => e.matches === 2),
-      rank7: entries.filter(e => e.matches === 1),
-      rank8: entries.filter(e => e.matches === 0),
+      rank1: entries.filter((e) => e.matches === 6),
+      rank2: entries.filter((e) => e.matches === 5 && e.bonusMatch),
+      rank3: entries.filter((e) => e.matches === 5 && !e.bonusMatch),
+      rank4: entries.filter((e) => e.matches === 4),
+      rank5: entries.filter((e) => e.matches === 3),
+      rank6: entries.filter((e) => e.matches === 2),
+      rank7: entries.filter((e) => e.matches === 1),
+      rank8: entries.filter((e) => e.matches === 0),
     };
     return winners;
   };
@@ -110,25 +110,25 @@ const LottoResult: React.FC<LottoResultProps> = ({
                   <div
                     key={index}
                     className={`winning-number ${
-                      index < currentNumberIndex ? 'revealed' : 'hidden'
-                    } ${index === currentNumberIndex - 1 ? 'latest' : ''}`}
+                      index < currentNumberIndex ? "revealed" : "hidden"
+                    } ${index === currentNumberIndex - 1 ? "latest" : ""}`}
                   >
-                    {index < currentNumberIndex ? number : '?'}
+                    {index < currentNumberIndex ? number : "?"}
                   </div>
                 ))}
               </div>
             </div>
-            
+
             {currentNumberIndex >= shuffledNumbers.length && (
               <div className="bonus-number-reveal">
                 <h3>보너스번호</h3>
                 <div className="winning-numbers-reveal">
                   <div
-                    className={`winning-number bonus ${
-                      showBonusNumber ? 'revealed' : 'hidden'
-                    } ${showBonusNumber ? 'latest' : ''}`}
+                    className={`winning-number bonus ${showBonusNumber ? "revealed" : "hidden"} ${
+                      showBonusNumber ? "latest" : ""
+                    }`}
                   >
-                    {showBonusNumber ? bonusNumber : '?'}
+                    {showBonusNumber ? bonusNumber : "?"}
                   </div>
                 </div>
               </div>
@@ -138,7 +138,9 @@ const LottoResult: React.FC<LottoResultProps> = ({
             <div className="drawing-status">
               <p>당첨번호를 발표하고 있습니다...</p>
               <div className="loading-dots">
-                <span>.</span><span>.</span><span>.</span>
+                <span>.</span>
+                <span>.</span>
+                <span>.</span>
               </div>
             </div>
           )}
@@ -175,9 +177,7 @@ const LottoResult: React.FC<LottoResultProps> = ({
               <div className="final-bonus-number">
                 <span className="number-label">보너스:</span>
                 <div className="winning-numbers-final">
-                  <div className="winning-number final bonus">
-                    {bonusNumber}
-                  </div>
+                  <div className="winning-number final bonus">{bonusNumber}</div>
                 </div>
               </div>
             </div>
@@ -185,7 +185,7 @@ const LottoResult: React.FC<LottoResultProps> = ({
 
           <div className="winners-announcement">
             <h3>🏆 당첨자 발표</h3>
-            
+
             {winners.rank1.length > 0 && (
               <div className="winner-group rank-1">
                 <h4>🥇 1등 (6개 맞춤) - 1000점</h4>
@@ -194,16 +194,16 @@ const LottoResult: React.FC<LottoResultProps> = ({
                     <span className="winner-name">{entry.player.name}</span>
                     <div className="winner-numbers">
                       {entry.numbers.map((num, i) => (
-                        <span 
-                          key={i} 
-                          className={`number ${winningNumbers.includes(num) ? 'match' : 'no-match'}`}
+                        <span
+                          key={i}
+                          className={`number ${
+                            winningNumbers.includes(num) ? "match" : "no-match"
+                          }`}
                         >
                           {num}
                         </span>
                       ))}
-                      <span 
-                        className={`number bonus ${entry.bonusMatch ? 'match' : 'no-match'}`}
-                      >
+                      <span className={`number bonus ${entry.bonusMatch ? "match" : "no-match"}`}>
                         +{entry.bonusNumber}
                       </span>
                     </div>
@@ -220,13 +220,18 @@ const LottoResult: React.FC<LottoResultProps> = ({
                     <span className="winner-name">{entry.player.name}</span>
                     <div className="winner-numbers">
                       {entry.numbers.map((num, i) => (
-                        <span 
-                          key={i} 
-                          className={`number ${winningNumbers.includes(num) ? 'match' : 'no-match'}`}
+                        <span
+                          key={i}
+                          className={`number ${
+                            winningNumbers.includes(num) ? "match" : "no-match"
+                          }`}
                         >
                           {num}
                         </span>
                       ))}
+                      <span className={`number bonus ${entry.bonusMatch ? "match" : "no-match"}`}>
+                        +{entry.bonusNumber}
+                      </span>
                     </div>
                   </div>
                 ))}
@@ -241,13 +246,18 @@ const LottoResult: React.FC<LottoResultProps> = ({
                     <span className="winner-name">{entry.player.name}</span>
                     <div className="winner-numbers">
                       {entry.numbers.map((num, i) => (
-                        <span 
-                          key={i} 
-                          className={`number ${winningNumbers.includes(num) ? 'match' : 'no-match'}`}
+                        <span
+                          key={i}
+                          className={`number ${
+                            winningNumbers.includes(num) ? "match" : "no-match"
+                          }`}
                         >
                           {num}
                         </span>
                       ))}
+                      <span className={`number bonus ${entry.bonusMatch ? "match" : "no-match"}`}>
+                        +{entry.bonusNumber}
+                      </span>
                     </div>
                   </div>
                 ))}
@@ -256,57 +266,133 @@ const LottoResult: React.FC<LottoResultProps> = ({
 
             {winners.rank4.length > 0 && (
               <div className="winner-group rank-4">
-                <h4>🏆 4등 (4개 맞춤) - 100점</h4>
+                <h4>🏆 4등 (4개 맞춤) - 150점</h4>
                 {winners.rank4.map((entry, index) => (
                   <div key={index} className="winner-item">
                     <span className="winner-name">{entry.player.name}</span>
                     <div className="winner-numbers">
                       {entry.numbers.map((num, i) => (
-                        <span 
-                          key={i} 
-                          className={`number ${winningNumbers.includes(num) ? 'match' : 'no-match'}`}
+                        <span
+                          key={i}
+                          className={`number ${
+                            winningNumbers.includes(num) ? "match" : "no-match"
+                          }`}
                         >
                           {num}
                         </span>
                       ))}
+                      <span className={`number bonus ${entry.bonusMatch ? "match" : "no-match"}`}>
+                        +{entry.bonusNumber}
+                      </span>
                     </div>
                   </div>
                 ))}
               </div>
             )}
-          </div>
 
-          <div className="all-results">
-            <h3>📊 전체 결과</h3>
-            <div className="results-table">
-              {entries.map((entry, index) => (
-                <div key={index} className={`result-row ${getRankClass(entry.matches, entry.bonusMatch)}`}>
-                  <div className="player-info">
-                    <span className="player-name">{entry.player.name}</span>
-                    <span className="rank-badge">{getRankText(entry.matches, entry.bonusMatch)}</span>
-                  </div>
-                  <div className="player-numbers">
-                    {entry.numbers.map((num, i) => (
-                      <span 
-                        key={i} 
-                        className={`number ${winningNumbers.includes(num) ? 'match' : 'no-match'}`}
-                      >
-                        {num}
+            {winners.rank5.length > 0 && (
+              <div className="winner-group rank-5">
+                <h4>🎖️ 5등 (3개 맞춤) - 100점</h4>
+                {winners.rank5.map((entry, index) => (
+                  <div key={index} className="winner-item">
+                    <span className="winner-name">{entry.player.name}</span>
+                    <div className="winner-numbers">
+                      {entry.numbers.map((num, i) => (
+                        <span
+                          key={i}
+                          className={`number ${
+                            winningNumbers.includes(num) ? "match" : "no-match"
+                          }`}
+                        >
+                          {num}
+                        </span>
+                      ))}
+                      <span className={`number bonus ${entry.bonusMatch ? "match" : "no-match"}`}>
+                        +{entry.bonusNumber}
                       </span>
-                    ))}
-                    <span 
-                      className={`number bonus ${entry.bonusMatch ? 'match' : 'no-match'}`}
-                    >
-                      +{entry.bonusNumber}
-                    </span>
+                    </div>
                   </div>
-                  <div className="match-info">
-                    <span className="matches">{entry.matches}개 맞춤</span>
-                    <span className="score">+{entry.score}점</span>
+                ))}
+              </div>
+            )}
+
+            {winners.rank6.length > 0 && (
+              <div className="winner-group rank-6">
+                <h4>🎗️ 6등 (2개 맞춤) - 70점</h4>
+                {winners.rank6.map((entry, index) => (
+                  <div key={index} className="winner-item">
+                    <span className="winner-name">{entry.player.name}</span>
+                    <div className="winner-numbers">
+                      {entry.numbers.map((num, i) => (
+                        <span
+                          key={i}
+                          className={`number ${
+                            winningNumbers.includes(num) ? "match" : "no-match"
+                          }`}
+                        >
+                          {num}
+                        </span>
+                      ))}
+                      <span className={`number bonus ${entry.bonusMatch ? "match" : "no-match"}`}>
+                        +{entry.bonusNumber}
+                      </span>
+                    </div>
                   </div>
-                </div>
-              ))}
-            </div>
+                ))}
+              </div>
+            )}
+
+            {winners.rank7.length > 0 && (
+              <div className="winner-group rank-7">
+                <h4>🏅 7등 (1개 맞춤) - 50점</h4>
+                {winners.rank7.map((entry, index) => (
+                  <div key={index} className="winner-item">
+                    <span className="winner-name">{entry.player.name}</span>
+                    <div className="winner-numbers">
+                      {entry.numbers.map((num, i) => (
+                        <span
+                          key={i}
+                          className={`number ${
+                            winningNumbers.includes(num) ? "match" : "no-match"
+                          }`}
+                        >
+                          {num}
+                        </span>
+                      ))}
+                      <span className={`number bonus ${entry.bonusMatch ? "match" : "no-match"}`}>
+                        +{entry.bonusNumber}
+                      </span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {winners.rank8.length > 0 && (
+              <div className="winner-group rank-8">
+                <h4>🎁 8등 (0개 맞춤) - 30점</h4>
+                {winners.rank8.map((entry, index) => (
+                  <div key={index} className="winner-item">
+                    <span className="winner-name">{entry.player.name}</span>
+                    <div className="winner-numbers">
+                      {entry.numbers.map((num, i) => (
+                        <span
+                          key={i}
+                          className={`number ${
+                            winningNumbers.includes(num) ? "match" : "no-match"
+                          }`}
+                        >
+                          {num}
+                        </span>
+                      ))}
+                      <span className={`number bonus ${entry.bonusMatch ? "match" : "no-match"}`}>
+                        +{entry.bonusNumber}
+                      </span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
 
           <div className="action-buttons">

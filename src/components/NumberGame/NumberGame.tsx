@@ -254,13 +254,73 @@ const NumberGame: React.FC = () => {
 
   const checkGameEnd = () => {
     const matchedCards = numberCards.filter((card) => card.isMatched);
-    if (matchedCards.length === numberCards.length) {
+    const unmatchedCards = numberCards.filter((card) => !card.isMatched);
+
+    // 매칭된 쌍의 개수 계산 (매칭된 카드 개수 / 2)
+    const matchedPairs = matchedCards.length / 2;
+    // 전체 쌍의 개수 계산 (전체 카드 개수 / 2)
+    const totalPairs = numberCards.length / 2;
+
+    console.log(
+      `게임 종료 체크: 매칭된 카드 ${matchedCards.length}개 (${matchedPairs}쌍), 전체 카드 ${numberCards.length}개 (${totalPairs}쌍)`,
+    );
+    console.log(
+      `아직 매칭되지 않은 카드:`,
+      unmatchedCards.map((card) => ({
+        id: card.id,
+        value: card.value,
+        isFlipped: card.isFlipped,
+        isSelected: card.isSelected,
+      })),
+    );
+
+    // 매칭된 쌍의 개수가 전체 쌍의 개수와 같으면 게임 종료
+    if (matchedPairs === totalPairs) {
+      console.log("게임 종료 조건 충족! endGame() 호출");
       endGame();
+    } else {
+      console.log(
+        `게임 계속 진행 중... ${totalPairs - matchedPairs}쌍 (${
+          numberCards.length - matchedCards.length
+        }개 카드) 남음`,
+      );
     }
+
+    // 디버깅을 위한 추가 로그
+    console.log("=== 디버깅 정보 ===");
+    console.log(
+      "전체 카드 상태:",
+      numberCards.map((card) => ({
+        id: card.id,
+        value: card.value,
+        isMatched: card.isMatched,
+        isFlipped: card.isFlipped,
+        isSelected: card.isSelected,
+      })),
+    );
+    console.log("matchedPairs:", matchedPairs);
+    console.log("totalPairs:", totalPairs);
+    console.log("matchedPairs === totalPairs:", matchedPairs === totalPairs);
+
+    // 매칭되지 않은 카드들의 상세 정보
+    console.log("=== 매칭되지 않은 카드 상세 정보 ===");
+    unmatchedCards.forEach((card, index) => {
+      console.log(`미매칭 카드 ${index + 1}:`, {
+        id: card.id,
+        value: card.value,
+        isMatched: card.isMatched,
+        isFlipped: card.isFlipped,
+        isSelected: card.isSelected,
+        position: getCardPosition(card.id),
+      });
+    });
+    console.log("==================");
   };
 
   const endGame = () => {
+    console.log("endGame() 함수 호출됨");
     setGameState("finished");
+    console.log("게임 상태를 'finished'로 변경");
 
     // 게임 종료 시 턴 타이머 정리
     clearTurnTimer();
